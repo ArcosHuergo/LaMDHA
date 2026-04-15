@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from services.usuario import UsuarioService
+from services.usuario_service import UsuarioService
 from models.usuario import Usuario
 
 router = APIRouter()
