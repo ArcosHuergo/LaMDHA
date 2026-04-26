@@ -1,5 +1,9 @@
-from pydantic import BaseModel, Field
+from sqlalchemy import Column, Integer, String
+from app.config.database import Base
 
-class Usuario(BaseModel):
-    id: int
-    username: str = Field(min_length=3, max_length=20)
+class Usuario(Base):
+    __tablename__ = "usuarios"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(150), unique=True, nullable=False)
+    nickname = Column(String(100), nullable=False)
