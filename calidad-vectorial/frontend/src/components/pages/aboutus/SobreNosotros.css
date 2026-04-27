@@ -1,0 +1,96 @@
+.sn-hero{
+    max-width: 100vw;
+    height: 100vh;
+    background-color: #040404;
+
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.sn-hero__text {
+    color: #fafafa;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 25vh;
+    gap: 20px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.sn-hero__text__title {
+    font-family: "Slackey";
+    font-size: 4.3rem;
+}
+
+.sn-hero__text__subtitle {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.3rem;
+    display: flex;
+}
+
+.sn-content {
+    display: flex;
+    flex-direction: column;
+}
+.header{
+    height: 60px;
+    background: #5227FF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: #fafafa;
+    position: relative;
+    z-index: 1;
+
+    box-shadow: 0px -10px 40px #5227ffb1;
+    animation: animation-header linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0px;
+}
+
+@keyframes animation-header{
+    to {
+        box-shadow: none;
+    }
+}
+
+.header h2 {
+    font-family: "Slackey";
+    font-size: 2.4rem;
+}
+
+header p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.9rem;
+}
+
+.sn-content {
+    background: #040404;
+    color: #fafafa;
+}
+
+.sn-content__article {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.sn-content__article__title {
+    font-family: "Slackey";
+    font-size: 1.5rem;
+}
+
+.sn-content__article__text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    line-height: 160%;
+}

@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+    background: none;
+    text-decoration: none;
+    color: currentColor;
+    list-style-type: none;
+}
+
+@font-face {
+    font-family: "Slackey";
+    src: url("./assets/fonts/slackey/Slackey-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
