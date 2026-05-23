@@ -1,0 +1,33 @@
+.fondo-fachero {
+    width: 41vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.fondo-fachero__text {
+    color: #fafafa;
+    font-family: "Audiowide";
+
+    padding: 40px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    z-index: 1;
+}
+
+.fondo-fachero__gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 101%;
+    height: 100%;
+}

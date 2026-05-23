@@ -34,7 +34,7 @@
 }
 
 .sn-hero__text__subtitle {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Audiowide";
     font-size: 1.3rem;
     display: flex;
 }
@@ -46,6 +46,9 @@
 .header{
     height: 60px;
     background: #5227FF;
+    font-family: "Bungee Hairline";
+    font-weight: 900;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -54,30 +57,19 @@
     color: #fafafa;
     position: relative;
     z-index: 1;
-
-    box-shadow: 0px -10px 40px #5227ffb1;
-    animation: animation-header linear both;
-    animation-timeline: scroll(root block);
-    animation-range: 0px;
 }
 
-@keyframes animation-header{
-    to {
-        box-shadow: none;
-    }
-}
 
 .header h2 {
-    font-family: "Slackey";
     font-size: 2.4rem;
 }
 
 header p {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.9rem;
 }
 
 .sn-content {
+    font-family: "Audiowide";
     background: #040404;
     color: #fafafa;
 }
@@ -93,12 +85,12 @@ header p {
 }
 
 .sn-content__article__title {
-    font-family: "Slackey";
     font-size: 1.5rem;
+    font-weight: 700;
 }
 
 .sn-content__article__text {
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 1.2rem;
+    font-weight: 100;
     line-height: 160%;
 }

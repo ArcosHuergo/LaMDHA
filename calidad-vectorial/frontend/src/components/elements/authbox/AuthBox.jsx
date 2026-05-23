@@ -1,15 +1,12 @@
 import "./AuthBox.css";
-import logo from "../../../assets/img/logo.png"
 
-export const AuthBox = ({ children, titulo="Título del cuadro", onSubmit, botonDer, botonIzq, linkExtra }) => {
+export const AuthBox = ({ children, titulo="Título del cuadro", subtitulo, onSubmit, botonDer, botonIzq, linkExtra }) => {
     const botones = botonIzq ? 'dos' : 'uno';
     return (
         <section className='auth-box'>
-            <div className='auth-box__background'>
-                <img src={logo} alt='logo' className='auth-box__background__image'></img>
-            </div>
             <h1 className='auth-box__title'>{titulo}</h1>
             <form className='auth-box__content' onSubmit={onSubmit}>
+                <h2 className="auth-box__content__subtitle">{subtitulo}</h2>
                 <div className='auth-box__content__inputs'>
                     {children}
                 </div>
@@ -23,7 +20,7 @@ export const AuthBox = ({ children, titulo="Título del cuadro", onSubmit, boton
                     {linkExtra}
                 </div>
             )}
-            <h1 className='auth-box__footer'>Bücher</h1>
+            <h1 className='auth-box__footer'>LaMDHA</h1>
         </section>
     );
 };
