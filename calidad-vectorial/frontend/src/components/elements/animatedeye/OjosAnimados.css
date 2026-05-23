@@ -1,0 +1,45 @@
+.rostro__ojos {
+    height: 50%;
+    display: flex;
+    gap: 15%;
+    justify-content: center;
+    align-items: center;
+}
+
+.rostro__ojo {
+    min-width: 40px;
+    height: 40px;
+    background: #f2f2f2;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.rostro__pupila {
+    width: 14px;
+    height: 14px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    transition: all 0.1s ease;
+}
+
+.rostro__parpado {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border-radius: 50%;
+    transition: height 0.15s ease;
+    pointer-events: none;
+
+    background: currentColor;
+}
+
+.rostro__ojo--cerrado .rostro__parpado {
+    height: 100%;
+}
