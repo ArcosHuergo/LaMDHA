@@ -1,22 +1,22 @@
 import Particles from "../../elements/particles/Particles";
+import Beams from "../../elements/beams/Beams";
+import Aurora from "../../elements/aurora/Aurora";
 import "./SobreNosotros.css";
 export const SobreNosotros = () => {
     return (
         <>
             <section className="sn-hero">
-                <Particles
-                    particleColors={["#fafafa"]}
-                    particleCount={400}
-                    particleSpread={10}
-                    speed={0.1}
-                    particleBaseSize={100}
-                    moveParticlesOnHover
-                    alphaParticles={false}
-                    disableRotation={false}
-                    pixelRatio={1}
-                />
+            	<div className="prueba">
+					<Aurora
+  					colorStops={["#006AB8","#006AB8","#540090"]}
+  					blend={0.5}
+  					amplitude={1.0}
+  					speed={1}
+					/>
+	
+				</div>
                 <div className="sn-hero__text">
-                    <h1 className="sn-hero__text__title">GeoHuergo</h1>
+                    <h1 className="sn-hero__text__title">LaMDHA</h1>
                     <p className="sn-hero__text__subtitle">
                         Soy una Inteligencia Artifical...
                         <br />Sube una foto dentro del colegio

@@ -14,3 +14,19 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: "Audiowide";
+    src: url("./assets/fonts/audiowide/Audiowide-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bungee Hairline";
+    src: url("./assets/fonts/bungee-hairline/BungeeHairline-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
