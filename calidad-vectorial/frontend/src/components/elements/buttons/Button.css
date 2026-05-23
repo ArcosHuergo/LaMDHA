@@ -1,0 +1,104 @@
+.btn {
+    font-family: "Hind Siliguri";
+    font-size: 1.3rem;
+    cursor: pointer;
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn--solapa {
+    position: relative;
+    height: 45px;
+    width: 250px;
+    min-width: 200px;
+    border-bottom-left-radius: 25px;
+    border-top-left-radius: 25px;
+}
+
+.btn--default {
+    height: 30px;
+    min-width: max-content;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left: max(8px, 5%);
+    padding-right: max(8px, 5%);
+}
+
+.btn--solapa--claro {
+    background-color: #C9DACD;
+    color: #0E675F;
+}
+
+.btn--solapa--oscuro {
+    background-color: #0E675F;
+    color: #C9DACD;
+}
+
+.btn--solapa ~ span {
+    position: absolute !important;
+    width: 100%;
+    border-left: 2px solid #0E675F;
+    right: 0;
+    clip-path: circle(0 at center right);
+    transition: all 500ms ease;
+}
+
+.btn--solapa--oscuro ~ span {
+    clip-path: circle(100% at center right);
+}
+
+.btn:hover .btn--solapa--claro ~ .btn--solapa--oscuro {
+    clip-path: circle(100% at center);
+}
+
+.btn--default--claro {
+    background-color: #C9DACD;
+    color: #0E675F;
+}
+
+.btn--default--oscuro {
+    background-color: #0E675F;
+    color: #f2f2f2;
+}
+
+.btn--default--rojo {
+    background-color: transparent;
+    border: 2px solid #db1515;
+    color: #db1515;
+    transition: all 200ms ease;
+}
+
+.btn--default--rojo:hover {
+    background-color: #db1515;
+    color: #ffff;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.btn-group .btn {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-group .btn + .btn {
+    margin-left: -25px;
+}
+
+.btn--solapa--disabled {
+    background-color: #cfcfcf;
+    color: #7a7a7a;
+    cursor: not-allowed;
+}
+
+.btn--default--disabled {
+    background-color: #cfcfcf;
+    color: #7a7a7a;
+    cursor: not-allowed;
+}
