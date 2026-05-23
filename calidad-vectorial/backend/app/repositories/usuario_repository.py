@@ -23,3 +23,10 @@ class UsuarioRepository:
         self.db.delete(usuario_a_eliminar)
         self.db.commit()
         return True
+
+    @with_db
+    def insert(self, db, usuario: Usuario) -> Usuario:
+        db.add(usuario)
+        db.commit()
+        db.refresh(usuario)
+        return usuario
