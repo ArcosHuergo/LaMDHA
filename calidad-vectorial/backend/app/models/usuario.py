@@ -6,4 +6,4 @@ class Usuario(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String(150), unique=True, nullable=False)
     nickname = Column(String(100), nullable=False)
-    password = Column(string(64), nullable=False)
+    password = Column(String(64), nullable=False)
