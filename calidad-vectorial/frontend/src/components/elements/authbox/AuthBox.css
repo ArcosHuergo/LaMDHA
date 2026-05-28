@@ -27,8 +27,8 @@
 
 .auth-box__content {
     width: 100%;
-    padding-left: 10vw;
-    padding-right: 10vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -53,6 +53,7 @@
 .auth-box__content__button {
     margin-top: 10px;
     display: flex;
+    width: 150px;
 }
 
 .auth-box__content__button.uno {
