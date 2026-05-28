@@ -1,6 +1,7 @@
 import { AuthBox } from "../../elements/authbox/AuthBox";
 import { FondoFachero } from "../../elements/prettybackground/FondoFachero";
 import { Input } from "../../elements/input/Input";
+import { Button } from "../../elements/buttons/Button";
 import "./IniciarSesion.css"
 
 export const IniciarSesion = () => {
@@ -13,6 +14,7 @@ export const IniciarSesion = () => {
             <AuthBox
                 titulo="Iniciar sesión"
                 subtitulo="Usa tu correro y contraseña"
+                boton={<Button variant="default">Entrar</Button>}
             >
                 <Input placeholder="Email"></Input>
                 <Input placeholder="Contraseña"></Input>

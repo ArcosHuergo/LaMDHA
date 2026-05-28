@@ -1,5 +1,5 @@
 .btn {
-    font-family: "Hind Siliguri";
+    font-family: "Audiowide";
     font-size: 1.3rem;
     cursor: pointer;
     border: none;
@@ -9,32 +9,14 @@
     align-items: center;
 }
 
-.btn--solapa {
-    position: relative;
-    height: 45px;
-    width: 250px;
-    min-width: 200px;
-    border-bottom-left-radius: 25px;
-    border-top-left-radius: 25px;
-}
-
 .btn--default {
     height: 30px;
     min-width: max-content;
+    width: 100%;
     border-radius: 10px;
     box-sizing: border-box;
-    padding-left: max(8px, 5%);
-    padding-right: max(8px, 5%);
-}
-
-.btn--solapa--claro {
-    background-color: #C9DACD;
-    color: #0E675F;
-}
-
-.btn--solapa--oscuro {
-    background-color: #0E675F;
-    color: #C9DACD;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .btn--solapa ~ span {
@@ -55,8 +37,8 @@
 }
 
 .btn--default--claro {
-    background-color: #C9DACD;
-    color: #0E675F;
+    background-color: #5227FF;
+    color: #fafafa;
 }
 
 .btn--default--oscuro {

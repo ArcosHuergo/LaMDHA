@@ -10,10 +10,10 @@ export const FondoFachero = ({children, titulo, texto}) => {
             </div>
             <div className="fondo-fachero__gradient">
                 <Grainient
-                    color1="#FF9FFC"
-                    color2="#5227FF"
-                    color3="#B497CF"
-                    timeSpeed={0.25}
+                    color1="#7F0090"
+                    color2="#4F0084"
+                    color3="#004AB8"
+                    timeSpeed={1.25}
                     colorBalance={0}
                     warpStrength={1}
                     warpFrequency={5}
@@ -23,7 +23,7 @@ export const FondoFachero = ({children, titulo, texto}) => {
                     blendSoftness={0.05}
                     rotationAmount={500}
                     noiseScale={2}
-                    grainAmount={0.1}
+                    grainAmount={0.2}
                     grainScale={2}
                     grainAnimated={false}
                     contrast={1.5}
