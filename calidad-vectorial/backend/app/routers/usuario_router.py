@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
 from app.services.usuario_service import UsuarioService
-from app.models.usuario import Usuario
 
 router = APIRouter()
 service = UsuarioService()

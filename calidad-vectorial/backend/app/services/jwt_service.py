@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
-from core.config import settings  # settings.JWT_SECRET, settings.JWT_EXPIRATION_MS
+from app.config.settings import settings
 
 class JwtService:
     def __init__(self):
         self.secret     = settings.JWT_SECRET
         self.algorithm  = "HS256"
-        self.expiration = settings.JWT_EXPIRATION_MS  # en milisegundos
+        self.expiration = settings.JWT_EXPIRATION_MS
 
     def generar_token(self, username: str, roles: list[str]) -> str:
         now    = datetime.now(timezone.utc)
@@ -31,3 +31,5 @@ class JwtService:
             return sub is not None and sub == username
         except JWTError:
             return False
+
+jwt_service = JwtService()

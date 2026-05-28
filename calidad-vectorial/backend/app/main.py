@@ -1,9 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from app.routers import router
 from app.config.database import engine, Base
+from app.config.security.jwt_filter import JwtAuthFilter
 
 app = FastAPI(
-    dependencies=[Depends(jwt_filter)]  # aplica el filtro a TODOS los endpoints
+    dependencies=[Depends(JwtAuthFilter())]
 )
 
 Base.metadata.create_all(bind=engine)
