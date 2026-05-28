@@ -24,7 +24,7 @@ class JwtService:
         payload = jwt.decode(token, self.secret, algorithms=[self.algorithm])
         return payload.get("sub")
 
-    def es_token_valido(self, token: str, username: str) -> bool:
+    def validar_token(self, token: str, username: str) -> bool:
         try:
             payload  = jwt.decode(token, self.secret, algorithms=[self.algorithm])
             sub      = payload.get("sub")
