@@ -1,10 +1,9 @@
 from fastapi import Request, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from security.jwt_service import JwtService
 
-jwt_service = JwtService()
+from app.services.jwt_service import jwt_service
 
-PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/openapi.json"}
+PUBLIC_PATHS = {"/auth/login", "/auth/logout"}
 
 class JwtAuthFilter(HTTPBearer):
     def __init__(self, auto_error: bool = True):
@@ -34,6 +33,8 @@ class JwtAuthFilter(HTTPBearer):
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token no encontrado."
             )
+        
+        jwt_service = JwtService()
 
         # 3) Validar token
         try:

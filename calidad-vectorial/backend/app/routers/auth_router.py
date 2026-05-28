@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Response, Request, status
-from services.usuario_service import UsuarioService
-from security.jwt_service import JwtService
-from security.jwt_filter import JwtAuthFilter
-from schemas.auth import LoginDTO
+
+from app.services.jwt_service import JwtService
+from app.config.security.jwt_filter import JwtAuthFilter
+from app.dto.login_dto import LoginDTO
+from app.services.usuario_service import UsuarioService
 
 router     = APIRouter(prefix="/auth", tags=["Auth"])
 jwt_service = JwtService()
