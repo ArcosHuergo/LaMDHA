@@ -15,6 +15,7 @@ export const IniciarSesion = () => {
                 titulo="Iniciar sesión"
                 subtitulo="Usa tu correro y contraseña"
                 boton={<Button variant="default">Entrar</Button>}
+                linkExtra={<Button variant="default" to="/register">Registrarse</Button>}
             >
                 <Input name="username">Email</Input>
                 <Input name="password">Contraseña</Input>

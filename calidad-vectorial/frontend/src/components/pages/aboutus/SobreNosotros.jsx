@@ -1,5 +1,5 @@
 import Aurora from "../../elements/aurora/Aurora";
-//import Button from "../../elements/button/Button";
+import { Button } from "../../elements/buttons/Button";
 import "./SobreNosotros.css";
 export const SobreNosotros = () => {
     return (
@@ -19,6 +19,7 @@ export const SobreNosotros = () => {
                     <p className="sn-hero__text__subtitle">
                         Language Model for Detecting Huergo Areas
                     </p>
+                    <Button to="/login">Descubrir</Button>
                 </div>
             </section>
 
