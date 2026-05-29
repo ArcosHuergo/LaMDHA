@@ -7,17 +7,17 @@ import "./IniciarSesion.css"
 export const IniciarSesion = () => {
     return (
         <main className="body-login">
-            <FondoFachero 
-                titulo="¡Bienvenido!"
-                texto="Si aún no tienes una cuenta registrate para comenzar..."
+            <FondoFachero
+                titulo=""
+                texto=""
             />
             <AuthBox
                 titulo="Iniciar sesión"
                 subtitulo="Usa tu correro y contraseña"
                 boton={<Button variant="default">Entrar</Button>}
             >
-                <Input placeholder="Email"></Input>
-                <Input placeholder="Contraseña"></Input>
+                <Input name="username">Email</Input>
+                <Input name="password">Contraseña</Input>
             </AuthBox>
         </main>
     )

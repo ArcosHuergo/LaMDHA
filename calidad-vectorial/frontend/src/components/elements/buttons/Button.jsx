@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Button.css";
 
-export const Button = ({children, type="button", variant="default", color="claro", to, isDisabled=false, onClick}) => {
+export const Button = ({children, type="button", variant="default", color="violeta", to, isDisabled=false, onClick}) => {
 
     if (to && !isDisabled) {
         return (

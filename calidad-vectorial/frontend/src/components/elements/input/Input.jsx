@@ -27,6 +27,12 @@ export const Input = ({ children, type="text", name, value, checked, placeholder
     const inputType = type == "password" && showPassword ? "text" : type;
 
     return (
-        <input className="input" type={type} placeholder={placeholder}/>
+        <div className="input-group">
+            <label className="input-group__label" htmlFor={name}>{children}</label>
+            <input className="input-group__input"
+                type={type} placeholder={placeholder} title={title} onChange={onChange} ref={inputRef} name={name} id={name} type={inputType} /*value={value ?? ""}*/ required={required} disabled={disabled}
+                autoComplete={autoComplete} autoCorrect={autoCorrect} autoCapitalize={autoCapitalize} spellCheck={spellCheck}
+            />
+        </div>
     );
 };

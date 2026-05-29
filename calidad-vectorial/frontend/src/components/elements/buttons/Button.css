@@ -1,5 +1,4 @@
 .btn {
-    font-family: "Audiowide";
     font-size: 1.3rem;
     cursor: pointer;
     border: none;
@@ -10,52 +9,22 @@
 }
 
 .btn--default {
-    height: 30px;
-    min-width: max-content;
-    width: 100%;
-    border-radius: 10px;
+    height: 37px;
+    min-width: 140px;
+    border-radius: 30px;
     box-sizing: border-box;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
-.btn--solapa ~ span {
-    position: absolute !important;
-    width: 100%;
-    border-left: 2px solid #0E675F;
-    right: 0;
-    clip-path: circle(0 at center right);
-    transition: all 500ms ease;
-}
-
-.btn--solapa--oscuro ~ span {
-    clip-path: circle(100% at center right);
-}
-
-.btn:hover .btn--solapa--claro ~ .btn--solapa--oscuro {
-    clip-path: circle(100% at center);
-}
-
-.btn--default--claro {
+.btn--default--violeta {
     background-color: #5227FF;
     color: #fafafa;
 }
 
-.btn--default--oscuro {
+.btn--default--blanco {
     background-color: #0E675F;
     color: #f2f2f2;
-}
-
-.btn--default--rojo {
-    background-color: transparent;
-    border: 2px solid #db1515;
-    color: #db1515;
-    transition: all 200ms ease;
-}
-
-.btn--default--rojo:hover {
-    background-color: #db1515;
-    color: #ffff;
 }
 
 .btn-group {
