@@ -1,5 +1,5 @@
 from app.config.database import with_db
-from app.models.usuario import Usuario
+from app.models.security.usuario import Usuario
 
 class UsuarioRepository:
 
@@ -12,8 +12,8 @@ class UsuarioRepository:
         return db.query(Usuario).filter(Usuario.id == id_usuario).first()
 
     @with_db
-    def find_by_username(self, db, email: str) -> Usuario | None:
-        return db.query(Usuario).filter(Usuario.username == email).first()
+    def find_by_username(self, db, username: str) -> Usuario | None:
+        return db.query(Usuario).filter(Usuario.username == username).first()
 
     @with_db
     def delete(self, db, usuario: Usuario) -> bool:
