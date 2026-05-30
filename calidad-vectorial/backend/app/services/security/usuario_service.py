@@ -1,10 +1,8 @@
-from app.models.usuario import Usuario
-from app.repositories.usuario_repository import UsuarioRepository
+from app.models.security.usuario import Usuario
+from app.repositories.security.usuario_repository import UsuarioRepository
+import bcrypt
 
-from passlib.context import CryptContext
 
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class UsuarioService:
     def __init__(self):
         self.repo = UsuarioRepository()
@@ -14,22 +12,25 @@ class UsuarioService:
 
     def obtener_usuario_por_id(self, id: int) -> Usuario:
         return self.repo.find_by_id(id)
+    
+    def obtener_usuario_por_username(self, username: str) -> Usuario:
+        return self.repo.find_by_username(username)
 
     def eliminar_usuario(self, usuario: Usuario):
         self.repo.delete(usuario)
 
     def hash_password(self, password: str) -> str:
-        return pwd_context.hash(password)
+        return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-    def registrar(self, usuario: Usuario, password: str, verification_password: str) -> Usuario:
+    def registrar_usuario(self, usuario: Usuario, password: str, verification_password: str) -> Usuario:
         if (password != verification_password):
             raise ValueError("Las contraseñas no coinciden")
         
-        if (UsuarioRepository.find_by_username(usuario.username) is not None):
+        if (self.repo.find_by_username(usuario.username) is not None):
             raise ValueError("El nombre del usuario ya existe")
         
         usuario.password = self.hash_password(password)
-        return UsuarioRepository.insert(usuario)
+        return self.repo.insert(usuario)
 
     def validar_password(self, password: str, hashed_password: str) -> bool:
-        return pwd_context.verify(password, hashed_password)
+        return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))

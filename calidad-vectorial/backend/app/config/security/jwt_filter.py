@@ -1,9 +1,9 @@
 from fastapi import Request, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from app.services.jwt_service import jwt_service
+from app.services.security.jwt_service import jwt_service
 
-PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs"}
+PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register"}
 
 class JwtAuthFilter(HTTPBearer):
     def __init__(self, auto_error: bool = True):
@@ -43,7 +43,7 @@ class JwtAuthFilter(HTTPBearer):
                 detail="Token inválido o expirado."
             )
 
-        if not jwt_service.es_token_valido(token, username):
+        if not jwt_service.validar_token(token, username):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token inválido."
