@@ -7,7 +7,7 @@ export const SobreNosotros = () => {
             <section className="sn-hero">
                 <div className="prueba">
 					<Aurora
-                        colorStops={["#006AB8","#006AB8","#540090"]}
+                        colorStops={["#7F0090","#004AB8","#4F0084"]}
                         blend={1.0}
                         amplitude={1.0}
                         speed={1}
