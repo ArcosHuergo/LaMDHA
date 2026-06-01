@@ -1,13 +1,9 @@
 import Grainient from "../gradient/Gradient";
 import "./FondoFachero.css";
 
-export const FondoFachero = ({children, titulo, texto}) => {
+export const FondoFachero = ({children}) => {
     return (
         <aside className="fondo-fachero">
-            <div className="fondo-fachero__text">
-                <h1>{titulo}</h1>
-                <p>{texto}</p>
-            </div>
             <div className="fondo-fachero__gradient">
                 <Grainient
                     color1="#7F0090"

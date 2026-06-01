@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import "./AuthBox.css";
 
-export const AuthBox = ({ children, titulo="Título del cuadro", subtitulo, onSubmit, boton, link }) => {
+export const AuthBox = ({ children, titulo="Título del cuadro", subtitulo, onSubmit, boton, link, id}) => {
     return (
         <section className='auth-box'>
-            <form className='auth-box__content' onSubmit={onSubmit}>
+            <form className={`auth-box__content auth-box__content--${id}`} onSubmit={onSubmit}>
                 <h1 className='auth-box__content__title'>{titulo}</h1>
                 <div className='auth-box__content__inputs'>
                     {children}

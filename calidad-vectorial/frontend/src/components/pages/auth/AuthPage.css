@@ -1,0 +1,113 @@
+.auth-page {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.auth-page__box {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-50%);
+    top: 0;
+    transition: left 1100ms ease-in-out;
+}
+
+.auth-page__box--login {
+    left: 0;
+}
+
+.auth-page__box--register {
+    left: 50%;
+}
+
+.auth-page__text {
+    color: #fafafa;
+
+    position: absolute;
+    bottom: 10px;
+
+    width: clamp(20vw ,30vw ,1000px);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    z-index: 1;
+}
+
+.auth-page__text h1 {
+    font-family: "Orbitron";
+    font-size: min(3rem, 6vw);
+    animation: animacion-texto infinite 5s ease-in-out both;
+}
+
+.auth-page__text p {
+    font-size: min(1rem, 2vw);
+    animation: animacion-texto infinite 5s ease-in-out both;
+}
+
+.auth-page__text--login {
+    left: calc(100% - 30vw - 10px);
+}
+
+.auth-page__text--register {
+    left: 10px;
+}
+
+.auth-page__text-anim--login {
+    animation: aparecer-text-izq 1100ms both;
+}
+
+.auth-page__text-anim--register {
+    animation:aparecer-text-der 1100ms both;
+}
+
+@keyframes animacion-texto {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .3;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes aparecer-text-der {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    35%, 65% {
+        opacity: 0;
+        transform: translateX(20vw);
+    }
+    66% {
+        transform: translateX(-20vw);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes aparecer-text-izq {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    35%, 65% {
+        opacity: 0;
+        transform: translateX(-20vw);
+    }
+    66% {
+        transform: translateX(20vw);
+    }
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
