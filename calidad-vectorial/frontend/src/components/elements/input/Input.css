@@ -22,18 +22,13 @@
     padding-right: 10px;
     outline: none;
 
-    color: #1a1a1a;
+    color: var(--text-secondary);
     background: #D9D9D9;
     border: none;
 }
 
 .input-group:focus-within .input-group__label {
-    color: #fafafa;
-}
-
-.input-group__input:focus {
-    border-color: #117c4c;
-    box-shadow: 0px 0px 4px #08413C;
+    color: var(--text-primary);
 }
 
 .input-group--checkbox {
@@ -44,9 +39,4 @@
 
 .input-group__input--password {
     padding-right: 34px;
-}
-
-.input-group__input:disabled {
-    background: #ffff;
-    border-color: #6C757D;
 }

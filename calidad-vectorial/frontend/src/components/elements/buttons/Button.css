@@ -18,15 +18,15 @@
 }
 
 .btn--default--violeta {
-    background: linear-gradient(to right, #004AB8, #7F0090);
+    background: linear-gradient(to right, var(--brand-blue), var(--brand-magenta));
     background-size: 200% 200%;
-    color: #fafafa;
+    color: var(--text-primary);
     transition: all 400ms ease;
 }
 
 .btn--default--violeta:hover {
     background-position: right center;
-    box-shadow: 0 0 20px #4F0084;
+    box-shadow: 0 0 20px var(--shadow-primary);
 }
 
 .btn--default--disabled {

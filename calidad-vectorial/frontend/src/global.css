@@ -13,9 +13,31 @@
 :root {
     --blue: #004AB8;
     --purple: #5227FF;
+    --indigo: #4F0084;
     --magenta: #7F0090;
     --white: #fafafa;
-    --dark: #1a1a1a;
+    --dark: #060010;
+
+    /* Semánticas */
+
+    /* Textos */
+    --text-primary: var(--white);
+    --text-secondary: var(--dark);
+
+    /* Fondos */
+    --bg-primary: var(--dark);
+    --bg-surface: var(--purple);
+
+    /* Bordes */
+    --border-primary: var(--dark);
+
+    /* Somrbas */
+    --shadow-primary: var(--indigo);
+
+    /* Marca */
+    --brand-blue: var(--blue);
+    --brand-purple: var(--purple);
+    --brand-magenta: var(--magenta);
 }
 
 /*

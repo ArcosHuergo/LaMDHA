@@ -23,7 +23,7 @@
 }
 
 .auth-page__text {
-    color: #fafafa;
+    color: var(--text-primary);
 
     position: absolute;
     bottom: 10px;
