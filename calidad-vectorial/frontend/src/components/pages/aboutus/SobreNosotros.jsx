@@ -1,3 +1,4 @@
+import Python from "../../../assets/svg/python.svg?react";
 import Aurora from "../../elements/aurora/Aurora";
 import { Button } from "../../elements/buttons/Button";
 import "./SobreNosotros.css";
@@ -30,11 +31,29 @@ export const SobreNosotros = () => {
 
             <section className="sn-content">
                 <article className="sn-content__article">
-                    <h3 className="sn-content__article__title">¿Qué es LaMDHA?</h3>
-                    <p className="sn-content__article__text">
-                        LaMDHA es un proyecto desarrollado por estudiantes de 6° año de computadoras  del Instituto Huergo que utiliza inteligencia artificial para reconocer en qué parte de la escuela fue tomada una foto.
-                        <br />A través de una red neuronal entrenada con imágenes de distintos espacios del colegio, el sistema analiza una fotografía y predice en qué aula, laboratorio o sector de la institución fue tomada.
-                    </p>
+                    <section className="sn-content__article__section">
+                        <h3 className="sn-content__article__section__title">¿Qué es LaMDHA?</h3>
+                        <p className="sn-content__article__section__text">
+                            LaMDHA es un proyecto desarrollado por estudiantes de 6° año de computadoras  del Instituto Huergo que utiliza inteligencia artificial para reconocer en qué parte de la escuela fue tomada una foto.
+                            <br />A través de una red neuronal entrenada con imágenes de distintos espacios del colegio, el sistema analiza una fotografía y predice en qué aula, laboratorio o sector de la institución fue tomada.
+                        </p>
+                    </section>
+                    <div className="sn-content__article__delimiter"/>
+                    <section className="sn-content__article__section">
+                        <h3 className="sn-content__article__section__title">Tecnologías utilizadas</h3>
+                        <div className="sn-content__article__section__logos">
+                            <Python />
+                            <Python />
+                            <Python />
+                            <Python />
+                            <Python />
+                            <Python />
+                            <Python />
+                            <Python />
+                            <Python />
+                        </div>
+                    </section>
+                    <div className="sn-content__article__delimiter"/>
                 </article>
             </section>
         </>
