@@ -91,7 +91,7 @@ export const AuthPage = () => {
                             onSubmit={handleSubmit}
                         >
                             <Input name="username" value={username} onChange={e => setUsername(e.target.value)}>Email</Input>
-                            <Input name="password" value={password} onChange={e => setPassword(e.target.value)}>Contraseña</Input>
+                            <Input name="password" type="password" value={password} onChange={e => setPassword(e.target.value)}>Contraseña</Input>
                         </AuthBox>
                     ) : (
                         <AuthBox
@@ -104,8 +104,8 @@ export const AuthPage = () => {
                             onSubmit={handleSubmit}
                         >
                             <Input name="username" value={username} onChange={e => setUsername(e.target.value)}>Email</Input>
-                            <Input name="password" value={password} onChange={e => setPassword(e.target.value)}>Contraseña</Input>
-                            <Input name="password" value={verificationPassword} onChange={e => setVerificationPassword(e.target.value)}>Confirmar contraseña</Input>
+                            <Input name="password" type="password" value={password} onChange={e => setPassword(e.target.value)}>Contraseña</Input>
+                            <Input name="password" type="password" value={verificationPassword} onChange={e => setVerificationPassword(e.target.value)}>Confirmar contraseña</Input>
                         </AuthBox>
                     )}
                 </div>

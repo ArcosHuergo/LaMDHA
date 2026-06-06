@@ -72,7 +72,7 @@ export const handleRegister = async ({username, password, verificationPassword, 
     
     try {
         const respond = await postData("auth/register", 
-            {nickname : username, username, password, verification_password : verificationPassword}, controller.signal);
+            {username, password, verification_password : verificationPassword}, controller.signal);
 
         if (respond.ok) {
             await loginRequest({username, password});

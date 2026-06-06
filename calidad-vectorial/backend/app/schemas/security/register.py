@@ -2,7 +2,6 @@ import re
 from pydantic import BaseModel, field_validator
 
 class RegisterSchema(BaseModel):
-    nickname: str
     username: str
     password: str
     verification_password: str

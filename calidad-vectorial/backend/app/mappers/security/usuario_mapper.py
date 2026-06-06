@@ -6,7 +6,7 @@ class UsuarioMapper:
 
     @staticmethod
     def to_entity(schema: RegisterSchema) -> Usuario:
-        return Usuario(username=schema.username, nickname=schema.nickname)
+        return Usuario(username=schema.username, nickname=schema.username)
 
     @staticmethod
     def to_schema(entity: Usuario) -> Usuario:
