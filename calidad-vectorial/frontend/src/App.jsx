@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { SobreNosotros } from "./components/pages/aboutus/SobreNosotros"
 import { AuthPage } from "./components/pages/auth/AuthPage";
-//import { IniciarSesion } from "./components/pages/login/IniciarSesion";
-//import { Registrar } from "./components/pages/register/Registrar";
+import { Index } from "./components/pages/index/Index";
 
 export const App = () => {
     return (
@@ -11,6 +10,7 @@ export const App = () => {
                 <Route path="/" element={<SobreNosotros/>} />
                 <Route path="/login" element={<AuthPage/>} />
                 <Route path="/register" element={<AuthPage/>} />
+                <Route path="/index" element={<Index/>} />
             </Routes>
         </Router>
     )
