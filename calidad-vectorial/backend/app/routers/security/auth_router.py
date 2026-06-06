@@ -13,15 +13,15 @@ def get_usuario_service() -> UsuarioService:
     return UsuarioService()
 
 @router.post("/login", status_code = status.HTTP_201_CREATED)
-def login(request_data: LoginSchema, response: Response, usuario_service: UsuarioService = Depends(get_usuario_service)):
+def login(login_schema: LoginSchema, response: Response, usuario_service: UsuarioService = Depends(get_usuario_service)):
     
     # 1) Verificar que el usuario exista
-    usuario = usuario_service.obtener_usuario_por_username(request_data.username)
+    usuario = usuario_service.obtener_usuario_por_username(login_schema.username)
     if usuario is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Credenciales inválidas.")
 
     # 2) Verificar contraseña
-    if not usuario_service.validar_password(request_data.password, usuario.password):
+    if not usuario_service.validar_password(login_schema.password, usuario.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Credenciales inválidas.")
 
     # 3) Generar token
@@ -47,8 +47,8 @@ def login(request_data: LoginSchema, response: Response, usuario_service: Usuari
 def registrar(RegisterSchema: RegisterSchema, usuario_service: UsuarioService = Depends(get_usuario_service)): 
     usuario = UsuarioMapper.to_entity(RegisterSchema)
     nuevo_usuario = usuario_service.registrar_usuario(usuario ,RegisterSchema.password, RegisterSchema.verification_password)
-    nuevo_usuarioDTO = UsuarioMapper.to_schema(nuevo_usuario)
-    return nuevo_usuarioDTO
+    nuevo_usuario_schema = UsuarioMapper.to_schema(nuevo_usuario)
+    return nuevo_usuario_schema
 
 
 @router.get("/validar-token")

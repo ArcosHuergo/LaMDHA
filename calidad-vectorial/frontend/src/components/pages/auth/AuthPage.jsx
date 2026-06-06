@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate, Link, useLocation  } from "react-router-dom";
 import { FondoFachero } from "../../elements/prettybackground/FondoFachero"
 import { AuthBox } from "../../elements/authbox/AuthBox";
 import { Input } from "../../elements/input/Input";
 import { Button } from "../../elements/buttons/Button";
+import { handleLogin, handleRegister } from "../../utils/auth/authUtils";
 import "./AuthPage.css";
 
 export const AuthPage = () => {
@@ -17,6 +18,22 @@ export const AuthPage = () => {
     const [textPosition, setTextPosition] = useState(initial);
     const [contentVisible, setContentVisible] = useState(true);
 
+
+    const controllerRef = useRef(null);
+    const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+    const [verificationPassword, setVerificationPassword] = useState("");
+    const [error, setError] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
+
+    useEffect(() => {
+		return () => {
+			if (controllerRef.current) {
+				controllerRef.current.abort()
+			}
+		};
+	}, []);
+
     const handleSwitch = (to) => {
         setHasAnimated(true);
         setCurrentForm(to);
@@ -28,6 +45,19 @@ export const AuthPage = () => {
             navigate(to === "register" ? "/register" : "/login");
         }, 550);
     };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        try {
+            if (currentForm === "login") {         
+                handleLogin({ username, password, controllerRef, setIsDisabled, setError, navigate })
+            } else if (currentForm === "register") {
+                handleRegister({ username, password, verificationPassword, controllerRef, setIsDisabled, setError, navigate })
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     const loginLink = <Link onClick={() => handleSwitch("login")}><span>{"<-"}</span> ¿Ya tenés cuenta? ¡Iniciá sesión!</Link>;
     const registerLink = <Link onClick={() => handleSwitch("register")}>¿No tenés cuenta? ¡Registrate! <span>{"->"}</span></Link>;
@@ -56,11 +86,12 @@ export const AuthPage = () => {
                             id={hasAnimated ? currentForm : undefined}
                             titulo="Iniciar sesión"
                             subtitulo="Usá tu correo y contraseña"
-                            boton={<Button variant="default">Entrar</Button>}
+                            boton={<Button variant="default" type="submit" isDisabled={isDisabled}>Entrar</Button>}
                             link={registerLink}
+                            onSubmit={handleSubmit}
                         >
-                            <Input name="username">Email</Input>
-                            <Input name="password">Contraseña</Input>
+                            <Input name="username" value={username} onChange={e => setUsername(e.target.value)}>Email</Input>
+                            <Input name="password" value={password} onChange={e => setPassword(e.target.value)}>Contraseña</Input>
                         </AuthBox>
                     ) : (
                         <AuthBox
@@ -68,12 +99,13 @@ export const AuthPage = () => {
                             id={hasAnimated ? currentForm : undefined}
                             titulo="Crear cuenta"
                             subtitulo="Usá tu correo y contraseña"
-                            boton={<Button variant="default">Registrarse</Button>}
+                            boton={<Button variant="default" type="submit" isDisabled={isDisabled}>Registrarse</Button>}
                             link={loginLink}
+                            onSubmit={handleSubmit}
                         >
-                            <Input name="username">Email</Input>
-                            <Input name="password">Contraseña</Input>
-                            <Input name="password">Confirmar contraseña</Input>
+                            <Input name="username" value={username} onChange={e => setUsername(e.target.value)}>Email</Input>
+                            <Input name="password" value={password} onChange={e => setPassword(e.target.value)}>Contraseña</Input>
+                            <Input name="password" value={verificationPassword} onChange={e => setVerificationPassword(e.target.value)}>Confirmar contraseña</Input>
                         </AuthBox>
                     )}
                 </div>

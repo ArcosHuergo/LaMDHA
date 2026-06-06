@@ -13,7 +13,3 @@ def prueba():
 @router.get("/usuario/{id}", tags=["Usuario"])
 def obtener_usuario_por_id(id: int):
     return service.obtener_usuario_por_id(id)
-'''
-@router.post("/usuario", tags=["Usuario"])
-def crear_usuario(usuario: Usuario) -> Usuario:
-    return JSONResponse(content=UsuarioService.crear_usuario(usuario).model_dump())'''
