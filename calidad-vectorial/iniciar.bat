@@ -2,7 +2,7 @@
 title Iniciar proyecto
 cd /d "%~dp0"
 echo =============================
-echo    Iniciando GeoHuergo...
+echo    Iniciando LaMDHA...
 echo =============================
 
 REM --- BACKEND ---
