@@ -1,4 +1,13 @@
-import Python from "../../../assets/svg/python.svg?react";
+import Python from "../../../assets/img/logos/python.svg?react";
+import Fastapi from "../../../assets/img/logos/fastapi.svg?react";
+import Html from "../../../assets/img/logos/html.svg?react";
+import Css from "../../../assets/img/logos/css.svg?react";
+import Javascript from "../../../assets/img/logos/javascript.svg?react";
+import React from "../../../assets/img/logos/react.svg?react";
+import Roboflow from "../../../assets/img/logos/roboflow.svg?react";
+import Mysql from "../../../assets/img/logos/mysql.svg?react";
+import Github from "../../../assets/img/logos/github.svg?react";
+
 import Aurora from "../../elements/aurora/Aurora";
 import { Button } from "../../elements/buttons/Button";
 import "./SobreNosotros.css";
@@ -42,15 +51,41 @@ export const SobreNosotros = () => {
                     <section className="sn-content__article__section">
                         <h3 className="sn-content__article__section__title">Tecnologías utilizadas</h3>
                         <div className="sn-content__article__section__logos">
-                            <Python />
-                            <Python />
-                            <Python />
-                            <Python />
-                            <Python />
-                            <Python />
-                            <Python />
-                            <Python />
-                            <Python />
+                            <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer" title="Python">
+                                <Python />
+                            </a>
+
+                            <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer" title="FastAPI">
+                                <Fastapi/>
+                            </a>
+
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener noreferrer" title="HTML">
+                                <Html />
+                            </a>
+
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener noreferrer" title="CSS">
+                                <Css />
+                            </a>
+
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener noreferrer" title="JavaScript">
+                                <Javascript />
+                            </a>
+
+                            <a href="https://react.dev/" target="_blank" rel="noopener noreferrer" title="React">
+                                <React />
+                            </a>
+
+                            <a href="https://roboflow.com/" target="_blank" rel="noopener noreferrer" title="Roboflow">
+                                <Roboflow />
+                            </a>
+
+                            <a href="https://dev.mysql.com/doc/" target="_blank" rel="noopener noreferrer" title="MySQL">
+                                <Mysql />
+                            </a>
+
+                            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" title="GitHub">
+                                <Github />
+                            </a>
                         </div>
                     </section>
                     <div className="sn-content__article__delimiter"/>

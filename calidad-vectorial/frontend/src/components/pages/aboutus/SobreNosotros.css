@@ -128,5 +128,6 @@
 .sn-content__article__section__logos {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 2%;
 }
