@@ -19,7 +19,8 @@ class UsuarioService:
     def eliminar_usuario(self, usuario: Usuario):
         self.repo.delete(usuario)
 
-    def hash_password(self, password: str) -> str:
+    @staticmethod
+    def hash_password(password: str) -> str:
         return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
     def registrar_usuario(self, usuario: Usuario, password: str, verification_password: str) -> Usuario:
