@@ -3,7 +3,7 @@ from app.models.sector.zona import Zona
 
 class ZonaRepository:
 
-    with_db
+    @with_db
     def find_all(self, db) -> list[Zona]:
         return db.query(Zona).all()
     

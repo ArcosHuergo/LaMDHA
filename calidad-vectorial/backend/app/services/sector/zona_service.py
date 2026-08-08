@@ -1,9 +1,6 @@
 from app.models.sector.zona import Zona
 from app.repositories.sector.zona_repository import ZonaRepository
 
-from passlib.context import CryptContext
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class ZonaService:
     def __init__(self):
         self.repo = ZonaRepository()

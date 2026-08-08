@@ -3,7 +3,7 @@ from app.models.zone.aula import Aula
 
 class AulaRepository:
 
-    with_db
+    @with_db
     def find_all(self, db) -> list[Aula]:
         return db.query(Aula).all()
     

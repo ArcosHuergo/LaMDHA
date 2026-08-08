@@ -3,7 +3,7 @@ from app.models.zone.pasillo import Pasillo
 
 class PasilloRepository:
 
-    with_db
+    @with_db
     def find_all(self, db) -> list[Pasillo]:
         return db.query(Pasillo).all()
     

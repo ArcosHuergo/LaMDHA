@@ -1,10 +1,9 @@
 from app.config.database import with_db
 from app.models.zone.patio import Patio
 
-
 class PatioRepository:
 
-    with_db
+    @with_db
     def find_all(self, db) -> list[Patio]:
             return db.query(Patio).all()
     

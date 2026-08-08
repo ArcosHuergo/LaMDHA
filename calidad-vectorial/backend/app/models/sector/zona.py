@@ -1,9 +1,9 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from app.config.database import Base
 
 class Zona(Base):
-    _tablename_ = "zona"
+    __tablename__ = "zona"
 
     id = Column(Integer, primary_key=True, index=True)
     color = Column(String(15), unique=True, nullable=False)
@@ -16,5 +16,3 @@ class Zona(Base):
 
     #patio
     patio = relationship("Patio", back_populates="zona", uselist=False)
-
-    

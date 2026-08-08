@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from app.config.database import Base
 
 class Aula(Base):
-    _tablename_ = "aula"
+    __tablename__ = "aula"
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(150), unique=True, nullable=False)
@@ -11,5 +11,5 @@ class Aula(Base):
     descripcion = Column(String(255), unique=True, nullable=False)
 
     #aula
-    aula_id = Column(Integer, ForeignKey("aula.id"), nullable=False)
-    aula = relationship("Zona", back_populates="aulas")
+    zona_id = Column(Integer, ForeignKey("zona.id"), nullable=False)
+    zona = relationship("Zona", back_populates="aulas")

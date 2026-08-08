@@ -1,9 +1,6 @@
 from app.models.zone.pasillo import Pasillo 
 from app.repositories.zone.pasillo_repository import PasilloRepository
 
-from passlib.context import CryptContext
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class PasilloService:
     def __init__(self):
         self.repo = PasilloRepository()
