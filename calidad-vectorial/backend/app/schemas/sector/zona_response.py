@@ -1,4 +1,5 @@
-from pydantic import Basemodel
+from pydantic import BaseModel
 
-class ZonaResponseSchema(Basemodel):
+class ZonaResponseSchema(BaseModel):
+    id: int
     color: str

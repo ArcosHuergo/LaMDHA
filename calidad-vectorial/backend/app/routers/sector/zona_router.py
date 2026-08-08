@@ -2,14 +2,16 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
 from app.services.sector.zona_service import ZonaService
+from app.mappers.sector.zona_mapper import ZonaMapper
+from app.schemas.sector.zona_response import ZonaResponseSchema
 
 router = APIRouter()
-service = ZonaService()
+zona_service = ZonaService()
 
 @router.get("/zona/", tags=["Zona"])
 def obtener_zonas():
-    return service.obtener_todos_las_zonas()
+    return ZonaMapper.to_schema_list(zona_service.obtener_todos_las_zonas())
 
 @router.get("/zona/{id}", tags=["Zona"])
 def obtener_aula_por_id(id: int):
-    return service.obtener_zona_por_id(id)
+    return ZonaMapper.to_schema(zona_service.obtener_zona_por_id(id))
