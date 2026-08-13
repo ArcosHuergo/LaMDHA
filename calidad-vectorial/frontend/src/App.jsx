@@ -1,7 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Layout } from "./layouts/Layout";
 import { SobreNosotros } from "./components/pages/aboutus/SobreNosotros"
 import { AuthPage } from "./components/pages/auth/AuthPage";
 import { Index } from "./components/pages/index/Index";
+import { Galeria } from "./components/pages/galery/Galeria";
 
 export const App = () => {
     return (
@@ -11,6 +13,9 @@ export const App = () => {
                 <Route path="/login" element={<AuthPage/>} />
                 <Route path="/register" element={<AuthPage/>} />
                 <Route path="/index" element={<Index/>} />
+                <Route element={<Layout />}>
+                    <Route path="/galeria" element={<Galeria />} />
+                </Route>
             </Routes>
         </Router>
     )
