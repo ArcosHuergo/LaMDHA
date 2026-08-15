@@ -1,0 +1,23 @@
+.header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-primary);
+    padding: 10px;
+}
+
+.header div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 10px;
+    scale: .6;
+}
+
+.header div p {
+    font-family: "Orbitron";
+    font-weight: 600;
+    font-size: 30px;
+    color: var(--text-primary);
+}

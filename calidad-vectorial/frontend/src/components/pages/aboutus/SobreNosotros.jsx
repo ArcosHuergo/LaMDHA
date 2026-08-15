@@ -9,8 +9,9 @@ import Mysql from "../../../assets/img/logos/mysql.svg?react";
 import Github from "../../../assets/img/logos/github.svg?react";
 
 import Aurora from "../../elements/aurora/Aurora";
-import { Button } from "../../elements/buttons/Button";
 import "./SobreNosotros.css";
+import { Button } from "../../elements/buttons/Button";
+import { Header } from "../../elements/header/Header"
 export const SobreNosotros = () => {
     return (
         <>
@@ -33,10 +34,7 @@ export const SobreNosotros = () => {
                 </div>
             </section>
 
-            <header className="header">
-                <h2>LaMDHA</h2>
-                <p>Ins. Ind. Luis A. Huergo</p>
-            </header>
+           <Header />
 
             <section className="sn-content">
                 <article className="sn-content__article">
