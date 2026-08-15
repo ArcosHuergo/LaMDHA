@@ -35,3 +35,22 @@
     color: var(--text-primary);
     transition: all 200ms ease;
 }
+
+.btn--subir {
+    height: 50px;
+    min-width: 340px;
+    border-radius: 8px;
+
+    font-family: "Orbitron";
+    gap: 20px;
+
+    background: linear-gradient(to right, var(--brand-blue), var(--brand-magenta));
+    background-size: 200% 200%;
+    color: var(--text-primary);
+    transition: all 400ms ease;
+}
+
+.btn--subir:hover {
+    background-position: right center;
+    box-shadow: 0 0 20px var(--shadow-primary);
+}

@@ -1,0 +1,45 @@
+.galeria {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.galeria h1 {
+    font-family: "Orbitron";
+    font-size: 2.5rem;
+    color: var(--text-primary);
+}
+
+.galeria__or {
+    font-family: "Orbitron";
+    position: relative;
+    color: var(--text-primary);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.galeria__or::before {
+    content: '';
+    width: 240px;
+    height: 2px;
+
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(25%, 50%);
+
+    background: currentColor;
+}
+
+.galeria__or::after {
+    content: '';
+    width: 240px;
+    height: 2px;
+
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-25%, 50%);
+
+    background: currentColor;
+}

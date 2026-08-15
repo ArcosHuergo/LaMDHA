@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import LaMDHA from "../../../assets/img/brand/lamdha.svg?react";
 import Usuario from "../../../assets/img/brand/usuario.svg?react";
 
@@ -7,10 +8,10 @@ export const Header = () => {
     return (
         <header className="header">
             <div>
-                <LaMDHA />
-                <p>
+                <Link to="/"><LaMDHA /></Link>
+                <Link to="/">
                     LaMDHA
-                </p>
+                </Link>
             </div>
             <div>
                 <Usuario />

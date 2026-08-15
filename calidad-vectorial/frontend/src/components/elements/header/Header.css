@@ -4,7 +4,8 @@
     justify-content: space-between;
     align-items: center;
     background: var(--bg-primary);
-    padding: 10px;
+    color: var(--text-primary);
+    padding: 15px 15px 10px 15px;
 }
 
 .header div {
@@ -12,12 +13,11 @@
     flex-flow: row nowrap;
     align-items: center;
     gap: 10px;
-    scale: .6;
 }
 
-.header div p {
+.header div p, .header div a  {
     font-family: "Orbitron";
     font-weight: 600;
-    font-size: 30px;
+    font-size: 25px;
     color: var(--text-primary);
 }

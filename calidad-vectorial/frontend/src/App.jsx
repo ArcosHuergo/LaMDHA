@@ -3,7 +3,7 @@ import { Layout } from "./layouts/Layout";
 import { SobreNosotros } from "./components/pages/aboutus/SobreNosotros"
 import { AuthPage } from "./components/pages/auth/AuthPage";
 import { Index } from "./components/pages/index/Index";
-import { Galeria } from "./components/pages/galery/Galeria";
+import { Galeria } from "./components/pages/gallery/Galeria";
 
 export const App = () => {
     return (
