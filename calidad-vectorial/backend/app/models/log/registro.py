@@ -8,10 +8,10 @@ class Registro(Base):
     id = Column(Integer, primary_key=True, index=True)
 
     # hoja_registro uno a muchos
-    hoja_registro = relationship("Hoja_Registro", back_populates="registro")
+    hoja_registro = relationship("HojaRegistro", back_populates="registro")
 
     # usuario muchos a 1
-    usuario_id = Column(Integer, ForeignKey("usuario.id"), unique=True)
+    usuario_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
     usuario = relationship("Usuario", back_populates="registro")
 
-    url_foto = Column(String(255), unique=True, nullable=True)
+    url_foto = Column(String(255), nullable=True)

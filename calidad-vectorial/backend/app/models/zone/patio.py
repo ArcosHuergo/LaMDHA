@@ -12,3 +12,5 @@ class Patio(Base):
     
     zona_id = Column(Integer, ForeignKey("zona.id"), unique=True)
     zona = relationship("Zona", back_populates="patio")
+
+    hoja_registro = relationship("HojaRegistro", back_populates="patio")
