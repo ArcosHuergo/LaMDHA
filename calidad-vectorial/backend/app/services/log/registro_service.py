@@ -11,7 +11,7 @@ class RegistroService:
     def registrar_clasificacion(self, usuario: Usuario, url_foto: str, prediction: RoboflowPrediction) -> Registro:
         registro = Registro(usuario_id=usuario.id, url_foto=url_foto)
         registro.hoja_registro = [
-            HojaRegistro(clase=p.clase, confianza=p.confianza)
+            HojaRegistro(confianza=p.confianza)
             for p in prediction.predicciones
         ]
         return self.repo.insert(registro)
