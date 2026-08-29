@@ -1,66 +1,24 @@
-import CircularGallery from '../../elements/gallery/CircularGallery'
+import { useCallback, useState } from "react";
+
+import CircularGallery from "../../elements/gallery/CircularGallery";
 import { Button } from "../../elements/buttons/Button";
+import { PopUpSeleccion } from "../../elements/popup/PopUpSeleccion";
 
-import fotoAula1 from "../../../assets/img/examplephotos/classroom/fotoAula1.jpg";
-import fotoAula2 from "../../../assets/img/examplephotos/classroom/fotoAula2.jpg";
-import fotoAula3 from "../../../assets/img/examplephotos/classroom/fotoAula3.jpg";
-
-import fotoPasillo1 from "../../../assets/img/examplephotos/hallway/fotoPasillo1.jpg";
-import fotoPasillo2 from "../../../assets/img/examplephotos/hallway/fotoPasillo2.jpg";
-
-import fotoLaboratorioInformatica from "../../../assets/img/examplephotos/laboratory/fotoLaboratorioInformatica.jpg";
-import fotoLaboratorioQuimica from "../../../assets/img/examplephotos/laboratory/fotoLaboratorioQuimica.jpg";
-
-import fotoBiblioteca from "../../../assets/img/examplephotos/library/fotoBiblioteca.jpg";
-
-import fotoPatioArriba from "../../../assets/img/examplephotos/yard/fotoPatioArriba.jpg";
-import fotoPatioKiosco from "../../../assets/img/examplephotos/yard/fotoPatioKiosco.jpg";
+import { Items } from "./Items";
 
 import "./Galeria.css"
 
-const items = [
-  {
-    image: fotoAula1,
-    text: 'Aula',
-  },
-  {
-    image: fotoAula2,
-    text: 'Aula',
-  },
-  {
-    image: fotoAula3,
-    text: 'Aula',
-  },
-  {
-    image: fotoPasillo1,
-    text: 'Pasillo',
-  },
-  {
-    image: fotoPasillo2,
-    text: 'Pasillo',
-  },
-  {
-    image: fotoLaboratorioInformatica,
-    text: 'Laboratorio',
-  },
-  {
-  image: fotoLaboratorioQuimica,
-    text: 'Laboratorio',
-  },
-  {
-    image: fotoBiblioteca,
-    text: 'Biblioteca',
-  },
-  {
-    image: fotoPatioArriba,
-    text: 'Patio',
-  },
-  {
-    image: fotoPatioKiosco,
-    text: 'Patio',
-  },
-];
 export const Galeria = () => {
+    const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
+
+    const handleItemClick = useCallback((item) => {
+        setFotoSeleccionada(item);
+    }, []);
+
+    const cerrarPopUp = () => {
+        setFotoSeleccionada(null);
+    };
+
     return (
         <main className="galeria">
             <h1>¡Elige tu destino!</h1>
@@ -71,7 +29,7 @@ export const Galeria = () => {
                 }}
                 >
                 <CircularGallery
-                    items={items}
+                    items={Items}
                     bend={1.5}
                     captionBackgroundColor="#4F0084"
                     captionBorderRadius={0.15}
@@ -80,12 +38,23 @@ export const Galeria = () => {
                     captionFontSize={80}
                     captionFontWeight="600"
                     highlightColor="#7F0090"
-                    onItemClick={(item, index) => console.log(item, index)}
+                    onItemClick={handleItemClick}
                 />
             </div>
             <span className='galeria__or'>or</span>
             
             <Button variant='subir'>Sube tu imagen</Button>
+
+            {fotoSeleccionada && (
+                <PopUpSeleccion
+                titulo={fotoSeleccionada.text}
+                foto={fotoSeleccionada.image}
+                onClose={cerrarPopUp}
+                >
+                    {fotoSeleccionada.description}
+                </PopUpSeleccion>
+            )}
+            
         </main>
     );
 }
