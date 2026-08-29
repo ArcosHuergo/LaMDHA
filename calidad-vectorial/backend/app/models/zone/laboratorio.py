@@ -7,7 +7,7 @@ class Laboratorio(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(150), nullable=False)
-    referencia = Column(String(2), nullable=False)
+    referencia = Column(String(10), nullable=False)
     descripcion = Column(String(255), nullable=False)
 
     #aula
