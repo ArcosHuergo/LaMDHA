@@ -1,0 +1,65 @@
+.popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup__card {
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+
+    width: 78vw;
+    height: 82vh;
+    box-sizing: border-box;
+    padding: 40px;
+
+    background: var(--bg-primary);
+    border: var(--brand-purple) 2px solid;
+}
+
+.popup__card__foto {
+    width: calc(50% - 80px);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.popup__card__foto img {
+    width: 100%;
+    height: 100%;
+}
+
+.popup__card__text {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 1;
+    flex: 1 1 0;
+
+    color: var(--text-primary);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.popup__card__text__titulo { 
+    font-size: 2rem;
+}
+
+.popup__card__text__descripcion {
+    font-size: 1rem;
+}
+
+.popup__x {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    cursor: pointer;
+}
