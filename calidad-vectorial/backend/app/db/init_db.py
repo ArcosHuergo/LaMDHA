@@ -1,6 +1,134 @@
 from sqlalchemy.orm import Session
-from app.models import Usuario, Zona, Pasillo, Aula, Patio
+from app.models import Usuario, Zona, Pasillo, Aula, Patio, Laboratorio, Biblioteca
 from app.services.security.usuario_service import UsuarioService
+
+AULAS_SEED = [
+    {"nombre": "Aula-EP1-Blanco-1", "referencia": "A1", "color_zona": "Blanco",
+     "descripcion": "Aula ubicada en el Entre Piso 1, sector Blanco, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-EP1-Blanco-3", "referencia": "A3", "color_zona": "Blanco",
+     "descripcion": "Aula ubicada en el Entre Piso 1 con vista al patio, sector Blanco, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-EP1-Naranja-1", "referencia": "A1", "color_zona": "Naranja",
+     "descripcion": "Aula ubicada en el Entre Piso 1, sector Naranja, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-EP1-Naranja-2", "referencia": "A2", "color_zona": "Naranja",
+     "descripcion": "Aula ubicada en el Entre Piso 1, sector Naranja, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-EP1-Naranja-3", "referencia": "A3", "color_zona": "Naranja",
+     "descripcion": "Aula ubicada en el Entre Piso 1, sector Naranja, destinada al dictado de clases teóricas y cuenta con un equipo audiovisual."},
+    {"nombre": "Aula-EP1-Naranja-6", "referencia": "A6", "color_zona": "Naranja",
+     "descripcion": "Aula ubicada en el Entre Piso 1, sector Naranja, destinada al dictado de clases teóricas con vista a la escalera y biblioteca."},
+    {"nombre": "Aula-P1-Amarillo-2", "referencia": "A2", "color_zona": "Amarillo",
+     "descripcion": "Aula ubicada en el Piso 1, sector Amarillo, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-P1-Gris-4", "referencia": "A4", "color_zona": "Gris",
+     "descripcion": "Aula ubicada en el Piso 1 en frente del mástil, sector Gris, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-P2-Blanco-4", "referencia": "A4", "color_zona": "Blanco",
+     "descripcion": "Aula ubicada en el Piso 2, sector Blanco, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-P2-Blanco-5", "referencia": "A5", "color_zona": "Blanco",
+     "descripcion": "Aula ubicada en el Piso 2, sector Blanco, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-P2-Blanco-6", "referencia": "A6", "color_zona": "Blanco",
+     "descripcion": "Aula ubicada en el Piso 2, sector Blanco, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-P2-Blanco-7", "referencia": "A7", "color_zona": "Blanco",
+     "descripcion": "Aula ubicada en el Piso 2, sector Blanco, destinada al dictado de clases teóricas."},
+    {"nombre": "Aula-P2-Rojo-7", "referencia": "A7", "color_zona": "Rojo",
+     "descripcion": "Aula ubicada en el Piso 2 al lado del salón de actos, sector Rojo, destinada al dictado de clases teóricas."},
+]
+
+LABORATORIOS_SEED = [
+    {"nombre": "Laboratorio-P2-Rojo-10", "referencia": "A10", "color_zona": "Rojo",
+     "descripcion": "Laboratorio de computación ubicado en Piso 2, sector Rojo, destinado al desarrollo de actividades prácticas de la especialidad de Computación."},
+    {"nombre": "Laboratorio-PB-Violeta-4", "referencia": "L4", "color_zona": "Violeta",
+     "descripcion": "Laboratorio de electrónica ubicado en Planta baja, sector Violeta, destinado al desarrollo de actividades prácticas de la especialidad de Electrónica."},
+    {"nombre": "Laboratorio-PB-Violeta-5", "referencia": "L5", "color_zona": "Violeta",
+     "descripcion": "Laboratorio de química ubicado en Planta baja, sector Violeta, destinado al desarrollo de actividades prácticas de la especialidad de Química."},
+    {"nombre": "Laboratorio-PB-Violeta-7", "referencia": "L7", "color_zona": "Violeta",
+     "descripcion": "Laboratorio de electrónica ubicado en Planta baja, sector Violeta, destinado al desarrollo de actividades prácticas de la especialidad de Electrónica y Energías Renovables."},
+]
+
+PATIOS_SEED = [
+    {"nombre": "Patio-P1-Amarillo", "referencia": "P1", "color_zona": "Amarillo",
+     "descripcion": "Patio ubicado en el Piso 1, sector Amarillo, destinado al uso del comedor."},
+]
+
+PASILLOS_SEED = [
+    {"nombre": "Pasillo-P1-Amarillo", "color_zona": "Amarillo",
+     "descripcion": "Pasillo ubicado en Piso 1, sector Amarillo."},
+    {"nombre": "Pasillo-PB-Azul", "color_zona": "Azul",
+     "descripcion": "Pasillo ubicado en Planta Baja, sector Azul."},
+    {"nombre": "Pasillo-PB-Violeta", "color_zona": "Violeta",
+     "descripcion": "Pasillo ubicado en Planta Baja, sector Violeta."},
+]
+
+BIBLIOTECA_SEED = [
+    {"nombre": "Biblioteca-EP1-Biblioteca", "referencia": "Biblioteca", "color_zona": "Biblioteca",
+     "descripcion": "Biblioteca ubicada en Entre Piso 1."},
+]
+
+def _obtener_o_crear_zona(db: Session, cache: dict[str, Zona], color: str) -> Zona:
+    if color not in cache:
+        zona = db.query(Zona).filter(Zona.color == color).first()
+        if not zona:
+            zona = Zona(color=color)
+            db.add(zona)
+            db.flush()
+        cache[color] = zona
+    return cache[color]
+
+
+def _seed_aulas(db: Session, cache: dict[str, Zona]) -> None:
+    for data in AULAS_SEED:
+        if db.query(Aula).filter(Aula.nombre == data["nombre"]).first():
+            continue
+        zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
+        zona.aula.append(Aula(
+            nombre=data["nombre"],
+            referencia=data["referencia"],
+            descripcion=data["descripcion"],
+        ))
+
+
+def _seed_laboratorios(db: Session, cache: dict[str, Zona]) -> None:
+    for data in LABORATORIOS_SEED:
+        if db.query(Laboratorio).filter(Laboratorio.nombre == data["nombre"]).first():
+            continue
+        zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
+        zona.laboratorio.append(Laboratorio(
+            nombre=data["nombre"],
+            referencia=data["referencia"],
+            descripcion=data["descripcion"],
+        ))
+
+
+def _seed_pasillos(db: Session, cache: dict[str, Zona]) -> None:
+    for data in PASILLOS_SEED:
+        if db.query(Pasillo).filter(Pasillo.nombre == data["nombre"]).first():
+            continue
+        zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
+        zona.pasillo = Pasillo(
+            nombre=data["nombre"],
+            descripcion=data["descripcion"],
+        )
+
+
+def _seed_patios(db: Session, cache: dict[str, Zona]) -> None:
+    for data in PATIOS_SEED:
+        if db.query(Patio).filter(Patio.nombre == data["nombre"]).first():
+            continue
+        zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
+        zona.patio = Patio(
+            nombre=data["nombre"],
+            referencia=data["referencia"],
+            descripcion=data["descripcion"],
+        )
+
+
+def _seed_bibliotecas(db: Session, cache: dict[str, Zona]) -> None:
+    for data in BIBLIOTECA_SEED:
+        if db.query(Biblioteca).filter(Biblioteca.nombre == data["nombre"]).first():
+            continue
+        zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
+        zona.biblioteca = Biblioteca(
+            nombre=data["nombre"],
+            referencia=data["referencia"],
+            descripcion=data["descripcion"],
+        )
 
 def init_db(db: Session) -> None:
 
@@ -8,7 +136,7 @@ def init_db(db: Session) -> None:
     usuario = db.query(Usuario).filter(Usuario.username == "test@test").first()
     if not usuario:
         usuario = Usuario(
-            username = "test@test.com",
+            username = "test@test",
             password = UsuarioService.hash_password("test123"),
             nickname = "Usuario Test",
         )
@@ -16,24 +144,13 @@ def init_db(db: Session) -> None:
         db.commit()
         db.refresh(usuario)
 
-    # --- Zona ---
-    zona = db.query(Zona).filter(Zona.color == "Verde").first()
-    if not zona:
-        zona = Zona(
-            color = "Verde",
-        )
-        db.add(zona)
-        db.flush()
-
-    # --- Pasillo, Aula y Patio ---
-    if not db.query(Pasillo).filter(Pasillo.nombre == "Pasillo 1").first():
-        zona.pasillo = Pasillo(nombre="Pasillo 1", descripcion="Pasillo test")
-
-    if not db.query(Aula).filter(Aula.nombre == "Aula 101").first():
-        zona.aula.append(Aula(nombre="Aula 101", referencia="A1", descripcion="Aula test"))
-
-    if not db.query(Patio).filter(Patio.nombre == "Patio 1").first():
-        zona.patio = Patio(nombre="Patio 1", referencia="P1", descripcion="Patio test")
+    # --- Zonas, aulas, laboratorios, pasillos y patios ---
+    zonas_cache: dict[str, Zona] = {}
+    _seed_aulas(db, zonas_cache)
+    _seed_laboratorios(db, zonas_cache)
+    _seed_pasillos(db, zonas_cache)
+    _seed_patios(db, zonas_cache)
+    _seed_bibliotecas(db, zonas_cache)
 
     db.commit()
     print("Seed ejecutado correctamente.")
