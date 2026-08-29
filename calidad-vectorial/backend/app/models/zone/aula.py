@@ -12,6 +12,6 @@ class Aula(Base):
 
     #aula
     zona_id = Column(Integer, ForeignKey("zona.id"), nullable=False)
-    zona = relationship("Zona", back_populates="aulas")
+    zona = relationship("Zona", back_populates="aula")
 
     hoja_registro = relationship("HojaRegistro", back_populates="aula")

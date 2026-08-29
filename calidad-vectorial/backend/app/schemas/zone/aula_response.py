@@ -5,4 +5,3 @@ class AulaResponseSchema(BaseModel):
     nombre: str
     referencia: str
     descripcion: str
-

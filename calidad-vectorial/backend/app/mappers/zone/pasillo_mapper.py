@@ -10,6 +10,6 @@ class PatioMapper:
         return Pasillo(id=schema.id, nombre=schema.nombre, descripcion=schema.descripcion, zona=ZonaMapper.to_entity(schema.zona)) 
 
     @staticmethod
-    def to_schema(entity: Pasillo) -> Pasillo:
+    def to_schema(entity: Pasillo) -> PasilloResponseSchema:
         return PasilloResponseSchema(id=entity.id, nombre=entity.nombre, descripcion=entity.descripcion, zona_id=entity.zona_id, zona=entity.zona)
 

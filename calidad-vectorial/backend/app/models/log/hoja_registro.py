@@ -15,6 +15,10 @@ class HojaRegistro(Base):
     aula_id = Column(Integer, ForeignKey("aula.id"), nullable=True)
     aula = relationship("Aula", back_populates="hoja_registro")
 
+    #laboratorio uno a uno
+    labo_id = Column(Integer, ForeignKey("laboratorio.id"), nullable=True)
+    laboratorio = relationship("Laboratorio", back_populates="hoja_registro")
+
     #pasillo uno a uno
     pasillo_id = Column(Integer, ForeignKey("pasillo.id"), nullable=True)
     pasillo = relationship("Pasillo", back_populates="hoja_registro", uselist=False)

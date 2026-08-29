@@ -9,10 +9,13 @@ class Zona(Base):
     color = Column(String(15), unique=True, nullable=False)
 
     #aula uno a muchos
-    aulas = relationship("Aula", back_populates="zona")
+    aula = relationship("Aula", back_populates="zona")
+
+    #laboratorio uno a muchos
+    laboratorio = relationship("Laboratorio", back_populates="zona")
 
     #pasillo uno a uno
     pasillo = relationship("Pasillo", back_populates="zona", uselist=False)
 
-    #patio
+    #patio 
     patio = relationship("Patio", back_populates="zona", uselist=False)

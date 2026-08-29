@@ -8,9 +8,8 @@ service = AulaService()
 
 @router.get("/aula/", tags=["Aula"])
 def obtener_aulas():
-    return service.obtener_todos_las_aulas()
+    return service.obtener_todas_las_aulas()
 
 @router.get("/aula/{id}", tags=["Aula"])
 def obtener_aula_por_id(id: int):
     return service.obtener_aula_por_id(id)
-
