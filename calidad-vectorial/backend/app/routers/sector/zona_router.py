@@ -3,7 +3,6 @@ from fastapi.responses import JSONResponse
 
 from app.services.sector.zona_service import ZonaService
 from app.mappers.sector.zona_mapper import ZonaMapper
-from app.schemas.sector.zona_response import ZonaResponseSchema
 
 router = APIRouter()
 zona_service = ZonaService()
