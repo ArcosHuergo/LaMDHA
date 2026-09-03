@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import CircularGallery from "../../elements/gallery/CircularGallery";
 import { Button } from "../../elements/buttons/Button";
 import { PopUpSeleccion } from "../../elements/popup/PopUpSeleccion";
+import { PopUpCarga } from "../../elements/popup/PopUpCarga";
 
 import { Items } from "./Items";
 
@@ -47,9 +48,9 @@ export const Galeria = () => {
 
             {fotoSeleccionada && (
                 <PopUpSeleccion
-                titulo={fotoSeleccionada.text}
-                foto={fotoSeleccionada.image}
-                onClose={cerrarPopUp}
+                    titulo={fotoSeleccionada.text}
+                    foto={fotoSeleccionada.image}
+                    onClose={cerrarPopUp}
                 >
                     {fotoSeleccionada.description}
                 </PopUpSeleccion>

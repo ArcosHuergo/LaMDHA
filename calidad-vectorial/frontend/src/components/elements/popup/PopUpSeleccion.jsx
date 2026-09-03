@@ -2,7 +2,7 @@ import X from "../../../assets/img/brand/x.svg?react";
 import { Button } from "../buttons/Button";
 import "./Popup.css";
 
-export const PopUp = ({ children, foto, onClose, titulo }) => {
+export const PopUpSeleccion = ({ children, foto, onClose, titulo }) => {
     const bloquearEvento = (e) => {
         e.stopPropagation();
     };
