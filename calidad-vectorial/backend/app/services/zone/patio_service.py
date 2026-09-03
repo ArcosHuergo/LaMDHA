@@ -3,10 +3,10 @@ from app.repositories.zone.patio_repository import PatioRepository
 
 class PatioService:
     def __init__(self):
-        self.repo = PatioRepository()
+        self.patio_repository = PatioRepository()
 
     def obtener_todos_los_patios(self) -> list[Patio]:
-        return self.repo.find_all()
+        return self.patio_repository.find_all()
     
     def obtener_patio_por_id(self, id: int) -> Patio:
-        return self.repo.find_by_id(id)
+        return self.patio_repository.find_by_id(id)

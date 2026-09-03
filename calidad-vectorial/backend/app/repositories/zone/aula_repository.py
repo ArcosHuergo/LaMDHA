@@ -10,3 +10,7 @@ class AulaRepository:
     @with_db
     def find_by_id(self, db, id_aula: int) -> Aula | None:
         return db.query(Aula).filter(Aula.id == id_aula).first()
+
+    @with_db
+    def find_by_nombre(self, db, nombre: str) -> Aula | None:
+        return db.query(Aula).filter(Aula.nombre == nombre).first()

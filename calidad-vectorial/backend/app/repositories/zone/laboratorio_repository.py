@@ -10,3 +10,7 @@ class LaboratorioRepository:
     @with_db
     def find_by_id(self, db, id_laboratorio: int) -> Laboratorio | None:
         return db.query(Laboratorio).filter(Laboratorio.id == id_laboratorio).first()
+
+    @with_db
+    def find_by_nombre(self, db, nombre: str) -> Laboratorio | None:
+        return db.query(Laboratorio).filter(Laboratorio.nombre == nombre).first()

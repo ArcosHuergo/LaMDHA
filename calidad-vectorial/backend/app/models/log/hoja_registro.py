@@ -27,4 +27,8 @@ class HojaRegistro(Base):
     patio_id = Column(Integer, ForeignKey("patio.id"), nullable=True)
     patio = relationship("Patio", back_populates="hoja_registro", uselist=False)
 
+    #biblioteca uno a uno
+    biblioteca_id = Column(Integer, ForeignKey("biblioteca.id"), nullable=True)
+    biblioteca = relationship("Biblioteca", back_populates="hoja_registro", uselist=False)
+
     confianza = Column(Numeric(5, 4), nullable=False)
