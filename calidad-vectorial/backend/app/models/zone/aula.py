@@ -6,8 +6,8 @@ class Aula(Base):
     __tablename__ = "aula"
 
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String(150), nullable=False)
-    referencia = Column(String(10), nullable=False)
+    nombre = Column(String(150), nullable=False, unique=True)
+    referencia = Column(String(10), nullable=False, unique=True)
     descripcion = Column(String(255), nullable=False)
 
     #aula

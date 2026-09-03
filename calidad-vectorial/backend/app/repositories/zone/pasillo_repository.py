@@ -11,3 +11,6 @@ class PasilloRepository:
     def find_by_id(self, db, id_pasillo: int) -> Pasillo | None:
         return db.query(Pasillo).filter(Pasillo.id == id_pasillo).first()
 
+    @with_db
+    def find_by_nombre(self, db, nombre: str) -> Pasillo | None:
+        return db.query(Pasillo).filter(Pasillo.nombre == nombre).first()
