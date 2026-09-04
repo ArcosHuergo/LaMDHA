@@ -49,7 +49,7 @@ export const AuthPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         try {
-            if (currentForm === "login") {         
+            if (currentForm === "login") {
                 handleLogin({ username, password, controllerRef, setIsDisabled, setError, navigate })
             } else if (currentForm === "register") {
                 handleRegister({ username, password, verificationPassword, controllerRef, setIsDisabled, setError, navigate })

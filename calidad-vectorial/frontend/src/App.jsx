@@ -4,6 +4,7 @@ import { SobreNosotros } from "./components/pages/aboutus/SobreNosotros"
 import { AuthPage } from "./components/pages/auth/AuthPage";
 import { Index } from "./components/pages/index/Index";
 import { Galeria } from "./components/pages/gallery/Galeria";
+import { Mapa } from "./components/pages/map/Mapa";
 
 export const App = () => {
     return (
@@ -12,6 +13,7 @@ export const App = () => {
                 <Route path="/" element={<SobreNosotros/>} />
                 <Route path="/login" element={<AuthPage/>} />
                 <Route path="/register" element={<AuthPage/>} />
+                <Route path="/mapa" element={<Mapa/>} />
                 <Route path="/index" element={<Index/>} />
                 <Route element={<Layout />}>
                     <Route path="/galeria" element={<Galeria />} />

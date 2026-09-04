@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { usePost } from "../../utils/fetch/FetchUtils";
 
 import CircularGallery from "../../elements/gallery/CircularGallery";
 import { Button } from "../../elements/buttons/Button";
@@ -10,7 +12,12 @@ import { Items } from "./Items";
 import "./Galeria.css"
 
 export const Galeria = () => {
+    const navigate = useNavigate();
+
     const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
+    const [archivo, setArchivo] = useState(null);
+
+    const { loading, error, execute } = usePost("vision/ubicacion");
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -18,6 +25,42 @@ export const Galeria = () => {
 
     const cerrarPopUp = () => {
         setFotoSeleccionada(null);
+    };
+
+    // Arma el FormData, manda la request y navega a /mapa si sale bien.
+    // La usan tanto el botón de subir imagen como el "Seleccionar" del popup.
+    const enviarImagen = async (archivoImagen) => {
+        const formData = new FormData();
+        formData.append("imagen", archivoImagen);
+
+        const resultado = await execute(formData);
+
+        if (resultado) {
+            navigate("/mapa", { state: resultado });
+        }
+    };
+
+    const handleEnviarImagen = () => {
+        if (!archivo) return;
+        enviarImagen(archivo);
+    };
+
+    // Las imágenes de la galería están en /public: hay que traerlas como blob
+    // y armar un File antes de mandarlas, para que lleguen igual que una subida manual.
+    const handleSeleccionarFoto = async () => {
+        if (!fotoSeleccionada) return;
+
+        try {
+            const respuestaImagen = await fetch(fotoSeleccionada.image);
+            const blob = await respuestaImagen.blob();
+            const nombreArchivo = fotoSeleccionada.image.split("/").pop();
+            const archivoImagen = new File([blob], nombreArchivo, { type: blob.type });
+            cerrarPopUp();
+
+            await enviarImagen(archivoImagen);
+        } catch (err) {
+            console.error("No se pudo preparar la imagen seleccionada:", err);
+        }
     };
 
     return (
@@ -43,19 +86,30 @@ export const Galeria = () => {
                 />
             </div>
             <span className='galeria__or'>or</span>
-            
-            <Button variant='subir'>Sube tu imagen</Button>
+
+            <Button
+                variant='subir'
+                file={archivo}
+                onFileChange={setArchivo}
+                onClick={handleEnviarImagen}
+            >
+                Sube tu imagen
+            </Button>
+
+            {loading && (
+                <PopUpCarga />
+            )}
 
             {fotoSeleccionada && (
                 <PopUpSeleccion
                     titulo={fotoSeleccionada.text}
                     foto={fotoSeleccionada.image}
                     onClose={cerrarPopUp}
+                    onSeleccionar={handleSeleccionarFoto}
                 >
                     {fotoSeleccionada.description}
                 </PopUpSeleccion>
             )}
-            
         </main>
     );
 }

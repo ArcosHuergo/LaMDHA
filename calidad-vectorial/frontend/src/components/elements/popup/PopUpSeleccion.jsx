@@ -1,8 +1,8 @@
-import X from "../../../assets/img/brand/x.svg?react";
+import X from "../../../assets/img/icons/x.svg?react";
 import { Button } from "../buttons/Button";
 import "./Popup.css";
 
-export const PopUpSeleccion = ({ children, foto, onClose, titulo }) => {
+export const PopUpSeleccion = ({ children, foto, onClose, onSeleccionar, titulo }) => {
     const bloquearEvento = (e) => {
         e.stopPropagation();
     };
@@ -26,7 +26,7 @@ export const PopUpSeleccion = ({ children, foto, onClose, titulo }) => {
                         <p className="popup__card__text__descripcion">{children}</p>
                     </div>
                     <div>
-                        <Button>Seleccionar</Button>
+                        <Button onClick={onSeleccionar}>Seleccionar</Button>
                     </div>
                 </div>
                 <div className="popup__x" onClick={onClose}>

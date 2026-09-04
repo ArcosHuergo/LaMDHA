@@ -48,7 +48,7 @@
     padding-right: 20px;
 }
 
-.popup__card__text__titulo { 
+.popup__card__text__titulo {
     font-size: 2rem;
 }
 
@@ -92,16 +92,28 @@
     position: absolute;
     bottom: 220px;
     left: 51%;
+    animation: cargando 1200ms 0ms infinite;
 }
 
 .pop__card__carga__mascota__nubecita--dos {
+    display: block;
     position: absolute;
     bottom: 200px;
     left: 44%;
+    animation: cargando 1200ms 600ms infinite;
 }
 
 .pop__card__carga__mascota__pandha {
     position: absolute;
     bottom: 30px;
     left: 0;
+}
+
+@keyframes cargando {
+    0%,50% {
+        display: none;
+    }
+    100% {
+        display: block;
+    }
 }

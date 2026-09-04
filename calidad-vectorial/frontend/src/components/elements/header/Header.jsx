@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import LaMDHA from "../../../assets/img/brand/lamdha.svg?react";
-import Usuario from "../../../assets/img/brand/usuario.svg?react";
+import Usuario from "../../../assets/img/icons/usuario.svg?react";
 
 import "./Header.css"
 
