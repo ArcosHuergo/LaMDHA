@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from app.services.security.jwt_service import jwt_service
 
-PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register"}
+PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register", "/vision/ubicacion"}
 
 class JwtAuthFilter(HTTPBearer):
     def __init__(self, auto_error: bool = True):

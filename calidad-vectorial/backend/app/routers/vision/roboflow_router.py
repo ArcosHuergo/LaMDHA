@@ -25,8 +25,11 @@ async def clasificar_imagen_ubicacion(request: Request, imagen: UploadFile = Fil
             detail=f"No se pudo clasificar la imagen: {error}",
         )
 
-    usuario = usuario_service.obtener_usuario_por_username(request.state.username)
-    url_foto = guardar_foto(contenido, imagen.filename or "foto.jpg")
-    registro_service.registrar_clasificacion(usuario, url_foto, prediction)
+    try:
+        usuario = usuario_service.obtener_usuario_por_username(request.state.username)
+        url_foto = guardar_foto(contenido, imagen.filename or "foto.jpg")
+        registro_service.registrar_clasificacion(usuario, url_foto, prediction)
+    except AttributeError as error:
+        pass
 
     return prediction
