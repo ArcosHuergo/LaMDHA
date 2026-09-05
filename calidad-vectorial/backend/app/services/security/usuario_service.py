@@ -7,7 +7,7 @@ class UsuarioService:
     def __init__(self):
         self.usuario_repository = UsuarioRepository()
 
-    def obtener_todos_usuarios(self) -> list[Usuario]:
+    def obtener_todos_los_usuarios(self) -> list[Usuario]:
         return self.usuario_repository.find_all()
 
     def obtener_usuario_por_id(self, id: int) -> Usuario:

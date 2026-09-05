@@ -2,14 +2,16 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
 from app.services.security.usuario_service import UsuarioService
+from app.mappers.security.usuario_mapper import UsuarioMapper
+from app.schemas.security.usuario_response import UsuarioResponseSchema
 
-router = APIRouter()
-service = UsuarioService()
+router = APIRouter(prefix="/usuario", tags=["Usuario"])
+usuario_service = UsuarioService()
 
-@router.get("/usuario", tags=["Usuario"])
-def prueba():
-    return JSONResponse(content="prueba de usuario")
+@router.get("", response_model = list[UsuarioResponseSchema])
+def obtener_usuarios():
+    return UsuarioMapper.to_schema_list(usuario_service.obtener_todos_los_usuarios())
 
-@router.get("/usuario/{id}", tags=["Usuario"])
+@router.get("/{id}", response_model = UsuarioResponseSchema)
 def obtener_usuario_por_id(id: int):
-    return service.obtener_usuario_por_id(id)
+    return UsuarioMapper.to_schema(usuario_service.obtener_usuario_por_id(id))

@@ -6,6 +6,7 @@ from app.schemas.security.login import LoginSchema
 from app.schemas.security.register import RegisterSchema
 from app.services.security.usuario_service import UsuarioService
 from app.mappers.security.usuario_mapper import UsuarioMapper
+from app.schemas.security.usuario_response import UsuarioResponseSchema
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -55,6 +56,12 @@ def registrar(RegisterSchema: RegisterSchema, usuario_service: UsuarioService = 
 def validar_token(request: Request, _: str = Depends(JwtAuthFilter)):
     return {"detail": "Token válido", "username": request.state.username}
 
+@router.get("/me", response_model = UsuarioResponseSchema)
+def me(request: Request, usuario_service: UsuarioService = Depends(get_usuario_service)):
+    usuario = usuario_service.obtener_usuario_por_username(request.state.username)
+    if usuario is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Usuario no encontrado.")
+    return UsuarioMapper.to_schema(usuario)
 
 @router.post("/logout", status_code = status.HTTP_201_CREATED)
 def logout(response: Response):

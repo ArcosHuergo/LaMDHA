@@ -9,5 +9,9 @@ class UsuarioMapper:
         return Usuario(username=schema.username, nickname=schema.username)
 
     @staticmethod
-    def to_schema(entity: Usuario) -> Usuario:
+    def to_schema(entity: Usuario) -> UsuarioResponseSchema:
         return UsuarioResponseSchema(username=entity.username, nickname=entity.nickname)
+
+    @staticmethod
+    def to_schema_list(entites: list[Usuario] ) -> list[UsuarioResponseSchema]:
+        return [UsuarioMapper.to_schema(entity) for entity in entites]
