@@ -1,0 +1,38 @@
+.mapa {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+    padding: 0px 20px;
+}
+
+.mapa__img {
+    width: fit-content;
+    height: 380px;
+
+    background: var(--bg-surface);
+    backdrop-filter: opacity(52%);
+    padding: 10px;
+}
+
+.mapa__img {
+    object-fit: cover;
+}
+
+.mapa__img img {
+    padding: 0;
+}
+
+.mapa__cuadro {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    color: var(--text-primary);
+    background: var(--bg-surface);
+    padding: 30px;
+
+    width: 1;
+    flex: 1 1 0;
+    height: 200px;
+}
+

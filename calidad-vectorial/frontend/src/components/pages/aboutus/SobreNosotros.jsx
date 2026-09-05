@@ -30,13 +30,13 @@ export const SobreNosotros = () => {
                     <p className="sn-hero__text__subtitle">
                         Language Model for Detecting Huergo Areas
                     </p>
-                    <Button to="/login">Descubrir</Button>
+                    <Button to="/galeria">Descubrir</Button>
                 </div>
             </section>
 
-           <Header />
+            <Header />
 
-            <section className="sn-content">
+            <main className="sn-content">
                 <article className="sn-content__article">
                     <section className="sn-content__article__section">
                         <h3 className="sn-content__article__section__title">¿Qué es LaMDHA?</h3>
@@ -88,7 +88,7 @@ export const SobreNosotros = () => {
                     </section>
                     <div className="sn-content__article__delimiter"/>
                 </article>
-            </section>
+            </main>
         </>
     )
 }

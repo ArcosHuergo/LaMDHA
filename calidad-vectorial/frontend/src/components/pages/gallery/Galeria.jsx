@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePost } from "../../utils/fetch/FetchUtils";
+import { usePost, useFetch } from "../../utils/fetch/FetchUtils";
 
 import CircularGallery from "../../elements/gallery/CircularGallery";
 import { Button } from "../../elements/buttons/Button";
@@ -18,6 +18,7 @@ export const Galeria = () => {
     const [archivo, setArchivo] = useState(null);
 
     const { loading, error, execute } = usePost("vision/ubicacion");
+    const { data } = useFetch("auth/me");
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -81,20 +82,29 @@ export const Galeria = () => {
                     captionFontFamily="Orbitron"
                     captionFontSize={80}
                     captionFontWeight="600"
-                    highlightColor="#7F0090"
+                    highlightColor="#004AB8"
                     onItemClick={handleItemClick}
                 />
             </div>
             <span className='galeria__or'>or</span>
 
-            <Button
-                variant='subir'
-                file={archivo}
-                onFileChange={setArchivo}
-                onClick={handleEnviarImagen}
-            >
-                Sube tu imagen
-            </Button>
+            {data ? (
+                <Button
+                    variant='subir'
+                    file={archivo}
+                    onFileChange={setArchivo}
+                    onClick={handleEnviarImagen}
+                >
+                    Sube tu imagen
+                </Button>
+            ) : (
+                <Button
+                    to="login"
+                >
+                        Sube tu imagen
+                </Button>
+            )}
+            
 
             {loading && (
                 <PopUpCarga />
