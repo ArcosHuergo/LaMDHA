@@ -85,14 +85,15 @@
 .pop__card__carga__mascota__nube {
     position: absolute;
     bottom: 240px;
-    left: 50%;
+    left: 55%;
+    animation: cargando--nube 1500ms infinite;
 }
 
 .pop__card__carga__mascota__nubecita--uno {
     position: absolute;
     bottom: 220px;
-    left: 51%;
-    animation: cargando 1200ms 0ms infinite;
+    left: 54%;
+    animation: cargando--nubecita--uno 1500ms infinite;
 }
 
 .pop__card__carga__mascota__nubecita--dos {
@@ -100,7 +101,7 @@
     position: absolute;
     bottom: 200px;
     left: 44%;
-    animation: cargando 1200ms 600ms infinite;
+    animation: cargando--nubecita--dos 1500ms infinite;
 }
 
 .pop__card__carga__mascota__pandha {
@@ -111,6 +112,33 @@
 
 @keyframes cargando {
     0%,50% {
+        display: none;
+    }
+    100% {
+        display: block;
+    }
+}
+
+@keyframes cargando--nube {
+    0%, 60% {
+        display: none;
+    }
+    100% {
+        display: block;
+    }
+}
+
+@keyframes cargando--nubecita--uno {
+    0%, 30% {
+        display: none;
+    }
+    100% {
+        display: block;
+    }
+}
+
+@keyframes cargando--nubecita--dos {
+    0%, 10% {
         display: none;
     }
     100% {

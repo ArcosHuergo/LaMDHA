@@ -13,10 +13,10 @@ export const App = () => {
                 <Route path="/" element={<SobreNosotros/>} />
                 <Route path="/login" element={<AuthPage/>} />
                 <Route path="/register" element={<AuthPage/>} />
-                <Route path="/mapa" element={<Mapa/>} />
                 <Route path="/index" element={<Index/>} />
                 <Route element={<Layout />}>
                     <Route path="/galeria" element={<Galeria />} />
+                    <Route path="/mapa" element={<Mapa/>} />
                 </Route>
             </Routes>
         </Router>
