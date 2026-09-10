@@ -22,17 +22,43 @@
     padding: 0;
 }
 
-.mapa__cuadro {
+.mapa__side {
+    width: 1;
+    flex: 1 1 0;
+}
+
+.mapa__side__cuadro {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
 
     color: var(--text-primary);
     background: var(--bg-surface);
-    padding: 30px;
-
-    width: 1;
-    flex: 1 1 0;
-    height: 200px;
+    padding: 25px;
+    margin-bottom: 20px;
 }
 
+.mapa__side__cuadro__data {
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.mapa__side__cuadro__probabilidad {
+    text-align: end;
+    width: 50%;
+    align-self: flex-end;
+}
+
+.mapa__side__opinion {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+
+    color: var(--text-primary);
+    padding: 10px 5px 10px 5px;
+    border: var(--brand-purple) solid 2px;
+}
+
+.mapa__side__opinion__svg {
+    cursor: pointer;
+}
