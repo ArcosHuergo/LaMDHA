@@ -7,7 +7,7 @@ class Biblioteca(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String(150), unique=True, nullable=False)
-    referencia = Column(String(20), unique=True, nullable=False)
+    referencia = Column(String(20), nullable=False)
     descripcion = Column(String(255), nullable=False)
 
     zona_id = Column(Integer, ForeignKey("zona.id"), unique=True)
