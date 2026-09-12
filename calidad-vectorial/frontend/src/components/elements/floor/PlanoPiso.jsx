@@ -1,4 +1,3 @@
-import React from 'react'
 import { pisos } from "../../data/pisos";
 
 export const PlanoPiso = ({ piso, predicciones }) => {

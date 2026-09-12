@@ -13,7 +13,7 @@
 }
 
 .mapa__img {
-    width: 58%;
+    width: 60%;
     height: auto;
 
     display: flex;
@@ -50,7 +50,7 @@
 }
 
 .mapa__side__cuadro__data p {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .mapa__side__cuadro__probabilidad {

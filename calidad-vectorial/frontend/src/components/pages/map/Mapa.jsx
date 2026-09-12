@@ -15,6 +15,8 @@ export const Mapa = () => {
 
     const confianza = resultado.predicciones[0].confianza * 100;
 
+    const a = JSON.stringify(resultado);
+
     const [pisoActual, setPisoActual] = useState("P1");
 
     return (
@@ -28,6 +30,7 @@ export const Mapa = () => {
                         <h2>Aula</h2>
                         <p>Sector</p>
                         <p>Aula teórica</p>
+                        <p>{a}</p>
                     </div>
                     <div className="mapa__side__cuadro__probabilidad">
                         <p>{confianza}% de probabilidades de que estés en esta aula</p>
