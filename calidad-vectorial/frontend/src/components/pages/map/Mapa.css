@@ -1,30 +1,32 @@
 .mapa {
     display: flex;
     flex-flow: row nowrap;
-    gap: 20px;
+    gap: 2%;
+    margin-top: 10px;
     padding: 0px 20px;
 }
 
+.mapa__seleccion {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
 .mapa__img {
-    width: fit-content;
-    height: 380px;
+    width: 58%;
+    height: auto;
+
+    display: flex;
+    align-items: center;
 
     background: var(--bg-surface);
-    backdrop-filter: opacity(52%);
     padding: 10px;
-}
-
-.mapa__img {
-    object-fit: cover;
-}
-
-.mapa__img img {
-    padding: 0;
 }
 
 .mapa__side {
     width: 1;
     flex: 1 1 0;
+    max-width: 700px;
 }
 
 .mapa__side__cuadro {
@@ -34,29 +36,48 @@
 
     color: var(--text-primary);
     background: var(--bg-surface);
-    padding: 25px;
+    padding: 15px;
     margin-bottom: 20px;
 }
 
 .mapa__side__cuadro__data {
     gap: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
+}
+
+.mapa__side__cuadro__data h2 {
+    font-size: 30px;
+}
+
+.mapa__side__cuadro__data p {
+    font-size: 18px;
 }
 
 .mapa__side__cuadro__probabilidad {
+    font-size: 18px;
     text-align: end;
-    width: 50%;
+    width: 60%;
     align-self: flex-end;
 }
 
 .mapa__side__opinion {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
+    gap: 30px;
+
+    width: fit-content;
+
+    font-size: 18px;
 
     color: var(--text-primary);
-    padding: 10px 5px 10px 5px;
+    padding: 10px;
     border: var(--brand-purple) solid 2px;
+}
+
+.mapa__side__opinion__botones {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
 }
 
 .mapa__side__opinion__svg {

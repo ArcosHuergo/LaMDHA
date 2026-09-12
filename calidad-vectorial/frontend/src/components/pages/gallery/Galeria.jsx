@@ -7,7 +7,7 @@ import { Button } from "../../elements/buttons/Button";
 import { PopUpSeleccion } from "../../elements/popup/PopUpSeleccion";
 import { PopUpCarga } from "../../elements/popup/PopUpCarga";
 
-import { Items } from "./Items";
+import { items } from "../../data/items";
 
 import "./Galeria.css"
 
@@ -74,7 +74,7 @@ export const Galeria = () => {
                 }}
                 >
                 <CircularGallery
-                    items={Items}
+                    items={items}
                     bend={1.5}
                     captionBackgroundColor="#4F0084"
                     captionBorderRadius={0.15}

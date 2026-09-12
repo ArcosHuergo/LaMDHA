@@ -1,4 +1,4 @@
-export const Items = [
+export const items = [
   {
     image: "/examplephotos/classroom/fotoAula1.jpg",
     text: 'Aula',
