@@ -12,7 +12,7 @@ export const PlanoPiso = ({ piso, predicciones }) => {
 
     function getColorForConfidence(confidence) {
         if (confidence === null || confidence === undefined) {
-            return "hsl(0, 0%, 60%)";
+            return "hsl(0, 0%, 60%)"; // hsl(0, 85%, 54%)
         }
 
         const clamped = Math.max(0, Math.min(1, confidence));

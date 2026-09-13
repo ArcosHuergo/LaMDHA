@@ -26,7 +26,7 @@ export const handleLogin = async ({username, password, controllerRef, setIsDisab
     const respond = await loginRequest({ username, password }, controller.signal);
 
     if (respond.ok) {
-        navigate("/index");
+        navigate("/galeria");
     } else if (respond.message === "Error de conexión") {
         setError("Error de conexión");
     } else {
@@ -71,12 +71,12 @@ export const handleRegister = async ({username, password, verificationPassword, 
     setIsDisabled(true);
     
     try {
-        const respond = await postData("auth/register", 
+        const respond = await postData("auth/register",
             {username, password, verification_password : verificationPassword}, controller.signal);
 
         if (respond.ok) {
             await loginRequest({username, password});
-            navigate("/index");
+            navigate("/galeria");
         } else {
             const text = await respond.json();
             setError(text.detail);

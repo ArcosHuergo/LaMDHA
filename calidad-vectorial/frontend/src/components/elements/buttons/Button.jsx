@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Upload from "../../../assets/img/icons/upload.svg?react"
+import Upload from "../../../assets/img/icons/upload.svg?react";
 import "./Button.css";
 
 export const Button = ({
@@ -15,6 +15,24 @@ export const Button = ({
 }) => {
 
     if (variant === "subir") {
+        if (to) {
+            return (
+                <div className="btn-subir-group">
+                    <Link to={to} className={`btn btn--${variant} btn--${variant}--${color}`}>
+                        {children}
+                    </Link>
+                    <button
+                        type="button"
+                        className={`btn btn--enviar btn--enviar--${color}`}
+                        disabled={true}
+                        title="enviar"
+                    >
+                        <Upload />
+                    </button>
+                </div>
+            );
+        }
+
         const handleFileChange = (e) => {
             const selectedFile = e.target.files?.[0];
             if (selectedFile && onFileChange) {
@@ -52,13 +70,14 @@ export const Button = ({
         );
     }
 
-    if (to && !isDisabled) {
+    if (to) {
         return (
             <Link to={to} className={`btn btn--${variant} btn--${variant}--${color}`}>
                 {children}
             </Link>
         );
     }
+
     return (
         <button type={type} className={`btn btn--${variant} btn--${variant}--${color} btn--${isDisabled ? "disabled" : color}`} disabled={isDisabled} onClick={onClick}>
             {children}

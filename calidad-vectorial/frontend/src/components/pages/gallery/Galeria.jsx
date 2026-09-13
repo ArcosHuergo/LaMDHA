@@ -9,7 +9,7 @@ import { PopUpCarga } from "../../elements/popup/PopUpCarga";
 
 import { items } from "../../data/items";
 
-import "./Galeria.css"
+import "./Galeria.css";
 
 export const Galeria = () => {
     const navigate = useNavigate();
@@ -28,8 +28,6 @@ export const Galeria = () => {
         setFotoSeleccionada(null);
     };
 
-    // Arma el FormData, manda la request y navega a /mapa si sale bien.
-    // La usan tanto el botón de subir imagen como el "Seleccionar" del popup.
     const enviarImagen = async (archivoImagen) => {
         const formData = new FormData();
         formData.append("imagen", archivoImagen);
@@ -46,8 +44,6 @@ export const Galeria = () => {
         enviarImagen(archivo);
     };
 
-    // Las imágenes de la galería están en /public: hay que traerlas como blob
-    // y armar un File antes de mandarlas, para que lleguen igual que una subida manual.
     const handleSeleccionarFoto = async () => {
         if (!fotoSeleccionada) return;
 
@@ -88,8 +84,8 @@ export const Galeria = () => {
             </div>
             <span className='galeria__or'>or</span>
 
-            {data ? (
-                <Button
+            {data != "" && data !== null && data !== undefined ? (
+                    <Button
                     variant='subir'
                     file={archivo}
                     onFileChange={setArchivo}
@@ -99,9 +95,10 @@ export const Galeria = () => {
                 </Button>
             ) : (
                 <Button
-                    to="login"
+                    to="/login"
+                    variant="subir"
                 >
-                        Sube tu imagen
+                    Sube tu imagen
                 </Button>
             )}
             
