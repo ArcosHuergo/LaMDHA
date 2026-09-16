@@ -5,7 +5,8 @@ import PulgarArriba from "../../../assets/img/icons/pulgarArriba.svg?react";
 import PulgarAbajo from "../../../assets/img/icons/pulgarAbajo.svg?react";
 
 import { PlanoPiso } from "../../elements/floor/PlanoPiso";
-import { pisos } from "../../data/pisos";
+import { FachadaPisos } from "../../elements/floor/FachadaPisos";
+import { AscensorPisos } from "../../elements/floor/AscensorPisos";
 
 import "./Mapa.css";
 
@@ -13,16 +14,17 @@ export const Mapa = () => {
     const location = useLocation();
     const resultado = location.state;
 
-    const confianza = resultado.predicciones[0].confianza * 100;
+    const predicciones = resultado ? resultado.predicciones : undefined;
+    const confianza = resultado ? resultado.predicciones[0].confianza * 100 : "";
 
-    const a = JSON.stringify(resultado);
+    const a = resultado ? JSON.stringify(resultado) : "";
 
     const [pisoActual, setPisoActual] = useState("P1");
 
     return (
         <main className="mapa">
             <div className="mapa__img">
-                <PlanoPiso piso={pisoActual} predicciones={resultado.predicciones}/>
+                <PlanoPiso piso={pisoActual} predicciones={predicciones}/>
             </div>
             <div className="mapa__side">
                 <article className="mapa__side__cuadro">
@@ -30,7 +32,7 @@ export const Mapa = () => {
                         <h2>Aula</h2>
                         <p>Sector</p>
                         <p>Aula teórica</p>
-                        <p>{a}</p>
+                        {/* <p>{a}</p> */}
                     </div>
                     <div className="mapa__side__cuadro__probabilidad">
                         <p>{confianza}% de probabilidades de que estés en esta aula</p>
@@ -44,17 +46,14 @@ export const Mapa = () => {
                         <div className="mapa__side__opinion__svg"><PulgarAbajo /></div>
                     </div>
                 </div>
+
+                <div className="mapa__side__fachada">
+                    <FachadaPisos pisoActual={pisoActual} onClick={setPisoActual}/>
+                </div>
             </div>
-            <div className="mapa__seleccion">
-                {Object.keys(pisos).map((key) => (
-                    <button
-                        key={key}
-                        onClick={() => setPisoActual(key)}
-                        disabled={key === pisoActual}
-                    >
-                        {key}
-                    </button>
-                ))}
+
+            <div className="mapa__ascensor">
+                <AscensorPisos pisoActual={pisoActual} onClick={setPisoActual} />
             </div>
         </main>
     );

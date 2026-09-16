@@ -4,9 +4,9 @@ export const PlanoPiso = ({ piso, predicciones }) => {
     const data = pisos[piso];
     if (!data) return null;
 
-    const prediccionesPorZona = new Map(
+    const prediccionesPorZona = predicciones ? new Map(
         predicciones.map((p) => [p.clase, p.confianza])
-    );
+    ) : null;
 
     const { width, height, image, zonas } = data;
 
@@ -27,7 +27,7 @@ export const PlanoPiso = ({ piso, predicciones }) => {
         >
             <image href={image} width={width} height={height} preserveAspectRatio="none" />
             {zonas.map((zona) => {
-                const confidence = prediccionesPorZona.get(zona.className);
+                const confidence = prediccionesPorZona != null && prediccionesPorZona != undefined ? prediccionesPorZona.get(zona.className) : null;
                 const color = getColorForConfidence(confidence);
 
                 return (
