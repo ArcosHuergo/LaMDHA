@@ -1,13 +1,13 @@
 const pisos = [
-    { id: "PB", nombre: "Planta Baja",   lineY: 377.335, x1: 14.69,   x2: 274.832, diag: [0, 362.992] },
-    { id: "EPB", nombre: "Entrepiso PB.", lineY: 306.513, x1: 14.69,   x2: 551.495, diag: [0.366, 292.099] },
-    { id: "P1", nombre: "Primer Piso",   lineY: 230.087, x1: 291.724, x2: 551.865, diag: [277.033, 217.494] },
-    { id: "EP1", nombre: "Entrepiso P1.",  lineY: 172.314, x1: 289.518, x2: 549.659, diag: [274.827, 157.972] },
-    { id: "P2", nombre: "Segundo Piso",  lineY: 113.895, x1: 288.415, x2: 548.557, diag: [273.725, 99.552] },
-    { id: "P3", nombre: "Tercer Piso",   lineY: 55.475,  x1: 291.724, x2: 551.865, diag: [277.033, 41.132] },
+    { id: "PB",  nombre: "Planta Baja",    lineY: 377.335, x1: 14.69,   x2: 274.832 },
+    { id: "EPB", nombre: "Entrepiso PB.",  lineY: 306.513, x1: 14.69,   x2: 551.495 },
+    { id: "P1",  nombre: "Primer Piso",    lineY: 230.087, x1: 291.724, x2: 551.865 },
+    { id: "EP1", nombre: "Entrepiso P1.",  lineY: 172.314, x1: 289.518, x2: 549.659 },
+    { id: "P2",  nombre: "Segundo Piso",   lineY: 113.895, x1: 288.415, x2: 548.557 },
+    { id: "P3",  nombre: "Tercer Piso",    lineY: 55.475,  x1: 291.724, x2: 551.865 },
 ];
 
-const DIAG = "matrix(0.707105 0.707108 -0.707105 0.707108";
+const DIAG_LEN = 20.675 * Math.SQRT1_2; // ≈ 14.622
 
 export const FachadaPisos = ({ pisoActual, onClick }) => {
     return (
@@ -21,26 +21,27 @@ export const FachadaPisos = ({ pisoActual, onClick }) => {
                     <g
                         key={piso.id}
                         onClick={() => onClick(piso.id)}
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: "pointer", transition: "all 200ms ease-in-out" }}
                         opacity={seleccionado ? 1 : 0.8}
                     >
-                        <line
-                            x1={piso.x1} y1={piso.lineY} x2={piso.x2} y2={piso.lineY}
-                            stroke="#FAFAFA" strokeWidth={w}
-                        />
-                        <line
-                            y1={-w / 2} x2={20.675} y2={-w / 2}
-                            transform={`${DIAG} ${piso.diag[0]} ${piso.diag[1]})`}
-                            stroke="#FAFAFA" strokeWidth={w}
+                        <path
+                            d={`M ${piso.x1 - DIAG_LEN} ${piso.lineY - DIAG_LEN}
+                                L ${piso.x1} ${piso.lineY}
+                                L ${piso.x2} ${piso.lineY}`}
+                            fill="none"
+                            stroke="#FAFAFA"
+                            strokeWidth={w}
+                            strokeLinejoin="round"
+                            style={{ transition: "stroke-width 200ms ease-in-out" }}
                         />
                         <text
                             x={piso.x1 + 4.5}
                             y={piso.lineY - 13.5}
-                            style={{ userSelect: "none" }}
                             fill="#FAFAFA"
                             fontSize={15}
                             fontFamily="Poppins"
                             fontWeight={seleccionado ? 700 : 500}
+                            style={{ userSelect: "none"}}
                         >
                             {piso.nombre}
                         </text>
