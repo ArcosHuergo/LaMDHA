@@ -51,7 +51,7 @@ export const Button = ({
                     {children}
                     <input
                         type="file"
-                        accept=".jpg,.jpeg,image/jpeg"
+                        accept=".png,.jpg,.jpeg,image/jpeg"
                         onChange={handleFileChange}
                         hidden
                     />
