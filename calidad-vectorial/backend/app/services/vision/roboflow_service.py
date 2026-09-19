@@ -1,24 +1,3 @@
-"""
-Cliente para el workflow de Roboflow "lamdha — Base Workflow"
-(workspace "ignacios-workspace", workflow_id "lamdha").
-
-El workflow clasifica una imagen en una ubicación del edificio
-(aula/pasillo/patio/laboratorio, ej. "Pasillo-PB-Azul") usando el modelo de
-clasificación del proyecto Roboflow "lamdha".
-
-IMPORTANTE — bug conocido en el workflow guardado en Roboflow:
-El paso de clasificación del workflow guardado ("lamdha") todavía apunta al
-model_id "ubicacion-huergo/6", que no existe (404). El model_id correcto es
-"lamdha/9" (o la versión vigente del proyecto "lamdha" en el workspace
-"ignacios-workspace"). Al ser un "project base workflow", Roboflow lo protege
-contra ediciones vía API, así que hay que corregirlo a mano desde la UI de
-Roboflow (editar el bloque de clasificación del workflow y apuntarlo al
-model_id correcto) antes de que las llamadas de este módulo funcionen.
-Este módulo llama al workflow por su workflow_id ("lamdha"), no al modelo
-directamente, para que siga reflejando cualquier cambio futuro que se haga
-al workflow en la UI de Roboflow.
-"""
-
 from __future__ import annotations
 
 import logging
@@ -58,19 +37,12 @@ def _build_client() -> InferenceHTTPClient:
         api_url=settings.roboflow_api_url,
         api_key=settings.roboflow_api_key,
     )
-    # Los reintentos los maneja esta función explícitamente (ver más abajo),
-    # así que desactivamos el reintento implícito del SDK para no duplicarlos.
+
     client.configure(InferenceConfiguration(workflow_run_retries_enabled=False))
     return client
 
 
 def _parse_prediction(raw_results: list[dict[str, Any]]) -> RoboflowPrediction:
-    """
-    Parsea defensivamente la respuesta real de `run_workflow` (lista con una
-    entrada por imagen de entrada). No asume más estructura que la que el
-    workflow realmente declara como outputs: "predictions", "inference_id",
-    "model_id".
-    """
     if not raw_results:
         raise RoboflowInferenceError("El workflow no devolvió resultados.")
 
@@ -98,19 +70,6 @@ def _parse_prediction(raw_results: list[dict[str, Any]]) -> RoboflowPrediction:
 
 
 def _parse_predicciones(predictions_block: dict[str, Any]) -> list[ClassPrediction]:
-    """
-    Arma UNA lista con todas las clases devueltas, incluida la ganadora,
-    ordenada de mayor a menor confianza (la ganadora queda en predicciones[0]).
-
-    Fuente principal: la lista interna `predictions_block["predictions"]`
-    (cada clase que superó el umbral de confianza). Se ignora silenciosamente
-    cualquier entrada con forma inesperada en lugar de abortar todo el parseo.
-
-    Red de seguridad: si por algún motivo la clase ganadora ("top"/"confidence")
-    no apareciera ya en esa lista interna, se agrega igual — así el dato
-    esencial (la ubicación ganadora) nunca se pierde aunque la lista interna
-    venga incompleta.
-    """
     predicciones: list[ClassPrediction] = []
 
     raw_class_predictions = predictions_block.get("predictions")
@@ -143,27 +102,7 @@ def clasificar_ubicacion(
     timeout: float = DEFAULT_TIMEOUT_SECONDS,
     max_retries: int = DEFAULT_MAX_RETRIES,
 ) -> RoboflowPrediction:
-    """
-    Ejecuta el workflow "lamdha" sobre una imagen y devuelve la ubicación
-    predicha (aula/pasillo/patio/laboratorio) y su confianza.
-
-    Args:
-        image: cualquier formato soportado por inference-sdk para el input
-            "image" del workflow: URL https, path local, numpy array,
-            PIL.Image o string base64.
-        confidence: valor para el parámetro "confidence" declarado por el
-            workflow (default 0.4, igual que en la definición del workflow).
-        timeout: tiempo máximo en segundos por intento.
-        max_retries: reintentos adicionales (con backoff exponencial) ante
-            errores de red o del servidor.
-
-    Returns:
-        RoboflowPrediction con la ubicación y confianza predichas.
-
-    Raises:
-        RoboflowInferenceError: si falta la API key, si todos los intentos
-            fallan, o si la respuesta no tiene la forma esperada.
-    """
+    
     client = _build_client()
 
     last_error: Exception | None = None
