@@ -38,7 +38,7 @@ export const FachadaPisos = ({ pisoActual, onClick }) => {
                             x={piso.x1 + 4.5}
                             y={piso.lineY - 13.5}
                             fill="#FAFAFA"
-                            fontSize={15}
+                            fontSize={20}
                             fontFamily="Poppins"
                             fontWeight={seleccionado ? 700 : 500}
                             style={{ userSelect: "none"}}

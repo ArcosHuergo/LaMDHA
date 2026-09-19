@@ -4,8 +4,8 @@
     flex-flow: row nowrap;
     gap: 2%;
 
-    min-width: 1320px;
-    min-height: 590px;
+    min-width: 1220px;
+    min-height: 550px;
 
     padding: 0px 20px;
     position: relative;
@@ -92,7 +92,7 @@
 }
 
 .mapa__side__fachada {
-    width: 125%;
+    width: 115%;
     justify-self: end;
     align-self: end;
     margin-top: 10px;
