@@ -8,6 +8,8 @@ import { PlanoPiso } from "../../elements/floor/PlanoPiso";
 import { FachadaPisos } from "../../elements/floor/FachadaPisos";
 import { AscensorPisos } from "../../elements/floor/AscensorPisos";
 
+import { Button } from "../../elements/buttons/Button";
+
 import "./Mapa.css";
 
 export const Mapa = () => {
@@ -23,8 +25,13 @@ export const Mapa = () => {
 
     return (
         <main className="mapa">
-            <div className="mapa__img">
-                <PlanoPiso piso={pisoActual} predicciones={predicciones}/>
+            <div className="mapa__izq">
+                <div className="mapa__izq__img">
+                    <PlanoPiso piso={pisoActual} predicciones={predicciones}/>
+                </div>
+                <div className="mapa__izq__button">
+                    <Button to="/galeria">{"← Volver"}</Button>
+                </div>
             </div>
             <div className="mapa__side">
                 <article className="mapa__side__cuadro">
@@ -53,7 +60,7 @@ export const Mapa = () => {
             </div>
 
             <div className="mapa__ascensor">
-                <AscensorPisos pisoActual={pisoActual} onClick={setPisoActual} />
+                
             </div>
         </main>
     );

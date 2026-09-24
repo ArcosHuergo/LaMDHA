@@ -12,8 +12,12 @@
     overflow: hidden;
 }
 
-.mapa__img {
+.mapa__izq {
     width: 62%;
+}
+
+.mapa__izq__img {
+    width: 100%;
     height: fit-content;
 
     display: flex;
@@ -21,6 +25,12 @@
 
     background: var(--bg-surface);
     padding: 10px;
+}
+
+.mapa__izq__button {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
 }
 
 .mapa__side {

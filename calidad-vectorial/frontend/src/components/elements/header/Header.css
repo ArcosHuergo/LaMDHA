@@ -15,7 +15,7 @@
     gap: 10px;
 }
 
-.header div p, .header div a  {
+.header div p , .header__lamdha {
     font-family: "Orbitron";
     font-weight: 600;
     font-size: 25px;

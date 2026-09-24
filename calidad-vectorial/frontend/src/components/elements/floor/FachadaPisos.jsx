@@ -1,29 +1,53 @@
 const pisos = [
-    { id: "PB",  nombre: "Planta Baja",    lineY: 377.335, x1: 14.69,   x2: 274.832 },
-    { id: "EPB", nombre: "Entrepiso PB.",  lineY: 306.513, x1: 14.69,   x2: 551.495 },
-    { id: "P1",  nombre: "Primer Piso",    lineY: 230.087, x1: 291.724, x2: 551.865 },
-    { id: "EP1", nombre: "Entrepiso P1.",  lineY: 172.314, x1: 289.518, x2: 549.659 },
-    { id: "P2",  nombre: "Segundo Piso",   lineY: 113.895, x1: 288.415, x2: 548.557 },
-    { id: "P3",  nombre: "Tercer Piso",    lineY: 55.475,  x1: 291.724, x2: 551.865 },
+    { id: "PB",  nombre: "Planta Baja",    lineY: 377.335, x1: 50.69,   x2: 310.832 },
+    { id: "EPB", nombre: "Entrepiso PB.",  lineY: 306.513, x1: 50.69,   x2: 587.495 },
+    { id: "P1",  nombre: "Primer Piso",    lineY: 230.087, x1: 327.724, x2: 587.865 },
+    { id: "EP1", nombre: "Entrepiso P1.",  lineY: 172.314, x1: 325.518, x2: 585.659 },
+    { id: "P2",  nombre: "Segundo Piso",   lineY: 113.895, x1: 324.415, x2: 584.557 },
+    { id: "P3",  nombre: "Tercer Piso",    lineY: 55.475,  x1: 327.724, x2: 587.865 },
 ];
 
 const DIAG_LEN = 20.675 * Math.SQRT1_2; // ≈ 14.622
 
 export const FachadaPisos = ({ pisoActual, onClick }) => {
     return (
-        <svg viewBox="0 0 891 402" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%" }}>
-            <rect x="176.728" width="713.283" height="401.223" fill="url(#pattern0_392_71)"/>
+        <svg viewBox="0 0 924 402" xmlns="http://www.w3.org/2000/svg"  style={{ width: "100%" }}>
+
+            <rect x="209.728" width="713.283" height="401.223" fill="url(#pattern0_392_71)"/>
 
             {pisos.map((piso) => {
                 const seleccionado = piso.id === pisoActual;
                 const w = seleccionado ? 5 : 1.5;
+
                 return (
                     <g
                         key={piso.id}
                         onClick={() => onClick(piso.id)}
-                        style={{ cursor: "pointer", transition: "all 200ms ease-in-out" }}
+                        style={{
+                            cursor: "pointer",
+                            transition: "all 200ms ease-in-out"
+                        }}
                         opacity={seleccionado ? 1 : 0.8}
                     >
+                        <rect
+                            x={piso.x1 - 20}
+                            y={piso.lineY - 38}
+                            width={piso.x2 - piso.x1 + 20}
+                            height={45}
+                            fill="transparent"
+                        />
+
+                        <circle
+                            cx={piso.x1 - 35}
+                            cy={piso.lineY - 10}
+                            r="10"
+                            fill={seleccionado ? "#5227FF" : "transparent"}
+                            style={{
+                                cursor: "default",
+                                transition: "all 200ms ease-in-out" 
+                            }}
+                        />
+
                         <path
                             d={`M ${piso.x1 - DIAG_LEN} ${piso.lineY - DIAG_LEN}
                                 L ${piso.x1} ${piso.lineY}
@@ -34,6 +58,7 @@ export const FachadaPisos = ({ pisoActual, onClick }) => {
                             strokeLinejoin="round"
                             style={{ transition: "stroke-width 200ms ease-in-out" }}
                         />
+
                         <text
                             x={piso.x1 + 4.5}
                             y={piso.lineY - 13.5}
@@ -41,13 +66,14 @@ export const FachadaPisos = ({ pisoActual, onClick }) => {
                             fontSize={20}
                             fontFamily="Poppins"
                             fontWeight={seleccionado ? 700 : 500}
-                            style={{ userSelect: "none"}}
+                            style={{ userSelect: "none" }}
                         >
                             {piso.nombre}
                         </text>
                     </g>
                 );
             })}
+
             <defs>
                 <pattern id="pattern0_392_71" patternContentUnits="objectBoundingBox" width="1" height="1">
                     <use xlinkHref="#image0_392_71" transform="scale(0.000520835 0.000925926)"/>
