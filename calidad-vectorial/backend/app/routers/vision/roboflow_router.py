@@ -34,7 +34,8 @@ async def clasificar_imagen_ubicacion(request: Request, imagen: UploadFile = Fil
             usuario = usuario_service.obtener_usuario_por_username(username)
             if usuario is not None:
                 url_foto = guardar_foto(contenido, imagen.filename or "foto.jpg")
-                registro_service.registrar_clasificacion(usuario, url_foto, prediction)
+                registro = registro_service.registrar_clasificacion(usuario, url_foto, prediction)
+                prediction.registro_id = registro.id
         except Exception:
             logger.exception("No se pudo guardar el registro de la clasificación.")
 

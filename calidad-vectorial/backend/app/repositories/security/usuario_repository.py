@@ -17,11 +17,11 @@ class UsuarioRepository:
 
     @with_db
     def delete(self, db, usuario: Usuario) -> bool:
-        usuario_a_eliminar = db.find_by_id(usuario.id)
+        usuario_a_eliminar = self.find_by_id(usuario.id)
         if not usuario_a_eliminar:
             return False
-        self.db.delete(usuario_a_eliminar)
-        self.db.commit()
+        db.delete(usuario_a_eliminar)
+        db.commit()
         return True
 
     @with_db

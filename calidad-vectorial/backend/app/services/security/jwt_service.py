@@ -4,9 +4,9 @@ from app.config.settings import settings
 
 class JwtService:
     def __init__(self):
-        self.secret     = settings.JWT_SECRET
+        self.secret     = settings.jwt_secret
         self.algorithm  = "HS256"
-        self.expiration = settings.JWT_EXPIRATION_MS
+        self.expiration = settings.jwt_expiration_ms
 
     def generar_token(self, username: str, roles: list[str]) -> str:
         now    = datetime.now(timezone.utc)

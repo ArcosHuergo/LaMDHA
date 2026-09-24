@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, String
+from sqlalchemy import Boolean, Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
 from app.config.database import Base
 
@@ -15,3 +15,5 @@ class Registro(Base):
     usuario = relationship("Usuario", back_populates="registro")
 
     url_foto = Column(String(255), nullable=True)
+
+    prediccion_correcta = Column(Boolean, nullable=True)

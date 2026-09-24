@@ -9,3 +9,14 @@ class RegistroRepository:
         db.commit()
         db.refresh(registro)
         return registro
+
+    @with_db
+    def find_by_id(self, db, id_registro: int) -> Registro | None:
+        return db.query(Registro).filter(Registro.id == id_registro).first()
+
+    @with_db
+    def update(self, db, registro: Registro) -> Registro:
+        registro = db.merge(registro)
+        db.commit()
+        db.refresh(registro)
+        return registro

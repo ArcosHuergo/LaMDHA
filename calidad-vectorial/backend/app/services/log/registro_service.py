@@ -5,6 +5,14 @@ from app.repositories.log.registro_repository import RegistroRepository
 from app.schemas.vision.roboflow_prediction import RoboflowPrediction
 from app.services.log.hoja_registro_service import HojaRegistroService
 
+class RegistroNoEncontradoError(Exception):
+    pass
+
+
+class RegistroAjenoError(Exception):
+    pass
+
+
 class RegistroService:
     def __init__(self):
         self.registro_repository = RegistroRepository()
@@ -17,3 +25,12 @@ class RegistroService:
             for prediccion in prediction.predicciones
         ]
         return self.registro_repository.insert(registro)
+
+    def actualizar_prediccion_correcta(self, usuario: Usuario, id_registro: int, prediccion_correcta: bool | None) -> Registro:
+        registro = self.registro_repository.find_by_id(id_registro)
+        if registro is None:
+            raise RegistroNoEncontradoError(f"No existe el registro {id_registro}")
+        if registro.usuario_id != usuario.id:
+            raise RegistroAjenoError(f"El registro {id_registro} pertenece a otro usuario")
+        registro.prediccion_correcta = prediccion_correcta
+        return self.registro_repository.update(registro)
