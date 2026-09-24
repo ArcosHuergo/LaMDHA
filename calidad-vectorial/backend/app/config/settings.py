@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     db_password: str
     db_name: str
     JWT_SECRET: str
-    JWT_EXPIRATION_MS: int = 30_600_000  # 1 hora por defecto
+    JWT_EXPIRATION_MS: int = 30_600_000
 
     # Roboflow (workflow "lamdha" — clasificación de ubicación). Obtener la
     # clave en https://app.roboflow.com/settings/api.

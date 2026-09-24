@@ -36,7 +36,7 @@ def login(login_schema: LoginSchema, response: Response, usuario_service: Usuari
         httponly=True,
         secure=False,
         samesite="lax",
-        max_age=3600,
+        max_age=36000,
         path="/",
     )
 

@@ -3,38 +3,54 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
 from app.services.security.jwt_service import jwt_service
 
-PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register", "/vision/ubicacion"}
+# Rutas públicas sin ningún tipo de autenticación
+PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register"}
+
+# Rutas públicas que admiten token pero funcionan anonimante de no haberlo
+OPTIONAL_AUTH_PATHS = {"/vision/ubicacion"}
 
 class JwtAuthFilter(HTTPBearer):
     def __init__(self, auto_error: bool = True):
         super().__init__(auto_error=auto_error)
 
-    async def __call__(self, request: Request) -> str | None:
-        # Rutas públicas
-        if request.url.path in PUBLIC_PATHS:
-            return None
-
-        token = None
-
-        # 1) Intentar desde el header Authorization: Bearer <token>
+    async def _extraer_token(self, request: Request) -> str | None:
+        # 1) Header Authorization: Bearer <token>
         try:
             credentials: HTTPAuthorizationCredentials = await super().__call__(request)
             if credentials:
-                token = credentials.credentials
+                return credentials.credentials
         except Exception:
             pass
+        # 2) Cookie
+        return request.cookies.get("JWT_TOKEN")
 
-        # 2) Si no hay header, buscar en la cookie
-        if token is None:
-            token = request.cookies.get("JWT_TOKEN")
+    async def __call__(self, request: Request) -> str | None:
+        path = request.url.path
 
+        if path in PUBLIC_PATHS:
+            return None
+
+        token = await self._extraer_token(request)
+
+        # Autenticación opcional: si hay token válido se identifica, si no, anónimo
+        if path in OPTIONAL_AUTH_PATHS:
+            if token is not None:
+                try:
+                    username = jwt_service.extraer_username(token)
+                    if jwt_service.validar_token(token, username):
+                        request.state.username = username
+                        return username
+                except Exception:
+                    pass
+            return None
+
+        # Autenticación obligatoria
         if token is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token no encontrado."
             )
 
-        # 3) Validar token
         try:
             username = jwt_service.extraer_username(token)
         except Exception:
@@ -49,6 +65,5 @@ class JwtAuthFilter(HTTPBearer):
                 detail="Token inválido."
             )
 
-        # 4) Inyectar el username en el request para usarlo en los endpoints
         request.state.username = username
         return username
