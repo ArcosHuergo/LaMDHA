@@ -1,5 +1,4 @@
-from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, HTTPException, status
 
 from app.services.security.usuario_service import UsuarioService
 from app.mappers.security.usuario_mapper import UsuarioMapper
@@ -10,8 +9,20 @@ usuario_service = UsuarioService()
 
 @router.get("", response_model = list[UsuarioResponseSchema])
 def obtener_usuarios():
-    return UsuarioMapper.to_schema_list(usuario_service.obtener_todos_los_usuarios())
+    usuario_entities = usuario_service.obtener_todos_los_usuarios()
+    if usuario_entities is None:
+            raise HTTPException(
+                status_code = status.HTTP_404_NOT_FOUND,
+                detail="Usuarios no encontrados"
+            )
+    return UsuarioMapper.to_schema_list(usuario_entities)
 
 @router.get("/{id}", response_model = UsuarioResponseSchema)
 def obtener_usuario_por_id(id: int):
-    return UsuarioMapper.to_schema(usuario_service.obtener_usuario_por_id(id))
+    usuario_entity = usuario_service.obtener_usuario_por_id(id)
+    if usuario_entity is None:
+            raise HTTPException(
+                status_code = status.HTTP_404_NOT_FOUND,
+                detail="Usuario no encontrado"
+            )
+    return UsuarioMapper.to_schema(usuario_entity)

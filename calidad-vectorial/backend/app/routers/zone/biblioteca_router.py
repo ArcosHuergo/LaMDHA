@@ -1,5 +1,4 @@
-from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi import APIRouter, HTTPException, status
 
 from app.services.zone.biblioteca_service import BibliotecaService
 from app.mappers.zone.biblioteca_mapper import BibliotecaMapper
@@ -10,12 +9,32 @@ biblioteca_service = BibliotecaService()
 
 @router.get("", response_model = list[BibliotecaResponseSchema])
 def obtener_bibliotecas():
-    return BibliotecaMapper.to_schema_list(biblioteca_service.obtener_todas_las_bibliotecas())
+    biblioteca_entities = biblioteca_service.obtener_todas_las_bibliotecas()
+    if biblioteca_entities is None:
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail="Bibliotecas no encontradas"
+        )
+    return BibliotecaMapper.to_schema_list(biblioteca_entities)
+
 
 @router.get("/{id}", response_model = BibliotecaResponseSchema)
 def obtener_biblioteca_por_id(id: int):
-    return BibliotecaMapper.to_schema(biblioteca_service.obtener_biblioteca_por_id(id))
+    biblioteca_entity = biblioteca_service.obtener_biblioteca_por_id(id)
+    if biblioteca_entity is None:
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail="Biblioteca no encontrada"
+        )
+    return BibliotecaMapper.to_schema(biblioteca_entity)
+
 
 @router.get("/nombre/{nombre}", response_model = BibliotecaResponseSchema)
 def obtener_biblioteca_por_nombre(nombre: str):
-    return BibliotecaMapper.to_schema(biblioteca_service.obtener_biblioteca_por_nombre(nombre))
+    biblioteca_entity = biblioteca_service.obtener_biblioteca_por_nombre(nombre)
+    if biblioteca_entity is None:
+        raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail="Biblioteca no encontrada"
+        )
+    return BibliotecaMapper.to_schema(biblioteca_entity)
