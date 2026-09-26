@@ -15,3 +15,7 @@ def obtener_aulas():
 @router.get("/{id}", response_model = AulaResponseSchema)
 def obtener_aula_por_id(id: int):
     return AulaMapper.to_schema(aula_service.obtener_aula_por_id(id))
+
+@router.get("/nombre/{nombre}", response_model = AulaResponseSchema)
+def obtener_aula_por_nombre(nombre: str):
+    return AulaMapper.to_schema(aula_service.obtener_aula_por_nombre(nombre))

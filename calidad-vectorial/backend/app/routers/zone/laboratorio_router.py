@@ -15,3 +15,7 @@ def obtener_laboratorios():
 @router.get("/{id}", response_model = LaboratorioResponseSchema)
 def obtener_laboratorio_por_id(id: int):
     return LaboratorioMapper.to_schema(laboratorio_service.obtener_laboratorio_por_id(id))
+
+@router.get("/nombre/{nombre}", response_model = LaboratorioResponseSchema)
+def obtener_laboratorio_por_nombre(nombre: str):
+    return LaboratorioMapper.to_schema(laboratorio_service.obtener_laboratorio_por_nombre(nombre))

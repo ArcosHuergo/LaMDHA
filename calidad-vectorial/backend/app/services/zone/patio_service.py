@@ -10,3 +10,6 @@ class PatioService:
     
     def obtener_patio_por_id(self, id: int) -> Patio:
         return self.patio_repository.find_by_id(id)
+
+    def obtener_patio_por_nombre(self, nombre: str) -> Patio:
+        return self.patio_repository.find_by_nombre(nombre)

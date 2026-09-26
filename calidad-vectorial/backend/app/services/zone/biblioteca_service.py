@@ -10,3 +10,6 @@ class BibliotecaService:
     
     def obtener_biblioteca_por_id(self, id: int) -> Biblioteca:
         return self.biblioteca_repository.find_by_id(id)
+
+    def obtener_biblioteca_por_nombre(self, nombre: str) -> Biblioteca:
+        return self.biblioteca_repository.find_by_nombre(nombre)

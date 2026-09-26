@@ -10,3 +10,6 @@ class AulaService:
     
     def obtener_aula_por_id(self, id: int) -> Aula:
         return self.aula_repository.find_by_id(id)
+    
+    def obtener_aula_por_nombre(self, nombre: str) -> Aula:
+        return self.aula_repository.find_by_nombre(nombre)

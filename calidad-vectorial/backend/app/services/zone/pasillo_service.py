@@ -8,5 +8,5 @@ class PasilloService:
     def obtener_todos_los_pasillos(self) -> list[Pasillo]:
         return self.pasillo_repository.find_all()
     
-    def obtener_pasillo_por_id(self, id: int) -> Pasillo:
-        return self.pasillo_repository.find_by_id(id)
+    def obtener_pasillo_por_nombre(self, nombre: str) -> Pasillo:
+        return self.pasillo_repository.find_by_nombre(nombre)

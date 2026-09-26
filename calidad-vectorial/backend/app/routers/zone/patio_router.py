@@ -15,3 +15,7 @@ def obtener_patios():
 @router.get("/{id}", response_model = PatioResponseSchema)
 def obtener_patio_por_id(id: int):
     return PatioMapper.to_schema(patio_service.obtener_patio_por_id(id))
+
+@router.get("/nombre/{nombre}", response_model = PatioResponseSchema)
+def obtener_patio_por_nombre(nombre: str):
+    return PatioMapper.to_schema(patio_service.obtener_patio_por_nombre(nombre))

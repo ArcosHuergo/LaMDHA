@@ -16,3 +16,7 @@ def obtener_pasillos():
 def obtener_pasillo_por_id(id: int):
     return PasilloMapper.to_schema(pasillo_service.obtener_pasillo_por_id(id))
 
+@router.get("/nombre/{nombre}", response_model = PasilloResponseSchema)
+def obtener_pasillo_por_nombre(nombre: str):
+    return PasilloMapper.to_schema(pasillo_service.obtener_pasillo_por_nombre(nombre))
+

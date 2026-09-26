@@ -10,3 +10,6 @@ class LaboratorioService:
     
     def obtener_laboratorio_por_id(self, id: int) -> Laboratorio:
         return self.laboratorio_repository.find_by_id(id)
+
+    def obtener_laboratorio_por_nombre(self, nombre: str) -> Laboratorio:
+        return self.laboratorio_repository.find_by_nombre(nombre)

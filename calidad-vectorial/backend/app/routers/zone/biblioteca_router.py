@@ -15,3 +15,7 @@ def obtener_bibliotecas():
 @router.get("/{id}", response_model = BibliotecaResponseSchema)
 def obtener_biblioteca_por_id(id: int):
     return BibliotecaMapper.to_schema(biblioteca_service.obtener_biblioteca_por_id(id))
+
+@router.get("/nombre/{nombre}", response_model = BibliotecaResponseSchema)
+def obtener_biblioteca_por_nombre(nombre: str):
+    return BibliotecaMapper.to_schema(biblioteca_service.obtener_biblioteca_por_nombre(nombre))
