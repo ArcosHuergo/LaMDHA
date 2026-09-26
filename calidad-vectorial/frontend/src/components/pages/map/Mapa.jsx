@@ -28,9 +28,9 @@ export const Mapa = () => {
 
     const { loading, error, execute } = usePost(`registro/${id}/feedback`, "PATCH");
 
-    const handle_opinion = async (opinion) => {
+    const handle_opinion = async (event) => {
         const formData = new FormData();
-        formData.append("prediccion_correcta", opinion);
+        formData.append("prediccion_correcta", event.currentTarget.value);
 
         const resultado = await execute(formData);
 
@@ -66,28 +66,29 @@ export const Mapa = () => {
                     <p>¿La predicción fue correcta?</p>
                     <div className="mapa__side__opinion__botones">
                         {id != null ? (
-                            <div className="mapa__side__opinion__svg"
-                                onClick={handle_opinion(true)}
+                            <button className="mapa__side__opinion__svg"
+                                onClick={handle_opinion}
+                                value="true"
                             >
                                 <PulgarArriba />
-                            </div>
+                            </button>
                         ) : (
                             <div className="mapa__side__opinion__svg">
                                 <PulgarArriba />
                             </div>
                         )}
                         {id != null ? (
-                            <div className="mapa__side__opinion__svg"
-                                onClick={handle_opinion(false)}
+                            <button className="mapa__side__opinion__svg"
+                                onClick={handle_opinion}
+                                value="false"
                             >
                                 <PulgarAbajo />
-                            </div>
+                            </button>
                         ) : (
                             <div className="mapa__side__opinion__svg">
                                 <PulgarAbajo />
                             </div>
                         )}
-                        
                     </div>
                 </div>
 
