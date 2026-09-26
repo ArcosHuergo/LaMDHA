@@ -34,3 +34,6 @@ class RegistroService:
             raise RegistroAjenoError(f"El registro {id_registro} pertenece a otro usuario")
         registro.prediccion_correcta = prediccion_correcta
         return self.registro_repository.update(registro)
+
+    def obtener_registros_por_usuario(self, usuario: Usuario):
+        return self.registro_repository.find_all_by_usuario_id(usuario.id)
