@@ -29,7 +29,6 @@ export const Mapa = () => {
     const { loading, error, execute } = usePost(`registro/${id}/feedback`, "PATCH");
 
     const handle_opinion = async (event) => {
-
         const resultado = await execute({
             prediccion_correcta: event.currentTarget.value
         });
@@ -48,6 +47,7 @@ export const Mapa = () => {
                 <div className="mapa__izq__button">
                     <Button to="/galeria">{"← Volver"}</Button>
                 </div>
+
             </div>
             <div className="mapa__side">
                 <article className="mapa__side__cuadro">
@@ -61,39 +61,41 @@ export const Mapa = () => {
                         <p>{confianza}% de probabilidades de que estés en esta aula</p>
                     </div>
                 </article>
-                
+            </div>
+
+            <div className="mapa__fachada">
+                    <FachadaPisos pisoActual={pisoActual} onClick={setPisoActual}/>
+            </div>
+
+            <div className="mapa__opinion">
                 <div className="mapa__side__opinion">
                     <p>¿La predicción fue correcta?</p>
-                    <div className="mapa__side__opinion__botones">
+                    <div className="mapa__opinion__botones">
                         {id != null ? (
-                            <button className="mapa__side__opinion__svg"
+                            <button className="mapa__opinion__svg"
                                 onClick={handle_opinion}
                                 value={true}
                             >
                                 <PulgarArriba />
                             </button>
                         ) : (
-                            <div className="mapa__side__opinion__svg">
+                            <div className="mapa__opinion__svg">
                                 <PulgarArriba />
                             </div>
                         )}
                         {id != null ? (
-                            <button className="mapa__side__opinion__svg"
+                            <button className="mapa__opinion__svg"
                                 onClick={handle_opinion}
                                 value={false}
                             >
                                 <PulgarAbajo />
                             </button>
                         ) : (
-                            <div className="mapa__side__opinion__svg">
+                            <div className="mapa__opinion__svg">
                                 <PulgarAbajo />
                             </div>
                         )}
                     </div>
-                </div>
-
-                <div className="mapa__side__fachada">
-                    <FachadaPisos pisoActual={pisoActual} onClick={setPisoActual}/>
                 </div>
             </div>
         </main>

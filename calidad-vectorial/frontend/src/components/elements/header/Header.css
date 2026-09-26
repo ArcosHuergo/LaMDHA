@@ -12,6 +12,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: end;
     gap: 10px;
 }
 
@@ -20,4 +21,11 @@
     font-weight: 600;
     font-size: 25px;
     color: var(--text-primary);
+}
+
+.header div p {
+    text-align: end;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: clamp(20vw, 25vw, 100%)
 }

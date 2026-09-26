@@ -2,7 +2,7 @@
     flex: 1 1 0;
     display: flex;
     flex-flow: row nowrap;
-    gap: 2%;
+    gap: 3%;
 
     min-width: 1220px;
     min-height: 550px;
@@ -13,7 +13,7 @@
 }
 
 .mapa__izq {
-    width: 62%;
+    width: 60%;
 }
 
 .mapa__izq__img {
@@ -36,7 +36,7 @@
 .mapa__side {
     width: 1;
     flex: 1 1 0;
-    max-width: 34%;
+    max-width: 36%;
 }
 
 .mapa__side__cuadro {
@@ -74,6 +74,15 @@
     align-self: flex-end;
 }
 
+.mapa__opinion {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+
+    width: auto;
+    height: auto;
+}
+
 .mapa__side__opinion {
     display: flex;
     flex-flow: row wrap;
@@ -85,36 +94,33 @@
     color: var(--text-primary);
     padding: 10px;
     border: var(--brand-purple) solid 2px;
+
+    height: 50px;
 }
 
-.mapa__side__opinion p {
+.mapa__opinion p {
     user-select: none;
 }
 
-.mapa__side__opinion__botones {
+.mapa__opinion__botones {
     display: flex;
     flex-flow: row nowrap;
     gap: 20px;
 }
 
-.mapa__side__opinion__svg {
+.mapa__opinion__svg {
     cursor: pointer;
 }
 
-.mapa__side__fachada {
-    width: 115%;
+.mapa__fachada {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    width: 40%;
     justify-self: end;
     align-self: end;
     margin-top: 10px;
     /*width: clamp(100px, 38%, 570px);*/
-    height: auto;
-}
-
-.mapa__ascensor {
-    position: absolute;
-    bottom: 10px;
-    left: 50px;
-
-    width: 11%;
     height: auto;
 }
