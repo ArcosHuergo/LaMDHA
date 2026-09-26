@@ -10,7 +10,12 @@ class RegistroMapper:
 
     @staticmethod
     def to_schema_completo(entity: Registro) -> RegistroCompletoSchema:
-        return RegistroCompletoSchema(id=entity.id, prediccion_correcta=entity.prediccion_correcta)
+        return RegistroCompletoSchema(
+            id=entity.id,
+            prediccion_correcta=entity.prediccion_correcta,
+            url_foto=f"/registro/{entity.id}/foto" if entity.url_foto else None,
+            fecha_creacion=entity.fecha_creacion,
+        )
 
     @staticmethod
     def to_schema_completo_list(entities: list[Registro]) -> list[RegistroCompletoSchema]:

@@ -26,12 +26,16 @@ class RegistroService:
         ]
         return self.registro_repository.insert(registro)
 
-    def actualizar_prediccion_correcta(self, usuario: Usuario, id_registro: int, prediccion_correcta: bool | None) -> Registro:
+    def obtener_registro_por_id(self, usuario: Usuario, id_registro: int) -> Registro:
         registro = self.registro_repository.find_by_id(id_registro)
         if registro is None:
             raise RegistroNoEncontradoError(f"No existe el registro {id_registro}")
         if registro.usuario_id != usuario.id:
             raise RegistroAjenoError(f"El registro {id_registro} pertenece a otro usuario")
+        return registro
+
+    def actualizar_prediccion_correcta(self, usuario: Usuario, id_registro: int, prediccion_correcta: bool | None) -> Registro:
+        registro = self.obtener_registro_por_id(usuario, id_registro)
         registro.prediccion_correcta = prediccion_correcta
         return self.registro_repository.update(registro)
 

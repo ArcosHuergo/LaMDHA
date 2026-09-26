@@ -16,7 +16,7 @@ class RegistroRepository:
 
     @with_db
     def find_all_by_usuario_id(self, db, id_usuario: int) -> Registro | None:
-        return db.query(Registro).filter(Registro.usuario_id == id_usuario)
+        return db.query(Registro).filter(Registro.usuario_id == id_usuario).all()
 
     @with_db
     def update(self, db, registro: Registro) -> Registro:
