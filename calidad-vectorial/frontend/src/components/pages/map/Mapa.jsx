@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import { usePost } from "../../utils/fetch/FetchUtils";
+
 import PulgarArriba from "../../../assets/img/icons/pulgarArriba.svg?react";
 import PulgarAbajo from "../../../assets/img/icons/pulgarAbajo.svg?react";
 
@@ -18,10 +20,24 @@ export const Mapa = () => {
 
     const predicciones = resultado ? resultado.predicciones : undefined;
     const confianza = resultado ? resultado.predicciones[0].confianza * 100 : "";
+    const id = resultado ? resultado.registro_id : undefined;
 
     const a = resultado ? JSON.stringify(resultado) : "";
 
     const [pisoActual, setPisoActual] = useState("P1");
+
+    const { loading, error, execute } = usePost(`registro/${id}/feedback`, "PATCH");
+
+    const handle_opinion = async (opinion) => {
+        const formData = new FormData();
+        formData.append("prediccion_correcta", opinion);
+
+        const resultado = await execute(formData);
+
+        if (resultado) {
+            console.log("a");
+        }
+    }
 
     return (
         <main className="mapa">
@@ -49,18 +65,35 @@ export const Mapa = () => {
                 <div className="mapa__side__opinion">
                     <p>¿La predicción fue correcta?</p>
                     <div className="mapa__side__opinion__botones">
-                        <div className="mapa__side__opinion__svg"><PulgarArriba /></div>
-                        <div className="mapa__side__opinion__svg"><PulgarAbajo /></div>
+                        {id != null ? (
+                            <div className="mapa__side__opinion__svg"
+                                onClick={handle_opinion(true)}
+                            >
+                                <PulgarArriba />
+                            </div>
+                        ) : (
+                            <div className="mapa__side__opinion__svg">
+                                <PulgarArriba />
+                            </div>
+                        )}
+                        {id != null ? (
+                            <div className="mapa__side__opinion__svg"
+                                onClick={handle_opinion(false)}
+                            >
+                                <PulgarAbajo />
+                            </div>
+                        ) : (
+                            <div className="mapa__side__opinion__svg">
+                                <PulgarAbajo />
+                            </div>
+                        )}
+                        
                     </div>
                 </div>
 
                 <div className="mapa__side__fachada">
                     <FachadaPisos pisoActual={pisoActual} onClick={setPisoActual}/>
                 </div>
-            </div>
-
-            <div className="mapa__ascensor">
-                
             </div>
         </main>
     );
