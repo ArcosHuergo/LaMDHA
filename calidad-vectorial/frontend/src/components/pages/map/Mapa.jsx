@@ -29,10 +29,10 @@ export const Mapa = () => {
     const { loading, error, execute } = usePost(`registro/${id}/feedback`, "PATCH");
 
     const handle_opinion = async (event) => {
-        const formData = new FormData();
-        formData.append("prediccion_correcta", event.currentTarget.value);
 
-        const resultado = await execute(formData);
+        const resultado = await execute({
+            prediccion_correcta: event.currentTarget.value
+        });
 
         if (resultado) {
             console.log("a");
@@ -68,7 +68,7 @@ export const Mapa = () => {
                         {id != null ? (
                             <button className="mapa__side__opinion__svg"
                                 onClick={handle_opinion}
-                                value="true"
+                                value={true}
                             >
                                 <PulgarArriba />
                             </button>
@@ -80,7 +80,7 @@ export const Mapa = () => {
                         {id != null ? (
                             <button className="mapa__side__opinion__svg"
                                 onClick={handle_opinion}
-                                value="false"
+                                value={false}
                             >
                                 <PulgarAbajo />
                             </button>
