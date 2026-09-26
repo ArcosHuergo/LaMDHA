@@ -85,7 +85,7 @@ export const Galeria = () => {
             <span className='galeria__or'>or</span>
 
             {data != "" && data !== null && data !== undefined ? (
-                    <Button
+                <Button
                     variant='subir'
                     file={archivo}
                     onFileChange={setArchivo}
