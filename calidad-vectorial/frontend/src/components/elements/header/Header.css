@@ -26,6 +26,7 @@
 .header div p {
     text-align: end;
     text-overflow: ellipsis;
+    text-wrap-mode: nowrap;
     overflow: hidden;
     max-width: clamp(20vw, 25vw, 100%)
 }

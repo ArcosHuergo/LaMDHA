@@ -39,41 +39,6 @@
     max-width: 36%;
 }
 
-.mapa__side__cuadro {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-
-    color: var(--text-primary);
-    background: var(--bg-surface);
-    padding: 10px;
-    margin-bottom: 20px;
-
-    max-width: 100%;
-    max-height: 250px;
-    overflow-y: auto;
-}
-
-.mapa__side__cuadro__data {
-    gap: 10px;
-    padding-bottom: 30px;
-}
-
-.mapa__side__cuadro__data h2 {
-    font-size: 30px;
-}
-
-.mapa__side__cuadro__data p {
-    font-size: 15px;
-}
-
-.mapa__side__cuadro__probabilidad {
-    font-size: 18px;
-    text-align: end;
-    width: 60%;
-    align-self: flex-end;
-}
-
 .mapa__opinion {
     position: absolute;
     bottom: 20px;
@@ -109,7 +74,7 @@
 }
 
 .mapa__opinion__svg {
-    cursor: pointer;
+    border: none;
 }
 
 .mapa__fachada {
