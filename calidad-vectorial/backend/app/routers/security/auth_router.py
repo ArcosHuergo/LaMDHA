@@ -11,6 +11,11 @@ router = APIRouter(prefix="/auth", tags=["Auth"])
 
 
 def get_usuario_service() -> UsuarioService:
+    """Obtiene una instancia del servicio de usuarios.
+
+    Returns:
+        Instancia de `UsuarioService`.
+    """
     return UsuarioService()
 
 
@@ -20,7 +25,19 @@ def login(
     response: Response,
     usuario_service: UsuarioService = Depends(get_usuario_service),
 ):
+    """Autentica un usuario y genera un token JWT.
 
+    Args:
+        login_schema: Datos de acceso del usuario.
+        response: Respuesta HTTP utilizada para establecer la cookie.
+        usuario_service: Servicio utilizado para gestionar el usuario.
+
+    Returns:
+        Diccionario con el token JWT generado.
+
+    Raises:
+        HTTPException: Si las credenciales proporcionadas no son válidas.
+    """
     # 1) Verificar que el usuario exista
     usuario = usuario_service.obtener_usuario_por_username(login_schema.username)
     if usuario is None:
@@ -58,6 +75,17 @@ def registrar(
     RegisterSchema: RegisterSchema,
     usuario_service: UsuarioService = Depends(get_usuario_service),
 ):
+    """Registra un nuevo usuario.
+
+    Args:
+
+        RegisterSchema: Datos necesarios para registrar al usuario.
+        usuario_service: Servicio utilizado para gestionar el registro.
+
+    Returns:
+
+        Esquema con los datos del usuario registrado.
+    """
     usuario = UsuarioMapper.to_entity(RegisterSchema)
     nuevo_usuario = usuario_service.registrar_usuario(
         usuario, RegisterSchema.password, RegisterSchema.verification_password
@@ -68,6 +96,17 @@ def registrar(
 
 @router.get("/validar-token")
 def validar_token(request: Request, _: str = Depends(JwtAuthFilter)):
+    """Valida el token JWT del usuario autenticado.
+
+    Args:
+
+        request: Solicitud HTTP con la información del usuario autenticado.
+        _: Dependencia que valida el token JWT.
+
+    Returns:
+
+        Información indicando que el token es válido y el usuario autenticado.
+    """
     return {"detail": "Token válido", "username": request.state.username}
 
 
@@ -75,6 +114,21 @@ def validar_token(request: Request, _: str = Depends(JwtAuthFilter)):
 def me(
     request: Request, usuario_service: UsuarioService = Depends(get_usuario_service)
 ):
+    """Obtiene los datos del usuario autenticado.
+
+    Args:
+
+        request: Solicitud HTTP con la información del usuario autenticado.
+        usuario_service: Servicio utilizado para obtener el usuario.
+
+    Returns:
+
+        Esquema con los datos del usuario autenticado.
+
+    Raises:
+
+        HTTPException: Si el usuario autenticado no existe.
+    """
     usuario = usuario_service.obtener_usuario_por_username(request.state.username)
     if usuario is None:
         raise HTTPException(
@@ -85,5 +139,15 @@ def me(
 
 @router.post("/logout", status_code=status.HTTP_201_CREATED)
 def logout(response: Response):
+    """Cierra la sesión eliminando la cookie de autenticación.
+
+    Args:
+
+        response: Respuesta HTTP utilizada para eliminar la cookie.
+
+    Returns:
+
+        Mensaje indicando que el cierre de sesión fue exitoso.
+    """
     response.delete_cookie(key="JWT_TOKEN", path="/")
     return {"detail": "Logout exitoso"}

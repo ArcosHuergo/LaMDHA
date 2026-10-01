@@ -30,7 +30,7 @@ export const Mapa = () => {
     const confianzaSeleccionada = zonaSeleccionada
         ? predicciones?.find((p) => p.clase === zonaSeleccionada.className)?.confianza ?? null : null;
 
-    const { loading, error, execute } = usePost(`registrofeedback/${id}`, "PATCH");
+    const { loading, error, execute } = usePost(`registro/feedback/${id}`, "PATCH");
 
     const [enviando, setEnviando] = useState(false);
     const activarOpinion = enviando ? "not-allowed" : "pointer"

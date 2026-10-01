@@ -2,6 +2,7 @@ from app.models import Aula, Biblioteca, Laboratorio, Pasillo, Patio, Usuario, Z
 from app.services.security.usuario_service import UsuarioService
 from sqlalchemy.orm import Session
 
+
 AULAS_SEED = [
     {
         "nombre": "Aula-EP1-Blanco-1",
@@ -147,21 +148,40 @@ BIBLIOTECA_SEED = [
 ]
 
 
-def _obtener_o_crear_zona(db: Session, cache: dict[str, Zona], color: str) -> Zona:
+def _obtener_o_crear_zona(
+    db: Session,
+    cache: dict[str, Zona],
+    color: str,
+) -> Zona:
+    """Obtiene una zona existente o crea una nueva.
+
+    Args:
+        db: Sesión activa de SQLAlchemy.
+        cache: Caché de zonas ya consultadas o creadas.
+        color: Color identificador de la zona.
+
+    Returns:
+        Zona existente o recién creada.
+    """
     if color not in cache:
         zona = db.query(Zona).filter(Zona.color == color).first()
-        if not zona:
+
+        if zona is None:
             zona = Zona(color=color)
             db.add(zona)
             db.flush()
+
         cache[color] = zona
+
     return cache[color]
 
 
 def _seed_aulas(db: Session, cache: dict[str, Zona]) -> None:
+    """Carga las aulas iniciales si todavía no existen."""
     for data in AULAS_SEED:
         if db.query(Aula).filter(Aula.nombre == data["nombre"]).first():
             continue
+
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
         zona.aula.append(
             Aula(
@@ -173,9 +193,15 @@ def _seed_aulas(db: Session, cache: dict[str, Zona]) -> None:
 
 
 def _seed_laboratorios(db: Session, cache: dict[str, Zona]) -> None:
+    """Carga los laboratorios iniciales si todavía no existen."""
     for data in LABORATORIOS_SEED:
-        if db.query(Laboratorio).filter(Laboratorio.nombre == data["nombre"]).first():
+        if (
+            db.query(Laboratorio)
+            .filter(Laboratorio.nombre == data["nombre"])
+            .first()
+        ):
             continue
+
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
         zona.laboratorio.append(
             Laboratorio(
@@ -187,9 +213,11 @@ def _seed_laboratorios(db: Session, cache: dict[str, Zona]) -> None:
 
 
 def _seed_pasillos(db: Session, cache: dict[str, Zona]) -> None:
+    """Carga los pasillos iniciales si todavía no existen."""
     for data in PASILLOS_SEED:
         if db.query(Pasillo).filter(Pasillo.nombre == data["nombre"]).first():
             continue
+
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
         zona.pasillo = Pasillo(
             nombre=data["nombre"],
@@ -198,9 +226,11 @@ def _seed_pasillos(db: Session, cache: dict[str, Zona]) -> None:
 
 
 def _seed_patios(db: Session, cache: dict[str, Zona]) -> None:
+    """Carga los patios iniciales si todavía no existen."""
     for data in PATIOS_SEED:
         if db.query(Patio).filter(Patio.nombre == data["nombre"]).first():
             continue
+
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
         zona.patio = Patio(
             nombre=data["nombre"],
@@ -210,9 +240,11 @@ def _seed_patios(db: Session, cache: dict[str, Zona]) -> None:
 
 
 def _seed_bibliotecas(db: Session, cache: dict[str, Zona]) -> None:
+    """Carga las bibliotecas iniciales si todavía no existen."""
     for data in BIBLIOTECA_SEED:
         if db.query(Biblioteca).filter(Biblioteca.nombre == data["nombre"]).first():
             continue
+
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
         zona.biblioteca = Biblioteca(
             nombre=data["nombre"],
@@ -222,10 +254,18 @@ def _seed_bibliotecas(db: Session, cache: dict[str, Zona]) -> None:
 
 
 def init_db(db: Session) -> None:
+    """Inicializa los datos base de la aplicación.
 
-    # --- Usuario de prueba ---
+    Crea un usuario de prueba y carga las zonas, aulas, laboratorios,
+    pasillos, patios y bibliotecas definidas en los datos iniciales.
+    Los registros existentes no se duplican.
+
+    Args:
+        db: Sesión activa de SQLAlchemy.
+    """
     usuario = db.query(Usuario).filter(Usuario.username == "test@test").first()
-    if not usuario:
+
+    if usuario is None:
         usuario = Usuario(
             username="test@test",
             password=UsuarioService.hash_password("test123"),
@@ -235,8 +275,8 @@ def init_db(db: Session) -> None:
         db.commit()
         db.refresh(usuario)
 
-    # --- Zonas, aulas, laboratorios, pasillos y patios ---
     zonas_cache: dict[str, Zona] = {}
+
     _seed_aulas(db, zonas_cache)
     _seed_laboratorios(db, zonas_cache)
     _seed_pasillos(db, zonas_cache)

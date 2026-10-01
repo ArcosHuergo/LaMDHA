@@ -9,6 +9,14 @@ usuario_service = UsuarioService()
 
 @router.get("", response_model=list[UsuarioResponseSchema])
 def obtener_usuarios():
+    """Obtiene todos los usuarios.
+
+    Returns:
+        Lista de usuarios convertidos a su esquema de respuesta.
+
+    Raises:
+        HTTPException: Si no se encuentran usuarios.
+    """
     usuario_entities = usuario_service.obtener_todos_los_usuarios()
     if usuario_entities is None:
         raise HTTPException(
@@ -19,6 +27,20 @@ def obtener_usuarios():
 
 @router.get("/{id}", response_model=UsuarioResponseSchema)
 def obtener_usuario_por_id(id: int):
+    """Obtiene un usuario por su identificador.
+
+    Args:
+
+        id: Identificador del usuario.
+
+    Returns:
+
+        Usuario convertido a su esquema de respuesta.
+
+    Raises:
+
+        HTTPException: Si no se encuentra el usuario.
+    """
     usuario_entity = usuario_service.obtener_usuario_por_id(id)
     if usuario_entity is None:
         raise HTTPException(

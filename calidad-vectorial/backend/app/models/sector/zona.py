@@ -4,22 +4,27 @@ from sqlalchemy.orm import relationship
 
 
 class Zona(Base):
+    """Representa una zona y sus sectores asociados."""
+
     __tablename__ = "zona"
 
+    # ID principal de la entidad
     id = Column(Integer, primary_key=True, index=True)
+
+    # Color designado a la zona
     color = Column(String(15), unique=True, nullable=False)
 
-    # aula uno a muchos
+    # Aula: relación uno a muchos
     aula = relationship("Aula", back_populates="zona")
 
-    # laboratorio uno a muchos
+    # Laboratorio: relación uno a muchos
     laboratorio = relationship("Laboratorio", back_populates="zona")
 
-    # pasillo uno a uno
+    # Pasillo: relación uno a uno
     pasillo = relationship("Pasillo", back_populates="zona", uselist=False)
 
-    # patio
+    # Patio: relación uno a uno
     patio = relationship("Patio", back_populates="zona", uselist=False)
 
-    # biblioteca uno a uno
+    # Biblioteca: relación uno a uno
     biblioteca = relationship("Biblioteca", back_populates="zona", uselist=False)

@@ -15,8 +15,22 @@ usuario_service = UsuarioService()
 registro_service = RegistroService()
 
 
-@router.patch("feedback/{id}", response_model=RegistroFeedbackSchema)
+@router.patch("/feedback/{id}", response_model=RegistroFeedbackSchema)
 def actualizar_feedback(id: int, feedback: RegistroFeedbackSchema, request: Request):
+    """Actualiza la predicción correcta asociada a un registro del usuario.
+
+    Args:
+        id: Identificador del registro.
+        feedback: Datos con la predicción correcta.
+        request: Solicitud HTTP con la información del usuario autenticado.
+
+    Returns:
+        El registro actualizado convertido a su esquema de respuesta.
+
+    Raises:
+        HTTPException: Si el usuario no existe, el registro no existe o
+            pertenece a otro usuario.
+    """
     usuario = usuario_service.obtener_usuario_por_username(request.state.username)
     if usuario is None:
         raise HTTPException(
@@ -41,7 +55,18 @@ def actualizar_feedback(id: int, feedback: RegistroFeedbackSchema, request: Requ
 
 
 @router.get("/feedback", response_model=list[RegistroCompletoSchema])
-def obtener_registros_por_usuario(request: Request):
+def obtener_registros_del_usuario(request: Request):
+    """Obtiene todos los registros asociados al usuario autenticado.
+
+    Args:
+        request: Solicitud HTTP con la información del usuario autenticado.
+
+    Returns:
+        Lista de registros del usuario convertidos a sus esquemas de respuesta.
+
+    Raises:
+        HTTPException: Si el usuario no existe o no se encuentran registros.
+    """
     usuario = usuario_service.obtener_usuario_por_username(request.state.username)
     if usuario is None:
         raise HTTPException(
@@ -60,6 +85,19 @@ def obtener_registros_por_usuario(request: Request):
 
 @router.get("/foto/{id}")
 def obtener_foto(id: int, request: Request):
+    """Obtiene la foto asociada a un registro del usuario autenticado.
+
+    Args:
+        id: Identificador del registro.
+        request: Solicitud HTTP con la información del usuario autenticado.
+
+    Returns:
+        Respuesta HTTP con el archivo de imagen asociado al registro.
+
+    Raises:
+        HTTPException: Si el usuario no existe, el registro no existe,
+            pertenece a otro usuario o no tiene una foto asociada.
+    """
     usuario = usuario_service.obtener_usuario_por_username(request.state.username)
     if usuario is None:
         raise HTTPException(

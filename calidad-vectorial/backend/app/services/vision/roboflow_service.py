@@ -27,6 +27,14 @@ class RoboflowInferenceError(Exception):
 
 
 def _build_client() -> InferenceHTTPClient:
+    """Construye y configura el cliente de Roboflow.
+
+    Returns:
+        Cliente de Roboflow configurado.
+
+    Raises:
+        RoboflowInferenceError: Si no está configurada la API key.
+    """
     if not settings.roboflow_api_key:
         raise RoboflowInferenceError(
             "ROBOFLOW_API_KEY no está configurada (ver .env / "
@@ -42,6 +50,17 @@ def _build_client() -> InferenceHTTPClient:
 
 
 def _parse_prediction(raw_results: list[dict[str, Any]]) -> RoboflowPrediction:
+    """Convierte la respuesta del workflow en una predicción.
+
+    Args:
+        raw_results: Resultados obtenidos del workflow de Roboflow.
+
+    Returns:
+        Predicción estructurada a partir de los resultados.
+
+    Raises:
+        RoboflowInferenceError: Si la respuesta no contiene datos válidos.
+    """
     if not raw_results:
         raise RoboflowInferenceError("El workflow no devolvió resultados.")
 
@@ -68,7 +87,17 @@ def _parse_prediction(raw_results: list[dict[str, Any]]) -> RoboflowPrediction:
     )
 
 
-def _parse_predicciones(predictions_block: dict[str, Any]) -> list[ClassPrediction]:
+def _parse_predicciones(
+    predictions_block: dict[str, Any],
+) -> list[ClassPrediction]:
+    """Extrae y ordena las predicciones de la respuesta del workflow.
+
+    Args:
+        predictions_block: Bloque de predicciones devuelto por Roboflow.
+
+    Returns:
+        Lista de predicciones ordenadas por confianza descendente.
+    """
     predicciones: list[ClassPrediction] = []
 
     raw_class_predictions = predictions_block.get("predictions")
@@ -103,7 +132,24 @@ def clasificar_ubicacion(
     timeout: float = DEFAULT_TIMEOUT_SECONDS,
     max_retries: int = DEFAULT_MAX_RETRIES,
 ) -> RoboflowPrediction:
+    """Clasifica una imagen mediante un workflow de Roboflow.
 
+    Realiza la inferencia con un tiempo máximo de espera y reintenta
+    automáticamente ante errores de red o timeout.
+
+    Args:
+        image: Imagen que se desea clasificar.
+        confidence: Umbral de confianza utilizado por el workflow.
+        timeout: Tiempo máximo de espera por intento, en segundos.
+        max_retries: Cantidad máxima de reintentos después del primer intento.
+
+    Returns:
+        Predicción obtenida del workflow de Roboflow.
+
+    Raises:
+        RoboflowInferenceError: Si falla la configuración, la inferencia o
+            el procesamiento de la respuesta después de los reintentos.
+    """
     client = _build_client()
 
     last_error: Exception | None = None

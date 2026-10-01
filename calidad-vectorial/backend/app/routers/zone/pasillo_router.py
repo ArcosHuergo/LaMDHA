@@ -9,6 +9,14 @@ pasillo_service = PasilloService()
 
 @router.get("", response_model=list[PasilloResponseSchema])
 def obtener_pasillos():
+    """Obtiene todos los pasillos.
+
+    Returns:
+        Lista de pasillos convertidos a su esquema de respuesta.
+
+    Raises:
+        HTTPException: Si no se encuentran pasillos.
+    """
     pasillo_entities = pasillo_service.obtener_todos_los_pasillos()
     if pasillo_entities is None:
         raise HTTPException(
@@ -19,6 +27,17 @@ def obtener_pasillos():
 
 @router.get("/{id}", response_model=PasilloResponseSchema)
 def obtener_pasillo_por_id(id: int):
+    """Obtiene un pasillo por su identificador.
+
+    Args:
+        id: Identificador del pasillo.
+
+    Returns:
+        Pasillo convertido a su esquema de respuesta.
+
+    Raises:
+        HTTPException: Si no se encuentra el pasillo.
+    """
     pasillo_entity = pasillo_service.obtener_pasillo_por_id(id)
     if pasillo_entity is None:
         raise HTTPException(
@@ -29,6 +48,17 @@ def obtener_pasillo_por_id(id: int):
 
 @router.get("/nombre/{nombre}", response_model=PasilloResponseSchema)
 def obtener_pasillo_por_nombre(nombre: str):
+    """Obtiene un pasillo por su nombre.
+
+    Args:
+        nombre: Nombre del pasillo.
+
+    Returns:
+        Pasillo convertido a su esquema de respuesta.
+
+    Raises:
+        HTTPException: Si no se encuentra el pasillo.
+    """
     pasillo_entity = pasillo_service.obtener_pasillo_por_nombre(nombre)
     if pasillo_entity is None:
         raise HTTPException(

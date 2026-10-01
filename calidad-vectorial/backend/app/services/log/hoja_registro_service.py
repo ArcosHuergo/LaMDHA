@@ -22,6 +22,18 @@ class HojaRegistroService:
         }
 
     def resolver_ubicacion_id(self, clase: str, confianza: float) -> dict:
+        """Resuelve el identificador de una ubicación a partir de su clase.
+
+        Busca la entidad correspondiente al tipo de sector y asigna su
+        identificador junto con el nivel de confianza de la predicción.
+
+        Args:
+            clase: Clase de ubicación obtenida de la predicción.
+            confianza: Nivel de confianza de la predicción.
+
+        Returns:
+            Diccionario con el identificador de la ubicación y su confianza.
+        """
         ubicacion = {
             "aula_id": None,
             "labo_id": None,

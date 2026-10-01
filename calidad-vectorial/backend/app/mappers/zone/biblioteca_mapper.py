@@ -4,8 +4,18 @@ from app.schemas.zone.biblioteca_response import BibliotecaResponseSchema
 
 
 class BibliotecaMapper:
+    """Mapea entre entidades de biblioteca y sus esquemas."""
+
     @staticmethod
     def to_entity(schema: BibliotecaResponseSchema) -> Biblioteca:
+        """Convierte un esquema de biblioteca en una entidad.
+
+        Args:
+            schema: Esquema de biblioteca que se desea convertir.
+
+        Returns:
+            Entidad de biblioteca creada a partir del esquema.
+        """
         return Biblioteca(
             id=schema.id,
             nombre=schema.nombre,
@@ -16,6 +26,14 @@ class BibliotecaMapper:
 
     @staticmethod
     def to_schema(entity: Biblioteca) -> BibliotecaResponseSchema:
+        """Convierte una entidad de biblioteca en un esquema de respuesta.
+
+        Args:
+            entity: Entidad de biblioteca que se desea convertir.
+
+        Returns:
+            Esquema de respuesta creado a partir de la entidad.
+        """
         return BibliotecaResponseSchema(
             id=entity.id,
             nombre=entity.nombre,
@@ -24,5 +42,15 @@ class BibliotecaMapper:
         )
 
     @staticmethod
-    def to_schema_list(entities: list[Biblioteca]) -> list[BibliotecaResponseSchema]:
+    def to_schema_list(
+        entities: list[Biblioteca],
+    ) -> list[BibliotecaResponseSchema]:
+        """Convierte una lista de entidades de biblioteca en esquemas.
+
+        Args:
+            entities: Lista de entidades de biblioteca.
+
+        Returns:
+            Lista de esquemas de respuesta de biblioteca.
+        """
         return [BibliotecaMapper.to_schema(entity) for entity in entities]

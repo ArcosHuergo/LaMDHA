@@ -22,6 +22,22 @@ registro_service = RegistroService()
 async def clasificar_imagen_ubicacion(
     request: Request, imagen: UploadFile = File(...)
 ) -> RoboflowPrediction:
+    """Clasifica una imagen para determinar su ubicación.
+
+    La imagen se convierte a Base64 y se envía al servicio de inferencia.
+    Si existe un usuario autenticado, se almacena la imagen y el resultado
+    de la clasificación como un registro.
+
+    Args:
+        request: Solicitud HTTP con la información del usuario autenticado.
+        imagen: Imagen que se desea clasificar.
+
+    Returns:
+        Predicción obtenida a partir de la imagen.
+
+    Raises:
+        HTTPException: Si ocurre un error durante la inferencia de la imagen.
+    """
     contenido = await imagen.read()
     imagen_base64 = base64.b64encode(contenido).decode("utf-8")
 
