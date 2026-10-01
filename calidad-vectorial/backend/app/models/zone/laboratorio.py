@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
 from app.config.database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
 
 class Laboratorio(Base):
     __tablename__ = "laboratorio"
@@ -10,7 +11,7 @@ class Laboratorio(Base):
     referencia = Column(String(10), nullable=False)
     descripcion = Column(String(255), nullable=False)
 
-    #aula
+    # aula
     zona_id = Column(Integer, ForeignKey("zona.id"), nullable=False)
     zona = relationship("Zona", back_populates="laboratorio")
 

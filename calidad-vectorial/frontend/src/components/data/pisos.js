@@ -1,11 +1,11 @@
-import plantaBaja from "../../assets/img/floors/plantaBaja.png";
-import primerPiso from "../../assets/img/floors/primerPiso.png";
-import entrepisoPlantaBaja from "../../assets/img/floors/entrepisoPlantaBaja.png";
-import entrepisoSegundoPiso from "../../assets/img/floors/entrepisoSegundoPiso.png";
-import segundoPiso from "../../assets/img/floors/segundoPiso.png";
-import tercerPiso from "../../assets/img/floors/tercerPiso.png";
+import plantaBaja from '../../assets/img/floors/plantaBaja.png';
+import primerPiso from '../../assets/img/floors/primerPiso.png';
+import entrepisoPlantaBaja from '../../assets/img/floors/entrepisoPlantaBaja.png';
+import entrepisoSegundoPiso from '../../assets/img/floors/entrepisoSegundoPiso.png';
+import segundoPiso from '../../assets/img/floors/segundoPiso.png';
+import tercerPiso from '../../assets/img/floors/tercerPiso.png';
 
-import { zonasPB, zonasEPB, zonasP1, zonasEP1, zonasP2, zonasP3 } from "./zonas";
+import { zonasPB, zonasEPB, zonasP1, zonasEP1, zonasP2, zonasP3 } from './zonas';
 
 export const pisos = {
     PB: { width: 2500, height: 1220, image: plantaBaja, zonas: zonasPB },
@@ -14,9 +14,10 @@ export const pisos = {
     EP1: { width: 2500, height: 610, image: entrepisoSegundoPiso, zonas: zonasEP1 },
     P2: { width: 2500, height: 610, image: segundoPiso, zonas: zonasP2 },
     P3: { width: 2500, height: 610, image: tercerPiso, zonas: zonasP3 },
-}
+};
 
-{/**
+{
+    /**
 
 <svg width="891" height="402" viewBox="0 0 891 402" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect x="176.728" width="713.283" height="401.223" fill="url(#pattern0_392_71)"/>
@@ -79,4 +80,5 @@ export const pisos = {
 </svg>
 
 
- */}
+ */
+}

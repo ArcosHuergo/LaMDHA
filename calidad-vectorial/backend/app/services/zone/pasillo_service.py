@@ -1,5 +1,6 @@
-from app.models.zone.pasillo import Pasillo 
+from app.models.zone.pasillo import Pasillo
 from app.repositories.zone.pasillo_repository import PasilloRepository
+
 
 class PasilloService:
     def __init__(self):
@@ -7,6 +8,6 @@ class PasilloService:
 
     def obtener_todos_los_pasillos(self) -> list[Pasillo]:
         return self.pasillo_repository.find_all()
-    
+
     def obtener_pasillo_por_nombre(self, nombre: str) -> Pasillo:
         return self.pasillo_repository.find_by_nombre(nombre)

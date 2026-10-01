@@ -1,12 +1,12 @@
-import { pisos } from "../../data/pisos";
+import { pisos } from '../../data/pisos';
 
 export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick }) => {
     const data = pisos[piso];
     if (!data) return null;
 
-    const prediccionesPorZona = predicciones ? new Map(
-        predicciones.map((p) => [p.clase, p.confianza])
-    ) : null;
+    const prediccionesPorZona = predicciones
+        ? new Map(predicciones.map((p) => [p.clase, p.confianza]))
+        : null;
 
     const { width, height, image, zonas } = data;
 
@@ -21,7 +21,7 @@ export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick })
 
     function getColorForConfidence(confidence) {
         if (confidence === null || confidence === undefined) {
-            return "hsl(0, 0%, 60%)"; // hsl(0, 85%, 54%)
+            return 'hsl(0, 0%, 60%)'; // hsl(0, 85%, 54%)
         }
 
         const clamped = Math.max(0, Math.min(1, confidence));
@@ -32,11 +32,14 @@ export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick })
     return (
         <svg
             viewBox={`0 0 ${width} ${height}`}
-            style={{ width: "100%", height: "auto", display: "block" }}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
         >
             <image href={image} width={width} height={height} preserveAspectRatio="none" />
             {zonas.map((zona) => {
-                const confidence = prediccionesPorZona != null && prediccionesPorZona != undefined ? prediccionesPorZona.get(zona.className) : null;
+                const confidence =
+                    prediccionesPorZona != null && prediccionesPorZona != undefined
+                        ? prediccionesPorZona.get(zona.className)
+                        : null;
                 const color = getColorForConfidence(confidence);
                 const activa = zona.className === zonaSeleccionada?.className;
 
@@ -57,4 +60,4 @@ export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick })
             })}
         </svg>
     );
-}
+};

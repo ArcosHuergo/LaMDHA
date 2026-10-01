@@ -1,7 +1,7 @@
-import Grainient from "../gradient/Gradient";
-import "./FondoFachero.css";
+import Grainient from '../gradient/Gradient';
+import './FondoFachero.css';
 
-export const FondoFachero = ({children}) => {
+export const FondoFachero = ({ children }) => {
     return (
         <aside className="fondo-fachero">
             <div className="fondo-fachero__gradient">

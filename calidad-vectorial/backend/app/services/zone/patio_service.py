@@ -1,5 +1,6 @@
-from app.models.zone.patio import Patio 
+from app.models.zone.patio import Patio
 from app.repositories.zone.patio_repository import PatioRepository
+
 
 class PatioService:
     def __init__(self):
@@ -7,7 +8,7 @@ class PatioService:
 
     def obtener_todos_los_patios(self) -> list[Patio]:
         return self.patio_repository.find_all()
-    
+
     def obtener_patio_por_id(self, id: int) -> Patio:
         return self.patio_repository.find_by_id(id)
 

@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { usePost } from "../../utils/fetch/FetchUtils";
+import { usePost } from '../../utils/fetch/FetchUtils';
 
-import PulgarArriba from "../../../assets/img/icons/pulgarArriba.svg?react";
-import PulgarAbajo from "../../../assets/img/icons/pulgarAbajo.svg?react";
+import PulgarArriba from '../../../assets/img/icons/pulgarArriba.svg?react';
+import PulgarAbajo from '../../../assets/img/icons/pulgarAbajo.svg?react';
 
 import { PlanoPiso } from "../../elements/floor/PlanoPiso";
 import { FachadaPisos } from "../../elements/floor/FachadaPisos";
 import { AscensorPisos } from "../../elements/floor/AscensorPisos";
 import { CuadroZona } from "../../elements/map/CuadroZona";
 
-import { Button } from "../../elements/buttons/Button";
+import { Button } from '../../elements/buttons/Button';
 
-import "./Mapa.css";
+import './Mapa.css';
 
 export const Mapa = () => {
     const location = useLocation();
@@ -61,7 +61,7 @@ export const Mapa = () => {
                     />
                 </div>
                 <div className="mapa__izq__button">
-                    <Button to="/galeria">{"← Volver"}</Button>
+                    <Button to="/galeria">{'← Volver'}</Button>
                 </div>
 
             </div>
@@ -112,4 +112,4 @@ export const Mapa = () => {
             </div>
         </main>
     );
-}
+};

@@ -1,5 +1,6 @@
 from pydantic import BaseModel, computed_field
 
+
 class ClassPrediction(BaseModel):
     """Una clase individual devuelta por el modelo, con su confianza."""
 

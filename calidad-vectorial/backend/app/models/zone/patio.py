@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
 from app.config.database import Base
+from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
 
 class Patio(Base):
     __tablename__ = "patio"
@@ -9,7 +10,7 @@ class Patio(Base):
     nombre = Column(String(150), unique=True, nullable=False)
     referencia = Column(String(10), nullable=False)
     descripcion = Column(String(255), nullable=False)
-    
+
     zona_id = Column(Integer, ForeignKey("zona.id"), unique=True)
     zona = relationship("Zona", back_populates="patio")
 

@@ -1,6 +1,6 @@
-import X from "../../../assets/img/icons/x.svg?react";
-import { Button } from "../buttons/Button";
-import "./Popup.css";
+import X from '../../../assets/img/icons/x.svg?react';
+import { Button } from '../buttons/Button';
+import './Popup.css';
 
 export const PopUpSeleccion = ({ children, foto, onClose, onSeleccionar, titulo }) => {
     const bloquearEvento = (e) => {
@@ -9,7 +9,8 @@ export const PopUpSeleccion = ({ children, foto, onClose, onSeleccionar, titulo 
     return (
         <div className="popup" onClick={onClose}>
             <div className="popup__card" onClick={(e) => e.stopPropagation()}>
-                <div className="popup__card__foto"
+                <div
+                    className="popup__card__foto"
                     onMouseDown={bloquearEvento}
                     onMouseMove={bloquearEvento}
                     onMouseUp={bloquearEvento}
@@ -35,4 +36,4 @@ export const PopUpSeleccion = ({ children, foto, onClose, onSeleccionar, titulo 
             </div>
         </div>
     );
-}
+};

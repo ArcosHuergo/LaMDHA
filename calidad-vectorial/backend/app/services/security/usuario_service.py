@@ -1,6 +1,6 @@
+import bcrypt
 from app.models.security.usuario import Usuario
 from app.repositories.security.usuario_repository import UsuarioRepository
-import bcrypt
 
 
 class UsuarioService:
@@ -12,7 +12,7 @@ class UsuarioService:
 
     def obtener_usuario_por_id(self, id: int) -> Usuario:
         return self.usuario_repository.find_by_id(id)
-    
+
     def obtener_usuario_por_username(self, username: str) -> Usuario:
         return self.usuario_repository.find_by_username(username)
 
@@ -23,13 +23,15 @@ class UsuarioService:
     def hash_password(password: str) -> str:
         return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
-    def registrar_usuario(self, usuario: Usuario, password: str, verification_password: str) -> Usuario:
-        if (password != verification_password):
+    def registrar_usuario(
+        self, usuario: Usuario, password: str, verification_password: str
+    ) -> Usuario:
+        if password != verification_password:
             raise ValueError("Las contraseñas no coinciden")
-        
-        if (self.usuario_repository.find_by_username(usuario.username) is not None):
+
+        if self.usuario_repository.find_by_username(usuario.username) is not None:
             raise ValueError("El nombre del usuario ya existe")
-        
+
         usuario.password = self.hash_password(password)
         return self.usuario_repository.insert(usuario)
 
