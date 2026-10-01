@@ -1,7 +1,7 @@
-import { Outlet, useLocation, Link } from "react-router-dom";
+import { Outlet, useLocation, Link } from 'react-router-dom';
 
-import "./Layout.css";
-import { Header } from "../components/elements/header/Header";
+import './Layout.css';
+import { Header } from '../components/elements/header/Header';
 
 export const Layout = () => {
     return (
@@ -9,5 +9,5 @@ export const Layout = () => {
             <Header />
             <Outlet />
         </div>
-    )
-}
+    );
+};

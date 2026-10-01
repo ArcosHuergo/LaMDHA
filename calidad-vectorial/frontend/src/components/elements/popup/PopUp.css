@@ -111,7 +111,8 @@
 }
 
 @keyframes cargando {
-    0%,50% {
+    0%,
+    50% {
         display: none;
     }
     100% {
@@ -120,7 +121,8 @@
 }
 
 @keyframes cargando--nube {
-    0%, 60% {
+    0%,
+    60% {
         display: none;
     }
     100% {
@@ -129,7 +131,8 @@
 }
 
 @keyframes cargando--nubecita--uno {
-    0%, 30% {
+    0%,
+    30% {
         display: none;
     }
     100% {
@@ -138,7 +141,8 @@
 }
 
 @keyframes cargando--nubecita--dos {
-    0%, 10% {
+    0%,
+    10% {
         display: none;
     }
     100% {

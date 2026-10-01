@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import "./OjosAnimados.css";
+import { useEffect, useRef } from 'react';
+import './OjosAnimados.css';
 
 export const OjosAnimados = () => {
     // Referencias a los elementos DOM de los ojos y pupilas
@@ -54,10 +54,10 @@ export const OjosAnimados = () => {
             const movimiento = Math.min(movimientoMaximo, distancia / 20);
 
             // Solo mueve la pupila si el ojo está abierto
-            if (!ojo.classList.contains("rostro__ojo--cerrado")) {
+            if (!ojo.classList.contains('rostro__ojo--cerrado')) {
                 const offsetCentro = 13;
-                pupila.style.left = offsetCentro + movimiento * Math.cos(angulo) + "px";
-                pupila.style.top = offsetCentro + movimiento * Math.sin(angulo) + "px";
+                pupila.style.left = offsetCentro + movimiento * Math.cos(angulo) + 'px';
+                pupila.style.top = offsetCentro + movimiento * Math.sin(angulo) + 'px';
             }
         };
 
@@ -71,13 +71,13 @@ export const OjosAnimados = () => {
         // Simula un parpadeo cerrando y abriendo los ojos brevemente
         const parpadear = () => {
             if (ojosCerradosRef.current || parpadeoBloqueadoRef.current) return;
-            ojo1.classList.add("rostro__ojo--cerrado");
-            ojo2.classList.add("rostro__ojo--cerrado");
+            ojo1.classList.add('rostro__ojo--cerrado');
+            ojo2.classList.add('rostro__ojo--cerrado');
             setTimeout(() => {
                 // Chequea si los ojos deben permanecer cerrados
                 if (!ojosCerradosRef.current && !parpadeoBloqueadoRef.current) {
-                    ojo1.classList.remove("rostro__ojo--cerrado");
-                    ojo2.classList.remove("rostro__ojo--cerrado");
+                    ojo1.classList.remove('rostro__ojo--cerrado');
+                    ojo2.classList.remove('rostro__ojo--cerrado');
                 }
             }, 150);
         };
@@ -89,8 +89,8 @@ export const OjosAnimados = () => {
         const manejarFocoPassword = () => {
             parpadeoBloqueadoRef.current = true;
             ojosCerradosRef.current = true;
-            ojo1.classList.add("rostro__ojo--cerrado");
-            ojo2.classList.add("rostro__ojo--cerrado");
+            ojo1.classList.add('rostro__ojo--cerrado');
+            ojo2.classList.add('rostro__ojo--cerrado');
         };
 
         // Abre los ojos al perder el foco del campo de contraseña
@@ -99,38 +99,37 @@ export const OjosAnimados = () => {
             parpadeoBloqueadoRef.current = false;
             ojosCerradosRef.current = false;
 
-            ojo1.classList.remove("rostro__ojo--cerrado");
-            ojo2.classList.remove("rostro__ojo--cerrado");
+            ojo1.classList.remove('rostro__ojo--cerrado');
+            ojo2.classList.remove('rostro__ojo--cerrado');
         };
 
         //Abre un ojo cuando se muestra la contraseña
         const manejarEspiarPassword = () => {
             //Bloquea el parpadeo
             parpadeoBloqueadoRef.current = true;
-            ojo1.classList.add("rostro__ojo--cerrado");
-            ojo2.classList.add("rostro__ojo--cerrado");
+            ojo1.classList.add('rostro__ojo--cerrado');
+            ojo2.classList.add('rostro__ojo--cerrado');
             // Probabilidad de chusmear (50% de probabilidad)
             const probChusmear = Math.random();
             // Probabilidad de abrir cada ojo (50% de probabilidad)
             const probOjo = Math.random();
 
-            if (probChusmear  < 0.5) {
+            if (probChusmear < 0.5) {
                 if (probOjo < 0.5) {
-                    ojo1.classList.remove("rostro__ojo--cerrado");
-                    ojo2.classList.add("rostro__ojo--cerrado");
+                    ojo1.classList.remove('rostro__ojo--cerrado');
+                    ojo2.classList.add('rostro__ojo--cerrado');
                 } else {
-                    ojo1.classList.add("rostro__ojo--cerrado");
-                    ojo2.classList.remove("rostro__ojo--cerrado");
+                    ojo1.classList.add('rostro__ojo--cerrado');
+                    ojo2.classList.remove('rostro__ojo--cerrado');
                 }
             }
         };
 
-
         // Listeners para movimiento del mouse y eventos personalizados
-        window.addEventListener("passwordPeek", manejarEspiarPassword);
-        window.addEventListener("mousemove", manejarMovimientoMouse);
-        window.addEventListener("passwordFocus", manejarFocoPassword);
-        window.addEventListener("passwordBlur", manejarBlurPassword);
+        window.addEventListener('passwordPeek', manejarEspiarPassword);
+        window.addEventListener('mousemove', manejarMovimientoMouse);
+        window.addEventListener('passwordFocus', manejarFocoPassword);
+        window.addEventListener('passwordBlur', manejarBlurPassword);
 
         // Inicia la animación de seguimiento ocular
         animacionFrameRef.current = requestAnimationFrame(actualizarOjos);
@@ -141,10 +140,10 @@ export const OjosAnimados = () => {
             if (animacionFrameRef.current) {
                 cancelAnimationFrame(animacionFrameRef.current);
             }
-            window.removeEventListener("passwordPeek", manejarEspiarPassword);
-            window.removeEventListener("mousemove", manejarMovimientoMouse);
-            window.removeEventListener("passwordFocus", manejarFocoPassword);
-            window.removeEventListener("passwordBlur", manejarBlurPassword);
+            window.removeEventListener('passwordPeek', manejarEspiarPassword);
+            window.removeEventListener('mousemove', manejarMovimientoMouse);
+            window.removeEventListener('passwordFocus', manejarFocoPassword);
+            window.removeEventListener('passwordBlur', manejarBlurPassword);
         };
     }, []);
 

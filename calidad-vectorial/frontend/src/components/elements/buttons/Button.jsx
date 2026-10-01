@@ -1,20 +1,19 @@
-import { Link } from "react-router-dom";
-import Upload from "../../../assets/img/icons/upload.svg?react";
-import "./Button.css";
+import { Link } from 'react-router-dom';
+import Upload from '../../../assets/img/icons/upload.svg?react';
+import './Button.css';
 
 export const Button = ({
     children,
-    type = "button",
-    variant = "default",
-    color = "violeta",
+    type = 'button',
+    variant = 'default',
+    color = 'violeta',
     to,
     isDisabled = false,
     onClick,
     file,
-    onFileChange
+    onFileChange,
 }) => {
-
-    if (variant === "subir") {
+    if (variant === 'subir') {
         if (to) {
             return (
                 <div className="btn-subir-group">
@@ -39,15 +38,13 @@ export const Button = ({
                 onFileChange(selectedFile);
             }
             // Permite volver a seleccionar el mismo archivo si hace falta
-            e.target.value = "";
+            e.target.value = '';
         };
 
         return (
             <div className="btn-subir-group">
                 <label className={`btn btn--subir btn--subir--${color}`}>
-                    {file && (
-                        <span className="btn--subir__filename">{file.name}</span>
-                    )}
+                    {file && <span className="btn--subir__filename">{file.name}</span>}
                     {children}
                     <input
                         type="file"
@@ -79,8 +76,13 @@ export const Button = ({
     }
 
     return (
-        <button type={type} className={`btn btn--${variant} btn--${variant}--${color} btn--${isDisabled ? "disabled" : color}`} disabled={isDisabled} onClick={onClick}>
+        <button
+            type={type}
+            className={`btn btn--${variant} btn--${variant}--${color} btn--${isDisabled ? 'disabled' : color}`}
+            disabled={isDisabled}
+            onClick={onClick}
+        >
             {children}
         </button>
     );
-}
+};

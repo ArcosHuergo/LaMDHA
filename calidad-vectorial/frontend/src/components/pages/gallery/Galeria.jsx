@@ -1,15 +1,15 @@
-import { useCallback, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { usePost, useFetch } from "../../utils/fetch/FetchUtils";
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { usePost, useFetch } from '../../utils/fetch/FetchUtils';
 
-import CircularGallery from "../../elements/gallery/CircularGallery";
-import { Button } from "../../elements/buttons/Button";
-import { PopUpSeleccion } from "../../elements/popup/PopUpSeleccion";
-import { PopUpCarga } from "../../elements/popup/PopUpCarga";
+import CircularGallery from '../../elements/gallery/CircularGallery';
+import { Button } from '../../elements/buttons/Button';
+import { PopUpSeleccion } from '../../elements/popup/PopUpSeleccion';
+import { PopUpCarga } from '../../elements/popup/PopUpCarga';
 
-import { items } from "../../data/items";
+import { items } from '../../data/items';
 
-import "./Galeria.css";
+import './Galeria.css';
 
 export const Galeria = () => {
     const navigate = useNavigate();
@@ -17,8 +17,8 @@ export const Galeria = () => {
     const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
     const [archivo, setArchivo] = useState(null);
 
-    const { loading, error, execute } = usePost("vision/ubicacion");
-    const { data } = useFetch("auth/me");
+    const { loading, error, execute } = usePost('vision/ubicacion');
+    const { data } = useFetch('auth/me');
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -30,12 +30,12 @@ export const Galeria = () => {
 
     const enviarImagen = async (archivoImagen) => {
         const formData = new FormData();
-        formData.append("imagen", archivoImagen);
+        formData.append('imagen', archivoImagen);
 
         const resultado = await execute(formData);
 
         if (resultado) {
-            navigate("/mapa", { state: resultado });
+            navigate('/mapa', { state: resultado });
         }
     };
 
@@ -50,13 +50,13 @@ export const Galeria = () => {
         try {
             const respuestaImagen = await fetch(fotoSeleccionada.image);
             const blob = await respuestaImagen.blob();
-            const nombreArchivo = fotoSeleccionada.image.split("/").pop();
+            const nombreArchivo = fotoSeleccionada.image.split('/').pop();
             const archivoImagen = new File([blob], nombreArchivo, { type: blob.type });
             cerrarPopUp();
 
             await enviarImagen(archivoImagen);
         } catch (err) {
-            console.error("No se pudo preparar la imagen seleccionada:", err);
+            console.error('No se pudo preparar la imagen seleccionada:', err);
         }
     };
 
@@ -68,7 +68,7 @@ export const Galeria = () => {
                     width: '960px',
                     height: '330px',
                 }}
-                >
+            >
                 <CircularGallery
                     items={items}
                     bend={1.5}
@@ -82,11 +82,11 @@ export const Galeria = () => {
                     onItemClick={handleItemClick}
                 />
             </div>
-            <span className='galeria__or'>or</span>
+            <span className="galeria__or">or</span>
 
-            {data != "" && data !== null && data !== undefined ? (
+            {data != '' && data !== null && data !== undefined ? (
                 <Button
-                    variant='subir'
+                    variant="subir"
                     file={archivo}
                     onFileChange={setArchivo}
                     onClick={handleEnviarImagen}
@@ -94,18 +94,12 @@ export const Galeria = () => {
                     Sube tu imagen
                 </Button>
             ) : (
-                <Button
-                    to="/login"
-                    variant="subir"
-                >
+                <Button to="/login" variant="subir">
                     Sube tu imagen
                 </Button>
             )}
-            
 
-            {loading && (
-                <PopUpCarga />
-            )}
+            {loading && <PopUpCarga />}
 
             {fotoSeleccionada && (
                 <PopUpSeleccion
@@ -119,4 +113,4 @@ export const Galeria = () => {
             )}
         </main>
     );
-}
+};
