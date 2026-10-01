@@ -1,8 +1,9 @@
-import X from '../../../assets/img/icons/x.svg?react';
-import Pandha from '../../../assets/img/pandha/pandha.svg?react';
-import Nube from '../../../assets/img/pandha/nube.svg?react';
-import Nubecita from '../../../assets/img/pandha/nubecita.svg?react';
-import './PopUp.css';
+import Pandha from "../../../assets/img/pandha/pandha.svg?react";
+import Nube from "../../../assets/img/pandha/nube.svg?react";
+import Nubecita from "../../../assets/img/pandha/nubecita.svg?react";
+import { Bamboos } from "./Bamboos";
+
+import "./PopUp.css"
 
 export const PopUpCarga = ({}) => {
     return (
@@ -22,6 +23,9 @@ export const PopUpCarga = ({}) => {
                         </div>
                         <div className="pop__card__carga__mascota__pandha">
                             <Pandha />
+                        </div>
+                        <div className="pop__card__carga__mascota__bamboos">
+                            <Bamboos />
                         </div>
                     </div>
                 </div>

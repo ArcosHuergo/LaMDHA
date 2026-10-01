@@ -110,6 +110,15 @@
     left: 0;
 }
 
+.pop__card__carga__mascota__bamboos {
+    position: absolute;
+    bottom: -43px;
+    right: 50%;
+    transform: translateX(50%);
+    
+    width: 70vw;
+}
+
 @keyframes cargando {
     0%,
     50% {
