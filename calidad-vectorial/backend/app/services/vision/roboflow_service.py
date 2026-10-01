@@ -6,12 +6,11 @@ from concurrent.futures import ThreadPoolExecutor
 from concurrent.futures import TimeoutError as FutureTimeoutError
 from typing import Any
 
-from inference_sdk import InferenceHTTPClient
-from inference_sdk.http.entities import InferenceConfiguration
-from inference_sdk.http.errors import HTTPClientError, HTTPCallErrorError
-
 from app.config.settings import settings
 from app.schemas.vision.roboflow_prediction import ClassPrediction, RoboflowPrediction
+from inference_sdk import InferenceHTTPClient
+from inference_sdk.http.entities import InferenceConfiguration
+from inference_sdk.http.errors import HTTPCallErrorError, HTTPClientError
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +80,9 @@ def _parse_predicciones(predictions_block: dict[str, Any]) -> list[ClassPredicti
             confianza = entry.get("confidence")
             if clase is None or confianza is None:
                 continue
-            predicciones.append(ClassPrediction(clase=clase, confianza=float(confianza)))
+            predicciones.append(
+                ClassPrediction(clase=clase, confianza=float(confianza))
+            )
 
     top = predictions_block.get("top")
     top_confianza = predictions_block.get("confidence")
@@ -102,7 +103,7 @@ def clasificar_ubicacion(
     timeout: float = DEFAULT_TIMEOUT_SECONDS,
     max_retries: int = DEFAULT_MAX_RETRIES,
 ) -> RoboflowPrediction:
-    
+
     client = _build_client()
 
     last_error: Exception | None = None
@@ -122,17 +123,23 @@ def clasificar_ubicacion(
             last_error = error
             logger.warning(
                 "Intento %s/%s: timeout (%ss) llamando al workflow '%s'.",
-                attempt + 1, max_retries + 1, timeout, WORKFLOW_ID,
+                attempt + 1,
+                max_retries + 1,
+                timeout,
+                WORKFLOW_ID,
             )
         except (HTTPCallErrorError, HTTPClientError) as error:
             last_error = error
             logger.warning(
                 "Intento %s/%s: error llamando al workflow '%s': %s",
-                attempt + 1, max_retries + 1, WORKFLOW_ID, error,
+                attempt + 1,
+                max_retries + 1,
+                WORKFLOW_ID,
+                error,
             )
 
         if attempt < max_retries:
-            time.sleep(DEFAULT_BACKOFF_BASE_SECONDS * (2 ** attempt))
+            time.sleep(DEFAULT_BACKOFF_BASE_SECONDS * (2**attempt))
 
     raise RoboflowInferenceError(
         f"Falló la llamada al workflow '{WORKFLOW_ID}' tras "

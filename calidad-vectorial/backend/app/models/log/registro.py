@@ -1,6 +1,7 @@
-from sqlalchemy import Boolean, Column, DateTime, Integer, ForeignKey, String, func
-from sqlalchemy.orm import relationship
 from app.config.database import Base
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, func
+from sqlalchemy.orm import relationship
+
 
 class Registro(Base):
     __tablename__ = "registro"
@@ -18,4 +19,6 @@ class Registro(Base):
 
     prediccion_correcta = Column(Boolean, nullable=True)
 
-    fecha_creacion = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    fecha_creacion = Column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )

@@ -73,7 +73,9 @@ def main() -> int:
         print(f"FALLÓ: {error}", file=sys.stderr)
         return 1
 
-    print(f"predicciones: {len(prediction.predicciones)} clase(s) por encima del umbral")
+    print(
+        f"predicciones: {len(prediction.predicciones)} clase(s) por encima del umbral"
+    )
     for i, p in enumerate(prediction.predicciones):
         marca = " (ganadora)" if i == 0 else ""
         print(f"  [{i}] {p.clase} — confianza {p.confianza}{marca}")

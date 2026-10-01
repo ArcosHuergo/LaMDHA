@@ -1,8 +1,8 @@
 from app.config.database import with_db
 from app.models.security.usuario import Usuario
 
-class UsuarioRepository:
 
+class UsuarioRepository:
     @with_db
     def find_all(self, db) -> list[Usuario]:
         return db.query(Usuario).all()

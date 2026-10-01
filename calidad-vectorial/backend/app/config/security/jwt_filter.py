@@ -1,13 +1,13 @@
-from fastapi import Request, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-
 from app.services.security.jwt_service import jwt_service
+from fastapi import HTTPException, Request, status
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 # Rutas públicas sin ningún tipo de autenticación
 PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register"}
 
 # Rutas públicas que admiten token pero funcionan anonimante de no haberlo
 OPTIONAL_AUTH_PATHS = {"/vision/ubicacion"}
+
 
 class JwtAuthFilter(HTTPBearer):
     def __init__(self, auto_error: bool = True):
@@ -47,8 +47,7 @@ class JwtAuthFilter(HTTPBearer):
         # Autenticación obligatoria
         if token is None:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token no encontrado."
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token no encontrado."
             )
 
         try:
@@ -56,13 +55,12 @@ class JwtAuthFilter(HTTPBearer):
         except Exception:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token inválido o expirado."
+                detail="Token inválido o expirado.",
             )
 
         if not jwt_service.validar_token(token, username):
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token inválido."
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token inválido."
             )
 
         request.state.username = username

@@ -1,10 +1,13 @@
-from fastapi import FastAPI, Depends
 from contextlib import asynccontextmanager
-from app.routers import router
-from app.config.database import engine, Base, SessionLocal
-from app.config.security.jwt_filter import JwtAuthFilter
+
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from app.config.database import Base, SessionLocal, engine
+from app.config.security.jwt_filter import JwtAuthFilter
 from app.db.init_db import init_db
+from app.routers import router
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -15,10 +18,8 @@ async def lifespan(app: FastAPI):
         db.close()
     yield
 
-app = FastAPI(
-    dependencies=[Depends(JwtAuthFilter())],
-    lifespan=lifespan
-)
+
+app = FastAPI(dependencies=[Depends(JwtAuthFilter())], lifespan=lifespan)
 
 Base.metadata.create_all(bind=engine)
 

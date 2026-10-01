@@ -4,6 +4,7 @@ from app.repositories.zone.laboratorio_repository import LaboratorioRepository
 from app.repositories.zone.pasillo_repository import PasilloRepository
 from app.repositories.zone.patio_repository import PatioRepository
 
+
 class HojaRegistroService:
     def __init__(self):
         self.aula_repository = AulaRepository()

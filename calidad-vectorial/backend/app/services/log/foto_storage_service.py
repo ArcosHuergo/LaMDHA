@@ -3,6 +3,7 @@ from pathlib import Path
 
 UPLOAD_DIR = Path("uploads/fotos")
 
+
 def guardar_foto(contenido: bytes, nombre_original: str) -> str:
     UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
     extension = Path(nombre_original).suffix or ".jpg"

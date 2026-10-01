@@ -1,9 +1,16 @@
 from fastapi import APIRouter
-from app.routers.security import usuario_router, auth_router
-from app.routers.sector import zona_router
+
 from app.routers.log import registro_router
+from app.routers.sector import zona_router
+from app.routers.security import auth_router, usuario_router
 from app.routers.vision import roboflow_router
-from app.routers.zone import aula_router, pasillo_router, patio_router, laboratorio_router, biblioteca_router
+from app.routers.zone import (
+    aula_router,
+    biblioteca_router,
+    laboratorio_router,
+    pasillo_router,
+    patio_router,
+)
 
 api_router = APIRouter()
 api_router.include_router(auth_router.router)

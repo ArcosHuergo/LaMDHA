@@ -17,7 +17,10 @@ from pathlib import Path
 # sin depender de que "backend/" ya esté en PYTHONPATH.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.services.vision.roboflow_service import RoboflowInferenceError, _parse_prediction
+from app.services.vision.roboflow_service import (
+    RoboflowInferenceError,
+    _parse_prediction,
+)
 
 # Respuesta real devuelta por `run_workflow` (lista con una entrada por
 # imagen de entrada), capturada corriendo el workflow con model_id
@@ -55,7 +58,11 @@ REAL_WORKFLOW_RESPONSE_MULTI_CLASS = [
             "time": 0.0408,
             "image": {"width": 1920, "height": 1080},
             "predictions": [
-                {"class": "Laboratorio-PB-Violeta-7", "class_id": 0, "confidence": 0.7642},
+                {
+                    "class": "Laboratorio-PB-Violeta-7",
+                    "class_id": 0,
+                    "confidence": 0.7642,
+                },
                 {"class": "Pasillo-PB-Violeta", "class_id": 1, "confidence": 0.15},
                 {"class": "Aula-P1-Gris-4", "class_id": 2, "confidence": 0.05},
             ],
