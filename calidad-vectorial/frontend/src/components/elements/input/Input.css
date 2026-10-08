@@ -1,5 +1,5 @@
 .input-group {
-    font-size: 1.1rem;
+    font-size: var(--font-size-base);
     width: 100%;
 
     display: flex;

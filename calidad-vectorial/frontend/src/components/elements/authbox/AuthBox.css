@@ -44,7 +44,7 @@
 .auth-box__content__title {
     font-family: 'Orbitron';
     font-weight: 600;
-    font-size: 2.4rem;
+    font-size: var(--font-size-xl);
     text-align: center;
     color: var(--text-primary);
     margin-bottom: 10px;
@@ -54,12 +54,12 @@
 
 .auth-box__content__subtitle {
     color: var(--text-primary);
-    font-size: 1.4rem;
+    font-size: var(--font-size-lg);
 }
 
 .auth-box__content__inputs {
     width: 100%;
-    font-size: 1.3rem;
+    font-size: var(--font-size-md);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -135,7 +135,7 @@
 .auth-box__footer {
     font-family: 'Orbitron';
     font-weight: 600;
-    font-size: 2.7rem;
+    font-size: var(--font-size-xl);
     transform: translateY(-10px);
     animation: aparecer 1100ms both;
 }

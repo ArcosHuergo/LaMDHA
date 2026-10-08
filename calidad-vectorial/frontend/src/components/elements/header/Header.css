@@ -24,7 +24,7 @@
 .header__lamdha {
     font-family: 'Orbitron';
     font-weight: 600;
-    font-size: 25px;
+    font-size: var(--font-size-lg);
     color: var(--text-primary);
 }
 

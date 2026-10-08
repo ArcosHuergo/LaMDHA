@@ -7,7 +7,7 @@
 
 .galeria h1 {
     font-family: 'Orbitron';
-    font-size: 2.5rem;
+    font-size: var(--font-size-xl);
     color: var(--text-primary);
 }
 

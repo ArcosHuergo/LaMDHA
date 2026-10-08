@@ -54,7 +54,7 @@
     justify-content: space-between;
     gap: 10px;
 
-    font-size: 18px;
+    font-size: var(--font-size-base);
 
     color: var(--text-primary);
     padding: 10px;

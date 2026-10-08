@@ -1,5 +1,5 @@
 .btn {
-    font-size: 1.3rem;
+    font-size: var(--font-size-lg);
     cursor: pointer;
     border: none;
 
@@ -76,7 +76,7 @@
 
     border-radius: 8px;
 
-    font-size: 0.85rem;
+    font-size: var(--font-size-base);
 
     color: var(--text-primary);
 

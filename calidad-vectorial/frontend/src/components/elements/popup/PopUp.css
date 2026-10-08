@@ -49,11 +49,11 @@
 }
 
 .popup__card__text__titulo {
-    font-size: 2rem;
+    font-size: var(--font-size-lg);
 }
 
 .popup__card__text__descripcion {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
 }
 
 .popup__x {
@@ -72,7 +72,7 @@
     align-items: center;
 
     color: var(--text-primary);
-    font-size: 20px;
+    font-size: var(--font-size-lg);
 }
 
 .pop__card__carga__mascota {

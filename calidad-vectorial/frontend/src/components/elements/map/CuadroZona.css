@@ -22,15 +22,15 @@
 }
 
 .mapa__cuadro__data h2 {
-    font-size: 30px;
+    font-size: var(--font-size-lg);
 }
 
 .mapa__cuadro__data p {
-    font-size: 16px;
+    font-size: var(--font-size-base);
 }
 
 .mapa__cuadro__probabilidad {
-    font-size: 18px;
+    font-size: var(--font-size-base);
     text-align: end;
     width: 60%;
     align-self: flex-end;

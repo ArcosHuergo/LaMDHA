@@ -29,14 +29,14 @@
 
 .sn-hero__text__title {
     font-family: 'Orbitron';
-    font-size: 4.3rem;
+    font-size: var(--font-size-xxl);
     font-weight: 600;
 }
 
 .sn-hero__text__subtitle {
     font-family: 'Poppins';
     font-weight: 400;
-    font-size: 1.3rem;
+    font-size: var(--font-size-md);
     display: flex;
 }
 
@@ -70,13 +70,13 @@
 .sn-content__article__section__title {
     font-family: 'Orbitron';
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: var(--font-size-lg);
 }
 
 .sn-content__article__section__text {
     font-family: 'Poppins';
     font-weight: 400;
-    font-size: 1.2rem;
+    font-size: var(--font-size-base);
     line-height: 160%;
 }
 
