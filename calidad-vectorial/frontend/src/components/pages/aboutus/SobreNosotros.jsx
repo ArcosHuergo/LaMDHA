@@ -16,7 +16,7 @@ export const SobreNosotros = () => {
     return (
         <>
             <section className="sn-hero">
-                <div className="prueba">
+                <div className="fondo-aurora">
                     <Aurora
                         colorStops={['#7F0090', '#004AB8', '#4F0084']}
                         blend={1.0}
@@ -33,7 +33,9 @@ export const SobreNosotros = () => {
                 </div>
             </section>
 
-            <Header />
+            <Header
+                fondo={true}
+            />
 
             <main className="sn-content">
                 <article className="sn-content__article">

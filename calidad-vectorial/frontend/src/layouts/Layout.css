@@ -5,4 +5,17 @@
     flex-grow: 0;
     flex-flow: column nowrap;
     background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.body-layout__content {
+    z-index: 1;
+}
+
+.body-layout__aurora {
+    position: absolute;
+    min-height: 100%;
+    max-width: 100%;
+    inset: 0;
 }

@@ -8,11 +8,11 @@ import { Button } from '../buttons/Button';
 
 import './Header.css';
 
-export const Header = () => {
+export const Header = ({ fondo=false }) => {
     const { data } = useFetch('auth/me');
 
     return (
-        <header className="header">
+        <header className={`header header-fondo--${fondo ? 'true' : ''}`}> 
             <div>
                 <Link to="/" className="header__lamdha">
                     <LaMDHA />

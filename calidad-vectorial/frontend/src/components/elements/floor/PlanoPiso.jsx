@@ -48,8 +48,8 @@ export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick })
                         key={zona.classname}
                         points={zona.points}
                         fill={color}
-                        fillOpacity={activa? 0.6 : 0.5}
-                        stroke={activa ? "#FAFAFA" : "#060010"}
+                        fillOpacity={0.6}
+                        stroke={activa ? "#060010" : "#060010"}
                         strokeWidth={activa ? 2.5 : 1}
                         style={{ cursor: "pointer" }}
                         onClick={() => onZonaClick?.(zona)}

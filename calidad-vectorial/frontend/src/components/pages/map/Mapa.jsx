@@ -8,7 +8,6 @@ import PulgarAbajo from '../../../assets/img/icons/pulgarAbajo.svg?react';
 
 import { PlanoPiso } from "../../elements/floor/PlanoPiso";
 import { FachadaPisos } from "../../elements/floor/FachadaPisos";
-import { AscensorPisos } from "../../elements/floor/AscensorPisos";
 import { CuadroZona } from "../../elements/map/CuadroZona";
 
 import { Button } from '../../elements/buttons/Button';
