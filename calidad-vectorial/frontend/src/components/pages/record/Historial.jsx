@@ -12,7 +12,7 @@ export const Historial = () => {
                     {data ? (
                         <div className="">    
                             {data.map((registro) => (
-                                <li>{ registro.id }</li> 
+                                <li>{ registro.fecha }</li> 
                             ))}
                         </div>
                     ) : (

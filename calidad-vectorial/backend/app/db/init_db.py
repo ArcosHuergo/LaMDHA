@@ -189,7 +189,6 @@ PATIOS_SEED = [
         "color_zona": "Turquesa",
         "descripcion": "Patio ubicado en Planta Baja, sector Turquesa, destinado a la clases de Educación Física y actividades exteriores.",
     },
-   
     { 
         "nombre": "Patio-P1-Amarillo-3",
         "referencia": "P3",
@@ -241,7 +240,6 @@ PASILLOS_SEED = [
         "descripcion": "Pasillo ubicado en Piso 2, sector Rojo.",
     },
 ]
-
 
 BIBLIOTECA_SEED = [
     {
@@ -337,10 +335,12 @@ def _seed_patios(db: Session, cache: dict[str, Zona]) -> None:
             continue
 
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
-        zona.patio = Patio(
-            nombre=data["nombre"],
-            referencia=data["referencia"],
-            descripcion=data["descripcion"],
+        zona.patio.append(
+            Patio(
+                nombre=data["nombre"],
+                referencia=data["referencia"],
+                descripcion=data["descripcion"],
+            )
         )
 
 

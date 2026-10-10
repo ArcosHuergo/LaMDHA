@@ -21,7 +21,7 @@ class Patio(Base):
     descripcion = Column(String(255), nullable=False)
 
     # Zona a la que pertenece el patio
-    zona_id = Column(Integer, ForeignKey("zona.id"), unique=True)
+    zona_id = Column(Integer, ForeignKey("zona.id"))
     zona = relationship("Zona", back_populates="patio")
 
     hoja_registro = relationship("HojaRegistro", back_populates="patio")
