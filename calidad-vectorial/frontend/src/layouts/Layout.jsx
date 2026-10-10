@@ -18,6 +18,8 @@ export const Layout = () => {
                     blend={1.0}
                     amplitude={1.0}
                     speed={1}
+                    width={'100%'}
+                    heigth={'100%'}
                 />
             </div>
         </div>
