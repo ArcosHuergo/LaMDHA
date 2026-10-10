@@ -9,7 +9,7 @@ import { Button } from '../buttons/Button';
 import './Header.css';
 
 export const Header = ({ fondo=false }) => {
-    const { data } = useFetch('auth/me');
+    const { data } = useFetch('auth/validar-token');
 
     return (
         <header className={`header header-fondo--${fondo ? 'true' : ''}`}> 
@@ -21,7 +21,7 @@ export const Header = ({ fondo=false }) => {
                     LaMDHA
                 </Link>
             </div>
-            {data != '' && data !== null && data !== undefined ? (
+            {data ? (
                 <div>
                     <Usuario />
                     <p>{data.nickname}</p>

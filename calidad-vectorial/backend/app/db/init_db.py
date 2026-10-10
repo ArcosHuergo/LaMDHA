@@ -2,7 +2,6 @@ from app.models import Aula, Biblioteca, Laboratorio, Pasillo, Patio, Usuario, Z
 from app.services.security.usuario_service import UsuarioService
 from sqlalchemy.orm import Session
 
-
 AULAS_SEED = [
     {
         "nombre": "Aula-EP1-Blanco-1",
@@ -195,11 +194,7 @@ def _seed_aulas(db: Session, cache: dict[str, Zona]) -> None:
 def _seed_laboratorios(db: Session, cache: dict[str, Zona]) -> None:
     """Carga los laboratorios iniciales si todavía no existen."""
     for data in LABORATORIOS_SEED:
-        if (
-            db.query(Laboratorio)
-            .filter(Laboratorio.nombre == data["nombre"])
-            .first()
-        ):
+        if db.query(Laboratorio).filter(Laboratorio.nombre == data["nombre"]).first():
             continue
 
         zona = _obtener_o_crear_zona(db, cache, data["color_zona"])
