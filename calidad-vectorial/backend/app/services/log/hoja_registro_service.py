@@ -1,3 +1,5 @@
+from app.models.log.hoja_registro import HojaRegistro
+from app.models.log.registro import Registro
 from app.repositories.zone.aula_repository import AulaRepository
 from app.repositories.zone.biblioteca_repository import BibliotecaRepository
 from app.repositories.zone.laboratorio_repository import LaboratorioRepository
@@ -57,3 +59,21 @@ class HojaRegistroService:
         ubicacion[campo_id_sector] = entidad.id
         ubicacion["confianza"] = confianza
         return ubicacion
+
+    def obtener_hoja_principal(self, registro: Registro) -> HojaRegistro | None:
+        """Obtiene la hoja de registro con mayor confianza de un registro.
+
+        Args:
+            registro: Registro del que se desea obtener la hoja principal.
+
+        Returns:
+            Hoja con mayor confianza, o None si el registro no tiene hojas o
+            la mejor no pudo resolverse a una ubicación (confianza 0).
+        """
+        if not registro.hoja_registro:
+            return None
+
+        hoja_principal = max(registro.hoja_registro, key=lambda hoja: hoja.confianza)
+        if hoja_principal.confianza <= 0:
+            return None
+        return hoja_principal

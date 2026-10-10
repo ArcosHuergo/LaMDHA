@@ -87,13 +87,19 @@ class RegistroService:
         registro.prediccion_correcta = prediccion_correcta
         return self.registro_repository.update(registro)
 
-    def obtener_registros_por_usuario(self, usuario: Usuario):
-        """Obtiene todos los registros asociados a un usuario.
+    def obtener_registros_por_usuario(
+        self, usuario: Usuario
+    ) -> list[tuple[Registro, HojaRegistro | None]]:
+        """Obtiene los registros de un usuario junto a su hoja principal.
 
         Args:
             usuario: Usuario cuyos registros se desean obtener.
 
         Returns:
-            Lista de registros pertenecientes al usuario.
+            Lista de pares con cada registro y su hoja de mayor confianza.
         """
-        return self.registro_repository.find_all_by_usuario_id(usuario.id)
+        registros = self.registro_repository.find_all_by_usuario_id(usuario.id)
+        return [
+            (registro, self.hoja_registro_service.obtener_hoja_principal(registro))
+            for registro in registros
+        ]

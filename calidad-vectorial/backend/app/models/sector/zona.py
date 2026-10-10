@@ -24,7 +24,7 @@ class Zona(Base):
     pasillo = relationship("Pasillo", back_populates="zona", uselist=False)
 
     # Patio: relación uno a uno
-    patio = relationship("Patio", back_populates="zona", uselist=False)
+    patio = relationship("Patio", back_populates="zona")
 
     # Biblioteca: relación uno a uno
     biblioteca = relationship("Biblioteca", back_populates="zona", uselist=False)
