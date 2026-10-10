@@ -14,6 +14,7 @@ def get_usuario_service() -> UsuarioService:
     """Obtiene una instancia del servicio de usuarios.
 
     Returns:
+
         Instancia de `UsuarioService`.
     """
     return UsuarioService()
@@ -28,14 +29,17 @@ def login(
     """Autentica un usuario y genera un token JWT.
 
     Args:
+
         login_schema: Datos de acceso del usuario.
         response: Respuesta HTTP utilizada para establecer la cookie.
         usuario_service: Servicio utilizado para gestionar el usuario.
 
     Returns:
+
         Diccionario con el token JWT generado.
 
     Raises:
+    
         HTTPException: Si las credenciales proporcionadas no son válidas.
     """
     # 1) Verificar que el usuario exista

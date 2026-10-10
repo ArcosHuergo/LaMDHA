@@ -12,9 +12,11 @@ def obtener_zonas():
     """Obtiene todas las zonas.
 
     Returns:
+
         Lista de zonas convertidas a su esquema de respuesta.
 
     Raises:
+
         HTTPException: Si no se encuentran zonas.
     """
     zona_entities = zona_service.obtener_todos_las_zonas()
@@ -30,12 +32,15 @@ def obtener_aula_por_id(id: int):
     """Obtiene una zona por su identificador.
 
     Args:
+
         id: Identificador de la zona.
 
     Returns:
+
         Zona convertida a su esquema de respuesta.
 
     Raises:
+    
         HTTPException: Si no se encuentra la zona.
     """
     zona_entity = zona_service.obtener_zona_por_id(id)

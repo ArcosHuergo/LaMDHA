@@ -80,7 +80,7 @@ export const Mapa = () => {
                 <div className="mapa__side__opinion">
                     <p>¿La predicción fue correcta?</p>
                     <div className="mapa__opinion__botones">
-                        {id != null ? (
+                        {id ? (
                             <button className="mapa__opinion__svg"
                                 onClick={handle_opinion}
                                 value={true}
@@ -93,7 +93,7 @@ export const Mapa = () => {
                                 <PulgarArriba />
                             </div>
                         )}
-                        {id != null ? (
+                        {id ? (
                             <button className="mapa__opinion__svg"
                                 onClick={handle_opinion}
                                 value={false}

@@ -84,7 +84,7 @@ export const Galeria = () => {
             </div>
             <span className="galeria__or">or</span>
 
-            {data != '' && data !== null && data !== undefined ? (
+            {data ? (
                 <Button
                     variant="subir"
                     file={archivo}
