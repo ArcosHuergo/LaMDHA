@@ -1,0 +1,16 @@
+.historial {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    color: var(--text-primary);
+}
+
+.historial__title {
+    font-family: 'Orbitron';
+    font-size: var(--font-size-xl);
+}
+
+.historial__tabla {
+    width: 100vw;
+    font-size: var(--font-size-base);
+}

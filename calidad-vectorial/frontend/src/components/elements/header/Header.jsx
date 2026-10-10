@@ -12,7 +12,7 @@ import './Header.css';
 
 export const Header = ({ fondo=false }) => {
     const navigate = useNavigate();
-    const { data } = useFetch('auth/validar-token');
+    const { dataUsuario } = useFetch('auth/validar-token');
 
     return (
         <header className={`header header-fondo--${fondo ? 'true' : ''}`}> 
