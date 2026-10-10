@@ -10,8 +10,8 @@ export const Historial = () => {
 
     return (
         <div className="historial">
-            <h1 className='historial__title'>Mis búsquedas</h1>
-            {loading ? (
+            <h1 className="historial__title">Mis búsquedas</h1>
+            {loadingHistorial ? (
                 <p>Cargando</p>
             ) : (
                 <table className="historial__tabla">
@@ -26,21 +26,21 @@ export const Historial = () => {
                             <th>Acertó</th>
                         </tr>
                     </thead>
-                    {data ? (
+                    {dataHistorial ? (
                         <div className="">
-                            {data.map((registro) => (
+                            {dataHistorial.map((registro) => (
                                 <div>
-                                    <li>{ registro.fecha_creacion}</li> 
-                                    <li>{ registro.sector }</li> 
-                                    <li>{ registro.piso }</li> 
-                                    <li>{ registro.tipo }</li>
-                                    <li>{ registro.referencia }</li>
-                                    <li>{ registro.confianza }</li>
+                                    <li>{registro.fecha_creacion}</li>
+                                    <li>{registro.sector}</li>
+                                    <li>{registro.piso}</li>
+                                    <li>{registro.tipo}</li>
+                                    <li>{registro.referencia}</li>
+                                    <li>{registro.confianza}</li>
                                 </div>
                             ))}
                         </div>
                     ) : (
-                        <p>{ error }</p>
+                        <p>{errorHistorial}</p>
                     )}
                 </table>
             )}
