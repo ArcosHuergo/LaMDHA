@@ -18,7 +18,7 @@ export const Galeria = () => {
     const [archivo, setArchivo] = useState(null);
 
     const { loading, error, execute } = usePost('vision/ubicacion');
-    const { data } = useFetch('auth/me');
+    const { data } = useFetch('auth/validar-token');
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -84,7 +84,7 @@ export const Galeria = () => {
             </div>
             <span className="galeria__or">or</span>
 
-            {data != '' && data !== null && data !== undefined ? (
+            {data ? (
                 <Button
                     variant="subir"
                     file={archivo}

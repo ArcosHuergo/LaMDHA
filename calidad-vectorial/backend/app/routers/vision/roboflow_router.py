@@ -29,13 +29,16 @@ async def clasificar_imagen_ubicacion(
     de la clasificación como un registro.
 
     Args:
+
         request: Solicitud HTTP con la información del usuario autenticado.
         imagen: Imagen que se desea clasificar.
 
     Returns:
+
         Predicción obtenida a partir de la imagen.
 
     Raises:
+    
         HTTPException: Si ocurre un error durante la inferencia de la imagen.
     """
     contenido = await imagen.read()

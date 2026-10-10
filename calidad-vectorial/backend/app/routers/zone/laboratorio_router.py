@@ -12,9 +12,11 @@ def obtener_laboratorios():
     """Obtiene todos los laboratorios.
 
     Returns:
+
         Lista de laboratorios convertidos a su esquema de respuesta.
 
     Raises:
+
         HTTPException: Si no se encuentran laboratorios.
     """
     laboratorio_entities = laboratorio_service.obtener_todos_los_laboratorios()
@@ -30,12 +32,15 @@ def obtener_laboratorio_por_id(id: int):
     """Obtiene un laboratorio por su identificador.
 
     Args:
+
         id: Identificador del laboratorio.
 
     Returns:
+
         Laboratorio convertido a su esquema de respuesta.
 
     Raises:
+
         HTTPException: Si no se encuentra el laboratorio.
     """
     laboratorio_entity = laboratorio_service.obtener_laboratorio_por_id(id)
@@ -51,12 +56,15 @@ def obtener_laboratorio_por_nombre(nombre: str):
     """Obtiene un laboratorio por su nombre.
 
     Args:
+
         nombre: Nombre del laboratorio.
 
     Returns:
+
         Laboratorio convertido a su esquema de respuesta.
 
     Raises:
+    
         HTTPException: Si no se encuentra el laboratorio.
     """
     laboratorio_entity = laboratorio_service.obtener_laboratorio_por_nombre(nombre)

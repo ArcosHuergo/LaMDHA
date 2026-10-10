@@ -20,14 +20,17 @@ def actualizar_feedback(id: int, feedback: RegistroFeedbackSchema, request: Requ
     """Actualiza la predicción correcta asociada a un registro del usuario.
 
     Args:
+
         id: Identificador del registro.
         feedback: Datos con la predicción correcta.
         request: Solicitud HTTP con la información del usuario autenticado.
 
     Returns:
+
         El registro actualizado convertido a su esquema de respuesta.
 
     Raises:
+
         HTTPException: Si el usuario no existe, el registro no existe o
             pertenece a otro usuario.
     """
@@ -59,12 +62,15 @@ def obtener_registros_del_usuario(request: Request):
     """Obtiene todos los registros asociados al usuario autenticado.
 
     Args:
+
         request: Solicitud HTTP con la información del usuario autenticado.
 
     Returns:
+
         Lista de registros del usuario convertidos a sus esquemas de respuesta.
 
     Raises:
+
         HTTPException: Si el usuario no existe o no se encuentran registros.
     """
     usuario = usuario_service.obtener_usuario_por_username(request.state.username)
@@ -88,13 +94,16 @@ def obtener_foto(id: int, request: Request):
     """Obtiene la foto asociada a un registro del usuario autenticado.
 
     Args:
+
         id: Identificador del registro.
         request: Solicitud HTTP con la información del usuario autenticado.
 
     Returns:
+
         Respuesta HTTP con el archivo de imagen asociado al registro.
 
     Raises:
+    
         HTTPException: Si el usuario no existe, el registro no existe,
             pertenece a otro usuario o no tiene una foto asociada.
     """

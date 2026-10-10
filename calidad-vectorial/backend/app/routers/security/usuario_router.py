@@ -12,9 +12,11 @@ def obtener_usuarios():
     """Obtiene todos los usuarios.
 
     Returns:
+
         Lista de usuarios convertidos a su esquema de respuesta.
 
     Raises:
+    
         HTTPException: Si no se encuentran usuarios.
     """
     usuario_entities = usuario_service.obtener_todos_los_usuarios()
