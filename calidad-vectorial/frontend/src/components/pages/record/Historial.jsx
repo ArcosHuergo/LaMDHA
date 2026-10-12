@@ -1,4 +1,5 @@
 import { useFetch } from '../../utils/fetch/FetchUtils';
+import FlechaDesplegar from '../../../assets/img/icons/flechaDesplegar.svg?react';
 import './Historial.css';
 
 export const Historial = () => {
@@ -14,35 +15,40 @@ export const Historial = () => {
             {loadingHistorial ? (
                 <p>Cargando</p>
             ) : (
-                <table className="historial__tabla">
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Sector</th>
-                            <th>Piso</th>
-                            <th>Tipo</th>
-                            <th>Referencia</th>
-                            <th>Confianza</th>
-                            <th>Acertó</th>
-                        </tr>
-                    </thead>
-                    {dataHistorial ? (
-                        <div className="">
-                            {dataHistorial.map((registro) => (
-                                <div>
-                                    <li>{registro.fecha_creacion}</li>
-                                    <li>{registro.sector}</li>
-                                    <li>{registro.piso}</li>
-                                    <li>{registro.tipo}</li>
-                                    <li>{registro.referencia}</li>
-                                    <li>{registro.confianza}</li>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p>{errorHistorial}</p>
-                    )}
-                </table>
+                <div className='historial__cuadro'>
+                    <table className="historial__cuadro__tabla">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Sector</th>
+                                <th>Piso</th>
+                                <th>Tipo</th>
+                                <th>Referencia</th>
+                                <th>Confianza</th>
+                                <th>Acertó</th>
+                            </tr>
+                        </thead>
+                        {dataHistorial ? (
+                            <tbody>
+                                {dataHistorial.map((registro) => (
+                                    <>
+                                        <tr key={registro.id}>
+                                            <td>{registro.fecha_creacion ? registro.fecha_creacion : '-'}</td>
+                                            <td>{registro.sector ? registro.sector : '-'}</td>
+                                            <td>{registro.piso ? registro.piso : '-'}</td>
+                                            <td>{registro.tipo ? registro.tipo : '-'}</td>
+                                            <td>{registro.referencia ? registro.referencia : '-'}</td>
+                                            <td>{registro.confianza ? registro.confianza + '%' : '-'}</td>
+                                            <td>{registro.acerto ? registro.acerto : '-'}</td>
+                                        </tr>
+                                    </>
+                                ))}
+                            </tbody>
+                        ) : (
+                            <p>{errorHistorial}</p>
+                        )}
+                    </table>
+                </div>
             )}
         </div>
     );

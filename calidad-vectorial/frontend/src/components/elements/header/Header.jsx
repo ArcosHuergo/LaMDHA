@@ -12,7 +12,8 @@ import './Header.css';
 
 export const Header = ({ fondo=false }) => {
     const navigate = useNavigate();
-    const { dataUsuario } = useFetch('auth/validar-token');
+    const { data: dataUsuario } = useFetch('auth/validar-token');
+    console.log(dataUsuario);
 
     return (
         <header className={`header header-fondo--${fondo ? 'true' : ''}`}> 
@@ -34,6 +35,7 @@ export const Header = ({ fondo=false }) => {
                                     label: <Usuario />,
                                     children: [
                                         { value: '#', label: dataUsuario.username, static: true},
+                                        { value: '/galeria', label: 'Galeria'},
                                         { value: '/historial', label: 'Historial'},
                                     ]
                                 }

@@ -8,9 +8,41 @@
 .historial__title {
     font-family: 'Orbitron';
     font-size: var(--font-size-xl);
+    margin-bottom: 50px;
 }
 
-.historial__tabla {
-    width: 100vw;
+.historial__cuadro {
+    width: 90vw;
+    height: 60vh;
     font-size: var(--font-size-base);
+    border: var(--border-secondary) 2px solid;
+    border-radius: 5px;
+}
+
+.historial__cuadro__tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.historial__cuadro__tabla thead,
+.historial__cuadro__tabla tr {
+    border-bottom: var(--border-secondary) 2px solid;
+}
+
+.historial__cuadro__tabla th,
+.historial__cuadro__tabla td {
+    text-align: start;
+    padding-left: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    
+
+    width: calc(100% / 7);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.historial__cuadro__tabla tr:last-child {
+    border: none;
 }
