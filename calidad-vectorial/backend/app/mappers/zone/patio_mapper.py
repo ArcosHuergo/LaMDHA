@@ -1,4 +1,5 @@
 from app.mappers.sector.zona_mapper import ZonaMapper
+from app.mappers.zone.zone_mapper_utils import ZoneMapperUtills
 from app.models.zone.patio import Patio
 from app.schemas.zone.patio_response import PatioResponseSchema
 
@@ -34,10 +35,12 @@ class PatioMapper:
         Returns:
             Esquema de respuesta creado a partir de la entidad.
         """
+        data = ZoneMapperUtills.extraer_data_zone(entity.nombre)
         return PatioResponseSchema(
             id=entity.id,
-            nombre=entity.nombre,
+            tipo=data["tipo"],
             referencia=entity.referencia,
+            zona_color=data["zona_color"],
             descripcion=entity.descripcion,
         )
 

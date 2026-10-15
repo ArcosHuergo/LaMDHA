@@ -3,6 +3,7 @@ from pydantic import BaseModel
 
 class PatioResponseSchema(BaseModel):
     id: int
-    nombre: str
+    tipo: str
     referencia: str
+    zona_color: str
     descripcion: str

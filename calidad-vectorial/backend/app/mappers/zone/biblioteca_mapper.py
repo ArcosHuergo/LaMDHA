@@ -1,4 +1,5 @@
 from app.mappers.sector.zona_mapper import ZonaMapper
+from app.mappers.zone.zone_mapper_utils import ZoneMapperUtills
 from app.models.zone.biblioteca import Biblioteca
 from app.schemas.zone.biblioteca_response import BibliotecaResponseSchema
 
@@ -34,10 +35,12 @@ class BibliotecaMapper:
         Returns:
             Esquema de respuesta creado a partir de la entidad.
         """
+        data = ZoneMapperUtills.extraer_data_zone(entity.nombre)
         return BibliotecaResponseSchema(
             id=entity.id,
-            nombre=entity.nombre,
+            tipo=data["tipo"],
             referencia=entity.referencia,
+            zona_color=data["zona_color"],
             descripcion=entity.descripcion,
         )
 

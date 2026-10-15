@@ -1,4 +1,5 @@
 from app.mappers.sector.zona_mapper import ZonaMapper
+from app.mappers.zone.zone_mapper_utils import ZoneMapperUtills
 from app.models.zone.pasillo import Pasillo
 from app.schemas.zone.pasillo_response import PasilloResponseSchema
 
@@ -33,9 +34,11 @@ class PasilloMapper:
         Returns:
             Esquema de respuesta creado a partir de la entidad.
         """
+        data = ZoneMapperUtills.extraer_data_zone(entity.nombre)
         return PasilloResponseSchema(
             id=entity.id,
-            nombre=entity.nombre,
+            tipo=data["tipo"],
+            zona_color=data["zona_color"],
             descripcion=entity.descripcion,
         )
 

@@ -3,5 +3,6 @@ from pydantic import BaseModel
 
 class PasilloResponseSchema(BaseModel):
     id: int
-    nombre: str
+    tipo: str
+    zona_color: str
     descripcion: str

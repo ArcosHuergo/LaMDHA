@@ -1,4 +1,5 @@
 from app.mappers.sector.zona_mapper import ZonaMapper
+from app.mappers.zone.zone_mapper_utils import ZoneMapperUtills
 from app.models.zone.laboratorio import Laboratorio
 from app.schemas.zone.laboratorio_response import LaboratorioResponseSchema
 
@@ -34,10 +35,12 @@ class LaboratorioMapper:
         Returns:
             Esquema de respuesta creado a partir de la entidad.
         """
+        data = ZoneMapperUtills.extraer_data_zone(entity.nombre)
         return LaboratorioResponseSchema(
             id=entity.id,
-            nombre=entity.nombre,
+            tipo=data["tipo"],
             referencia=entity.referencia,
+            zona_color=data["zona_color"],
             descripcion=entity.descripcion,
         )
 
