@@ -76,7 +76,7 @@ class RegistroMapper:
         return RegistroCompletoSchema(
             id=entity.id,
             prediccion_correcta=entity.prediccion_correcta,
-            fecha_creacion=entity.fecha_creacion,
+            fecha_creacion=entity.fecha_creacion.strftime("%d/%m/%Y %H:%M"),
             **RegistroMapper.resolver_ubicacion(hoja_principal),
         )
 
