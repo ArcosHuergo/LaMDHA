@@ -20,7 +20,7 @@ export const Mapa = () => {
 
     const predicciones = resultado ? resultado.predicciones : undefined;
     const id = resultado ? resultado.registro_id : undefined;
-    const piso = resultado ? resultado.piso : undefined;
+    const piso = resultado ? resultado.piso : 'PB';
     const zona = resultado ? resultado.predicciones[0].clase : undefined
 
     const [pisoActual, setPisoActual] = useState(piso);

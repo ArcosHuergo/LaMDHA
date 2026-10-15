@@ -34,7 +34,7 @@ export const CuadroZona = ({ className, tipo, confianza }) => {
         <article className="mapa__cuadro">
             <div className="mapa__cuadro__data">
                 <h2>{data.nombre}</h2>
-                <p>{data.referencia}</p>
+                <p>Referencia {data.referencia}</p>
                 <p>{data.descripcion}</p>
             </div>
             {confianza != null && confianza != undefined && (

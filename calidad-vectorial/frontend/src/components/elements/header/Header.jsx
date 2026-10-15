@@ -36,6 +36,7 @@ export const Header = ({ fondo=false }) => {
                                     children: [
                                         { value: '#', label: dataUsuario.username, static: true},
                                         { value: '/galeria', label: 'Galeria'},
+                                        { value: '/mapa', label: 'Mapa'},
                                         { value: '/historial', label: 'Historial'},
                                     ]
                                 }
