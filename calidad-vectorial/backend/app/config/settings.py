@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     # clave en https://app.roboflow.com/settings/api.
     roboflow_api_key: str
     roboflow_api_url: str
+    workspace_name: str
+    workflow_id: str
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

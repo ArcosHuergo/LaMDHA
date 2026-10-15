@@ -14,9 +14,6 @@ from inference_sdk.http.errors import HTTPCallErrorError, HTTPClientError
 
 logger = logging.getLogger(__name__)
 
-WORKSPACE_NAME = "ignacios-workspace"
-WORKFLOW_ID = "lamdha"
-
 DEFAULT_TIMEOUT_SECONDS = 10.0
 DEFAULT_MAX_RETRIES = 2
 DEFAULT_BACKOFF_BASE_SECONDS = 1.0
@@ -158,8 +155,8 @@ def clasificar_ubicacion(
             with ThreadPoolExecutor(max_workers=1) as executor:
                 future = executor.submit(
                     client.run_workflow,
-                    workspace_name=WORKSPACE_NAME,
-                    workflow_id=WORKFLOW_ID,
+                    workspace_name=settings.workspace_name,
+                    workflow_id=settings.workflow_id,
                     images={"image": image},
                     parameters={"confidence": confidence},
                 )
@@ -172,7 +169,7 @@ def clasificar_ubicacion(
                 attempt + 1,
                 max_retries + 1,
                 timeout,
-                WORKFLOW_ID,
+                settings.workflow_id,
             )
         except (HTTPCallErrorError, HTTPClientError) as error:
             last_error = error
@@ -180,7 +177,7 @@ def clasificar_ubicacion(
                 "Intento %s/%s: error llamando al workflow '%s': %s",
                 attempt + 1,
                 max_retries + 1,
-                WORKFLOW_ID,
+                settings.workflow_id,
                 error,
             )
 
@@ -188,6 +185,6 @@ def clasificar_ubicacion(
             time.sleep(DEFAULT_BACKOFF_BASE_SECONDS * (2**attempt))
 
     raise RoboflowInferenceError(
-        f"Falló la llamada al workflow '{WORKFLOW_ID}' tras "
+        f"Falló la llamada al workflow '{settings.workflow_id}' tras "
         f"{max_retries + 1} intento(s). Último error: {last_error}"
     ) from last_error
