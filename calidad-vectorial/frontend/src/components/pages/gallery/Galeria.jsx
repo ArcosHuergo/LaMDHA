@@ -17,8 +17,8 @@ export const Galeria = () => {
     const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
     const [archivo, setArchivo] = useState(null);
 
-    const { loading, error, execute } = usePost('vision/ubicacion');
-    const { data } = useFetch('auth/validar-token');
+    const { loading: loadingVision, error: errorVision, execute: executeVision } = usePost('vision/ubicacion');
+    const { error: errorToken } = useFetch('auth/validar-token');
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -28,14 +28,19 @@ export const Galeria = () => {
         setFotoSeleccionada(null);
     };
 
-    const enviarImagen = async (archivoImagen) => {
+    const enviarImagen = async (archivoImagen, imagenUrl) => {
         const formData = new FormData();
         formData.append('imagen', archivoImagen);
 
-        const resultado = await execute(formData);
+        const resultado = await executeVision(formData);
 
         if (resultado) {
-            navigate('/mapa', { state: resultado });
+            navigate('/mapa', {
+                state: {
+                    ...resultado,
+                    imagenUrl: imagenUrl ?? URL.createObjectURL(archivoImagen),
+                },
+            });
         }
     };
 
@@ -47,6 +52,8 @@ export const Galeria = () => {
     const handleSeleccionarFoto = async () => {
         if (!fotoSeleccionada) return;
 
+        const imagenUrl = fotoSeleccionada.image;
+
         try {
             const respuestaImagen = await fetch(fotoSeleccionada.image);
             const blob = await respuestaImagen.blob();
@@ -54,7 +61,7 @@ export const Galeria = () => {
             const archivoImagen = new File([blob], nombreArchivo, { type: blob.type });
             cerrarPopUp();
 
-            await enviarImagen(archivoImagen);
+            await enviarImagen(archivoImagen, imagenUrl);
         } catch (err) {
             console.error('No se pudo preparar la imagen seleccionada:', err);
         }
@@ -84,7 +91,7 @@ export const Galeria = () => {
             </div>
             <span className="galeria__or">or</span>
 
-            {data ? (
+            {!errorToken ? (
                 <Button
                     variant="subir"
                     file={archivo}
@@ -99,7 +106,7 @@ export const Galeria = () => {
                 </Button>
             )}
 
-            {loading && <PopUpCarga />}
+            {loadingVision && <PopUpCarga />}
 
             {fotoSeleccionada && (
                 <PopUpSeleccion

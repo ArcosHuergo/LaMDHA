@@ -18,6 +18,9 @@ export const Mapa = () => {
     const location = useLocation();
     const resultado = location.state;
 
+    const imagenUrl = resultado ? resultado.imagenUrl : undefined;
+    const [imagenRota, setImagenRota] = useState(false);
+
     const predicciones = resultado ? resultado.predicciones : undefined;
     const id = resultado ? resultado.registro_id : undefined;
     const piso = resultado ? resultado.piso : 'PB';
@@ -69,6 +72,8 @@ export const Mapa = () => {
                     className={zonaSeleccionada?.className}
                     tipo={zonaSeleccionada?.tipo}
                     confianza={confianzaSeleccionada}
+                    src={imagenUrl}
+                    alt= 'Imagen ingresada'
                 />
             </div>
 

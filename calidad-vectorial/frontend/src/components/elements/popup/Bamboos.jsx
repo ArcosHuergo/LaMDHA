@@ -3,7 +3,6 @@ export const Bamboos = () => {
         <svg
             width="1495" height="720" viewBox="0 0 1495 720"
             style={{ width: "100%", height: "auto", display: "block" }}
-            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         >
             <rect x="1396" y="56" width="99" height="661" fill="url(#pattern0_0_1)"/>
             <rect width="93" height="622" transform="matrix(-1 0 0 1 318 98)" fill="url(#pattern1_0_1)"/>

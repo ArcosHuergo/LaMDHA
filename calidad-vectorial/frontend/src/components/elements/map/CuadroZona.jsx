@@ -3,11 +3,13 @@ import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
 
 import "./CuadroZona.css";
 
-export const CuadroZona = ({ className, tipo, confianza }) => {
-    const { data, loading, error, refetch } = useFetch(tipo && className ? `${tipo}/nombre/${className}` : null);
+export const CuadroZona = ({ className, tipo, confianza, src, alt }) => {
+    const { data: dataZona , loading: loadingZona, error: errorZona, refetch: refetchZona } = useFetch(tipo && className ? `${tipo}/nombre/${className}` : null);
+
+    const zonaColor = dataZona?.zona_color?.toLowerCase();
 
     useEffect(() => {
-        if (className) refetch();
+        if (className) refetchZona();
     }, [className])
 
     if (!className) {
@@ -20,7 +22,7 @@ export const CuadroZona = ({ className, tipo, confianza }) => {
         );
     }
 
-    if (loading) {
+    if (loadingZona) {
         return(
             <article className="mapa__cuadro">
                 <div className="mapa__cuadro__data">
@@ -33,9 +35,12 @@ export const CuadroZona = ({ className, tipo, confianza }) => {
     return (
         <article className="mapa__cuadro">
             <div className="mapa__cuadro__data">
-                <h2>{data.nombre}</h2>
-                <p>Referencia {data.referencia}</p>
-                <p>{data.descripcion}</p>
+                <div className='mapa__cuadro__data__text'>
+                    <h2>{dataZona.tipo} {dataZona.referencia ? '- ' + dataZona.referencia : ''}</h2>
+                    <p>Sector {zonaColor}</p>
+                    <p>{dataZona.descripcion}</p>
+                </div>
+                <img src={src} alt={alt} />
             </div>
             {confianza != null && confianza != undefined && (
                 <div className="mapa__cuadro__probabilidad">
