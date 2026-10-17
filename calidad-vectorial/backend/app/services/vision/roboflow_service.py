@@ -2,15 +2,11 @@ from __future__ import annotations
 
 import logging
 import time
-from concurrent.futures import ThreadPoolExecutor
-from concurrent.futures import TimeoutError as FutureTimeoutError
 from typing import Any
 
+import httpx
 from app.config.settings import settings
 from app.schemas.vision.roboflow_prediction import ClassPrediction, RoboflowPrediction
-from inference_sdk import InferenceHTTPClient
-from inference_sdk.http.entities import InferenceConfiguration
-from inference_sdk.http.errors import HTTPCallErrorError, HTTPClientError
 
 logger = logging.getLogger(__name__)
 
@@ -23,27 +19,101 @@ class RoboflowInferenceError(Exception):
     """Error de configuración, red o parseo al invocar el workflow de Roboflow."""
 
 
-def _build_client() -> InferenceHTTPClient:
-    """Construye y configura el cliente de Roboflow.
+def _run_workflow(
+    image_base64: str, confidence: float, timeout: float
+) -> list[dict[str, Any]]:
+    """Ejecuta el workflow de Roboflow mediante su API HTTP.
+
+    Args:
+        image_base64: Imagen codificada en Base64.
+        confidence: Umbral de confianza utilizado por el workflow.
+        timeout: Tiempo máximo de espera, en segundos.
 
     Returns:
-        Cliente de Roboflow configurado.
+        Lista de resultados devuelta por el workflow.
 
     Raises:
-        RoboflowInferenceError: Si no está configurada la API key.
+        RoboflowInferenceError: Si falta la API key.
+        httpx.HTTPError: Si falla la llamada HTTP.
     """
     if not settings.roboflow_api_key:
-        raise RoboflowInferenceError(
-            "ROBOFLOW_API_KEY no está configurada (ver .env / "
-            "https://app.roboflow.com/settings/api)."
-        )
-    client = InferenceHTTPClient(
-        api_url=settings.roboflow_api_url,
-        api_key=settings.roboflow_api_key,
-    )
+        raise RoboflowInferenceError("ROBOFLOW_API_KEY no está configurada.")
 
-    client.configure(InferenceConfiguration(workflow_run_retries_enabled=False))
-    return client
+    url = (
+        f"{settings.roboflow_api_url.rstrip('/')}/"
+        f"{settings.workspace_name}/workflows/{settings.workflow_id}"
+    )
+    payload = {
+        "api_key": settings.roboflow_api_key,
+        "inputs": {
+            "image": {"type": "base64", "value": image_base64},
+            "confidence": confidence,
+        },
+    }
+    response = httpx.post(url, json=payload, timeout=timeout)
+    response.raise_for_status()
+    return response.json().get("outputs", [])
+
+
+def clasificar_ubicacion(
+    image: Any,
+    confidence: float = 0.4,
+    timeout: float = DEFAULT_TIMEOUT_SECONDS,
+    max_retries: int = DEFAULT_MAX_RETRIES,
+) -> RoboflowPrediction:
+    """Clasifica una imagen mediante un workflow de Roboflow.
+
+    Realiza la inferencia con un tiempo máximo de espera y reintenta
+    automáticamente ante errores de red, timeout o errores del servidor.
+
+    Args:
+        image: Imagen en Base64 que se desea clasificar.
+        confidence: Umbral de confianza utilizado por el workflow.
+        timeout: Tiempo máximo de espera por intento, en segundos.
+        max_retries: Cantidad máxima de reintentos después del primer intento.
+
+    Returns:
+        Predicción obtenida del workflow de Roboflow.
+
+    Raises:
+        RoboflowInferenceError: Si falla la configuración, la inferencia o
+            el procesamiento de la respuesta después de los reintentos.
+    """
+    last_error: Exception | None = None
+    for attempt in range(max_retries + 1):
+        try:
+            raw_results = _run_workflow(image, confidence, timeout)
+            return _parse_prediction(raw_results)
+        except httpx.HTTPStatusError as error:
+            last_error = error
+            logger.warning(
+                "Intento %s/%s: HTTP %s del workflow '%s': %s",
+                attempt + 1,
+                max_retries + 1,
+                error.response.status_code,
+                settings.workflow_id,
+                error.response.text[:300],
+            )
+            # Los errores 4xx (key inválida, workflow inexistente) no se reintentan
+            if error.response.status_code < 500:
+                break
+        except httpx.HTTPError as error:  # timeout, conexión, etc.
+            last_error = error
+            logger.warning(
+                "Intento %s/%s: error de red llamando al workflow '%s': %r",
+                attempt + 1,
+                max_retries + 1,
+                settings.workflow_id,
+                error,
+            )
+
+        if attempt < max_retries:
+            time.sleep(DEFAULT_BACKOFF_BASE_SECONDS * (2**attempt))
+
+    raise RoboflowInferenceError(
+        f"Falló la llamada al workflow '{settings.workflow_id}'. "
+        f"Último error: {last_error}"
+    ) from last_error
 
 
 def _parse_prediction(raw_results: list[dict[str, Any]]) -> RoboflowPrediction:
@@ -121,70 +191,3 @@ def _parse_predicciones(
 
     predicciones.sort(key=lambda p: p.confianza, reverse=True)
     return predicciones
-
-
-def clasificar_ubicacion(
-    image: Any,
-    confidence: float = 0.4,
-    timeout: float = DEFAULT_TIMEOUT_SECONDS,
-    max_retries: int = DEFAULT_MAX_RETRIES,
-) -> RoboflowPrediction:
-    """Clasifica una imagen mediante un workflow de Roboflow.
-
-    Realiza la inferencia con un tiempo máximo de espera y reintenta
-    automáticamente ante errores de red o timeout.
-
-    Args:
-        image: Imagen que se desea clasificar.
-        confidence: Umbral de confianza utilizado por el workflow.
-        timeout: Tiempo máximo de espera por intento, en segundos.
-        max_retries: Cantidad máxima de reintentos después del primer intento.
-
-    Returns:
-        Predicción obtenida del workflow de Roboflow.
-
-    Raises:
-        RoboflowInferenceError: Si falla la configuración, la inferencia o
-            el procesamiento de la respuesta después de los reintentos.
-    """
-    client = _build_client()
-
-    last_error: Exception | None = None
-    for attempt in range(max_retries + 1):
-        try:
-            with ThreadPoolExecutor(max_workers=1) as executor:
-                future = executor.submit(
-                    client.run_workflow,
-                    workspace_name=settings.workspace_name,
-                    workflow_id=settings.workflow_id,
-                    images={"image": image},
-                    parameters={"confidence": confidence},
-                )
-                raw_results = future.result(timeout=timeout)
-            return _parse_prediction(raw_results)
-        except FutureTimeoutError as error:
-            last_error = error
-            logger.warning(
-                "Intento %s/%s: timeout (%ss) llamando al workflow '%s'.",
-                attempt + 1,
-                max_retries + 1,
-                timeout,
-                settings.workflow_id,
-            )
-        except (HTTPCallErrorError, HTTPClientError) as error:
-            last_error = error
-            logger.warning(
-                "Intento %s/%s: error llamando al workflow '%s': %s",
-                attempt + 1,
-                max_retries + 1,
-                settings.workflow_id,
-                error,
-            )
-
-        if attempt < max_retries:
-            time.sleep(DEFAULT_BACKOFF_BASE_SECONDS * (2**attempt))
-
-    raise RoboflowInferenceError(
-        f"Falló la llamada al workflow '{settings.workflow_id}' tras "
-        f"{max_retries + 1} intento(s). Último error: {last_error}"
-    ) from last_error
