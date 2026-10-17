@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { usePost } from '../../utils/fetch/FetchUtils';
+import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
 
 import PulgarArriba from '../../../assets/img/icons/pulgarArriba.svg?react';
 import PulgarAbajo from '../../../assets/img/icons/pulgarAbajo.svg?react';
@@ -19,7 +19,6 @@ export const Mapa = () => {
     const resultado = location.state;
 
     const imagenUrl = resultado ? resultado.imagenUrl : undefined;
-    const [imagenRota, setImagenRota] = useState(false);
 
     const predicciones = resultado ? resultado.predicciones : undefined;
     const id = resultado ? resultado.registro_id : undefined;
@@ -32,7 +31,9 @@ export const Mapa = () => {
     const confianzaSeleccionada = zonaSeleccionada
         ? predicciones?.find((p) => p.clase === zonaSeleccionada.className)?.confianza ?? null : null;
 
-    const { loading, error, execute } = usePost(`registro/feedback/${id}`, "PATCH");
+    const { execute: executeFeedback } = usePost(`registro/feedback/${id}`, "PATCH");
+
+    const { data: dataUsuario, error: errorToken } = useFetch('auth/validar-token');
 
     const [enviando, setEnviando] = useState(false);
     const activarOpinion = enviando ? "not-allowed" : "pointer"
@@ -41,7 +42,7 @@ export const Mapa = () => {
         setEnviando(true);
 
         try {
-            const resultado = await execute({
+            const resultado = await executeFeedback({
                 prediccion_correcta: event.currentTarget.value
             });
 

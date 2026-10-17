@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePost, useFetch } from '../../utils/fetch/FetchUtils';
 
@@ -19,6 +19,17 @@ export const Galeria = () => {
 
     const { loading: loadingVision, error: errorVision, execute: executeVision } = usePost('vision/ubicacion');
     const { error: errorToken } = useFetch('auth/validar-token');
+
+    useEffect(() => {
+    if (!fotoSeleccionada) return;
+
+    const overflowOriginal = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+        document.body.style.overflow = overflowOriginal;
+    };
+    }, [fotoSeleccionada]);
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -71,6 +82,9 @@ export const Galeria = () => {
         <main className="galeria">
             <h1>¡Elige tu destino!</h1>
             <div
+                className={`galeria__carrusel ${
+                    fotoSeleccionada ? 'galeria__carrusel--bloqueado' : ''
+                }`}
                 style={{
                     width: '960px',
                     height: '330px',

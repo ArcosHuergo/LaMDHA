@@ -37,10 +37,12 @@ export const CuadroZona = ({ className, tipo, confianza, src, alt }) => {
             <div className="mapa__cuadro__data">
                 <div className='mapa__cuadro__data__text'>
                     <h2>{dataZona.tipo} {dataZona.referencia ? '- ' + dataZona.referencia : ''}</h2>
-                    <p>Sector {zonaColor}</p>
+                    <p>{zonaColor ? 'Sector ' + zonaColor : ''}</p>
                     <p>{dataZona.descripcion}</p>
                 </div>
-                <img src={src} alt={alt} />
+                {src && (
+                    <img src={src} alt={alt} />
+                )}
             </div>
             {confianza != null && confianza != undefined && (
                 <div className="mapa__cuadro__probabilidad">

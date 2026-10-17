@@ -1,7 +1,7 @@
-import { Outlet, useLocation, Link } from 'react-router-dom';
-
+import { Outlet } from 'react-router-dom';
 import './Layout.css';
 import { Header } from '../components/elements/header/Header';
+import { PandhaIdle } from '../components/elements/pandha/PandhaIdle';
 import Aurora from '../components/elements/aurora/Aurora';
 
 export const Layout = () => {
@@ -11,6 +11,12 @@ export const Layout = () => {
             <div className='body-layout__content'>
                 <Outlet />
             </div>
+
+            <PandhaIdle
+                width={200}
+                className='body-layout__pandha'
+            />
+
 
             <div className="body-layout__aurora">
                 <Aurora

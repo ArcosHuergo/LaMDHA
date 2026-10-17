@@ -1,39 +1,40 @@
+import { createPortal } from 'react-dom';
 import X from '../../../assets/img/icons/x.svg?react';
 import { Button } from '../buttons/Button';
 import './Popup.css';
 
-export const PopUpSeleccion = ({ children, foto, onClose, onSeleccionar, titulo }) => {
+export const PopUpSeleccion = ({ foto, onClose, onSeleccionar, titulo }) => {
     const bloquearEvento = (e) => {
         e.stopPropagation();
     };
-    return (
-        <div className="popup" onClick={onClose}>
-            <div className="popup__card" onClick={(e) => e.stopPropagation()}>
-                <div
-                    className="popup__card__foto"
+    return createPortal(
+        <div className="popup"
+            onClick={onClose}
+        >
+            <div className="popup__card popup__card--seleccion" onClick={(e) => e.stopPropagation()}>
+                <div className="popup__card__text"
                     onMouseDown={bloquearEvento}
                     onMouseMove={bloquearEvento}
                     onMouseUp={bloquearEvento}
                     onTouchStart={bloquearEvento}
                     onTouchMove={bloquearEvento}
                     onTouchEnd={bloquearEvento}
-                    onClick={bloquearEvento}
-                >
-                    <img src={foto} alt="Foto" />
-                </div>
-                <div className="popup__card__text">
+                    onClick={bloquearEvento}>
                     <div>
                         <h2 className="popup__card__text__titulo">{titulo}</h2>
-                        <p className="popup__card__text__descripcion">{children}</p>
                     </div>
-                    <div>
+                <div className="popup__card__foto">
+                    <img src={foto} alt="Foto" />
+                </div>
+                    <di className='popup__card__button'>
                         <Button onClick={onSeleccionar}>Seleccionar</Button>
-                    </div>
+                    </di>
                 </div>
                 <div className="popup__x" onClick={onClose}>
                     <X />
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };

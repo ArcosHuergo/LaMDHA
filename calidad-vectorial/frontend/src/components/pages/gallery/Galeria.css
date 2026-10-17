@@ -11,6 +11,11 @@
     color: var(--text-primary);
 }
 
+.galeria__carrusel--bloqueado {
+    pointer-events: none;
+    user-select: none;
+}
+
 .galeria__or {
     font-family: 'Orbitron';
     position: relative;
