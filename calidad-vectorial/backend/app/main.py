@@ -1,30 +1,15 @@
-from contextlib import asynccontextmanager
-
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config.database import Base, SessionLocal, engine
 from app.config.security.jwt_filter import JwtAuthFilter
-from app.db.init_db import init_db
+from app.config.settings import settings
 from app.routers import router
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    db = SessionLocal()
-    try:
-        init_db(db)
-    finally:
-        db.close()
-    yield
-
-
-app = FastAPI(dependencies=[Depends(JwtAuthFilter())], lifespan=lifespan)
-
-Base.metadata.create_all(bind=engine)
+app = FastAPI(dependencies=[Depends(JwtAuthFilter())])
 
 origins = [
     "http://localhost:5173",
+    settings.frontend_url,
 ]
 
 app.add_middleware(

@@ -3,7 +3,7 @@ from fastapi import HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 # Rutas públicas sin ningún tipo de autenticación
-PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/auth/register"}
+PUBLIC_PATHS = {"/auth/login", "/auth/logout", "/docs", "/openapi.json", "/auth/register"}
 
 # Rutas públicas que admiten token pero funcionan anonimante de no haberlo
 OPTIONAL_AUTH_PATHS = {"/vision/ubicacion"}
