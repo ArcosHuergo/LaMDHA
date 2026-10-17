@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     db_user: str
     db_password: str
     db_name: str
+    db_echo: bool
     jwt_secret: str
     jwt_expiration_ms: int
 
@@ -18,6 +19,9 @@ class Settings(BaseSettings):
     supabase_url: str
     supabase_service_key: str
     supabase_bucket: str = "fotos"
+
+    frontend_url:str
+    cookie_secure: bool = False
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

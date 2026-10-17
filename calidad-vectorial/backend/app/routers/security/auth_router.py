@@ -1,8 +1,8 @@
 from app.config.security.jwt_filter import JwtAuthFilter
+from app.config.settings import settings
 from app.mappers.security.usuario_mapper import UsuarioMapper
 from app.schemas.security.login import LoginSchema
 from app.schemas.security.register import RegisterSchema
-from app.schemas.security.usuario_response import UsuarioResponseSchema
 from app.services.security.jwt_service import jwt_service
 from app.services.security.usuario_service import UsuarioService
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
@@ -64,7 +64,7 @@ def login(
         key="JWT_TOKEN",
         value=token,
         httponly=True,
-        secure=False,
+        secure=settings.cookie_secure,
         samesite="lax",
         max_age=36000,
         path="/",
@@ -112,6 +112,7 @@ def validar_token(request: Request, jwtAuthFilter: str = Depends(JwtAuthFilter))
         Información indicando que el token es válido y el usuario autenticado.
     """
     return {"detail": "Token válido", "username": request.state.username}
+
 
 @router.post("/logout", status_code=status.HTTP_201_CREATED)
 def logout(response: Response):

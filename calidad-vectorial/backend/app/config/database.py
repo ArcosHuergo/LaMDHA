@@ -4,6 +4,7 @@ from functools import wraps
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.pool import NullPool
 
 from app.config.settings import settings
 
@@ -18,8 +19,8 @@ DATABASE_URL = URL.create(
 
 engine = create_engine(
     DATABASE_URL,
-    echo=True,
-    pool_pre_ping=True,
+    echo=settings.db_echo,
+    poolclass=NullPool,
     connect_args={"prepare_threshold": None},
 )
 
