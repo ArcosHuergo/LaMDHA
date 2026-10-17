@@ -1,14 +1,16 @@
+import mimetypes
+
 from app.mappers.log.registro_mapper import RegistroMapper
 from app.schemas.log.registro_completo import RegistroCompletoSchema
 from app.schemas.log.registro_feedback import RegistroFeedbackSchema
+from app.services.log.foto_storage_service import FotoStorageError, descargar_foto
 from app.services.log.registro_service import (
     RegistroAjenoError,
     RegistroNoEncontradoError,
     RegistroService,
 )
 from app.services.security.usuario_service import UsuarioService
-from fastapi import APIRouter, HTTPException, Request, status
-from fastapi.responses import FileResponse
+from fastapi import APIRouter, HTTPException, Request, Response, status
 
 router = APIRouter(prefix="/registro", tags=["Registro"])
 usuario_service = UsuarioService()
@@ -103,9 +105,10 @@ def obtener_foto(id: int, request: Request):
         Respuesta HTTP con el archivo de imagen asociado al registro.
 
     Raises:
-    
+
         HTTPException: Si el usuario no existe, el registro no existe,
-            pertenece a otro usuario o no tiene una foto asociada.
+            pertenece a otro usuario, no tiene una foto asociada o la foto
+            no pudo recuperarse del almacenamiento.
     """
     usuario = usuario_service.obtener_usuario_por_username(request.state.username)
     if usuario is None:
@@ -131,4 +134,13 @@ def obtener_foto(id: int, request: Request):
             detail="El registro no tiene una foto asociada.",
         )
 
-    return FileResponse(registro.url_foto)
+    try:
+        contenido = descargar_foto(registro.url_foto)
+    except FotoStorageError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No se pudo recuperar la foto del registro.",
+        )
+
+    media_type = mimetypes.guess_type(registro.url_foto)[0] or "image/jpeg"
+    return Response(content=contenido, media_type=media_type)

@@ -10,12 +10,14 @@ class Settings(BaseSettings):
     jwt_secret: str
     jwt_expiration_ms: int
 
-    # Roboflow (workflow "lamdha" — clasificación de ubicación). Obtener la
-    # clave en https://app.roboflow.com/settings/api.
     roboflow_api_key: str
     roboflow_api_url: str
     workspace_name: str
     workflow_id: str
+
+    supabase_url: str
+    supabase_service_key: str
+    supabase_bucket: str = "fotos"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

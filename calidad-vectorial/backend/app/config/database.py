@@ -2,19 +2,27 @@ from contextlib import contextmanager
 from functools import wraps
 
 from sqlalchemy import create_engine
+from sqlalchemy.engine import URL
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
 from app.config.settings import settings
 
-DATABASE_URL = (
-    f"mysql+pymysql://{settings.db_user}:{settings.db_password}"
-    f"@{settings.db_host}:{settings.db_port}/{settings.db_name}"
+DATABASE_URL = URL.create(
+    drivername="postgresql+psycopg",
+    username=settings.db_user,
+    password=settings.db_password,
+    host=settings.db_host,
+    port=settings.db_port,
+    database=settings.db_name,
 )
 
-# Conexión con la base de datos en MySQL
-engine = create_engine(DATABASE_URL, echo=True)
+engine = create_engine(
+    DATABASE_URL,
+    echo=True,
+    pool_pre_ping=True,
+    connect_args={"prepare_threshold": None},
+)
 
-# Fábrica de sesiones: autocommit/autoflush en False para control manual, expire_on_commit=False para que los objetos retengan sus datos al cerrar la sesión
 SessionLocal = sessionmaker(
     autocommit=False, autoflush=False, bind=engine, expire_on_commit=False
 )
@@ -24,21 +32,19 @@ class Base(DeclarativeBase):
     pass
 
 
-# Maneja las sesiones con la base de datos
 @contextmanager
 def get_db():
-    db = SessionLocal()  # Abre la sesión
+    db = SessionLocal()
     try:
         yield db
-        db.commit()  # Guarda cambios
+        db.commit()
     except Exception:
-        db.rollback()  # Vuelve para atrás ante un error
+        db.rollback()
         raise
     finally:
-        db.close()  # Cierra la sesión
+        db.close()
 
 
-# Decorador que inyecta la sesión de BD en los repositories
 def with_db(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
