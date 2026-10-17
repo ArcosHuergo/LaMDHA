@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const isTokenValid = async () => {
     try {
-        const respond = await fetch('http://localhost:8000/auth/validar-token', {
+        const respond = await fetch('/api/auth/validar-token', {
             method: 'GET',
             credentials: 'include',
             cache: 'no-store',
