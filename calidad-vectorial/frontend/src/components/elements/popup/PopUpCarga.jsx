@@ -5,7 +5,7 @@ import { Bamboos } from "./Bamboos";
 
 import "./PopUp.css"
 
-export const PopUpCarga = ({}) => {
+export const PopUpCarga = () => {
     return (
         <div className="popup">
             <div className="popup__card" onClick={(e) => e.stopPropagation()}>
