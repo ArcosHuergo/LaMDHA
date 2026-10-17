@@ -178,7 +178,7 @@ export const postData = async (url, data, signal, method = 'POST') => {
     // con el boundary correcto solo.
     const isFormData = data instanceof FormData;
 
-    const respond = await fetch('http://localhost:8000/' + url, {
+    const respond = await fetch('/api/' + url, {
         method: method,
         headers: isFormData ? {} : { 'Content-Type': 'application/json' },
         body: isFormData ? data : JSON.stringify(data),
@@ -189,7 +189,7 @@ export const postData = async (url, data, signal, method = 'POST') => {
 };
 
 export const getData = async (url, signal) => {
-    const respond = await fetch('http://localhost:8000/' + url, {
+    const respond = await fetch('/api/' + url, {
         method: 'GET',
         credentials: 'include',
         signal: signal,
