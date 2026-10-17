@@ -38,7 +38,7 @@ async def clasificar_imagen_ubicacion(
         Predicción obtenida a partir de la imagen.
 
     Raises:
-    
+
         HTTPException: Si ocurre un error durante la inferencia de la imagen.
     """
     contenido = await imagen.read()
@@ -57,7 +57,9 @@ async def clasificar_imagen_ubicacion(
         try:
             usuario = usuario_service.obtener_usuario_por_username(username)
             if usuario is not None:
-                url_foto = guardar_foto(contenido, imagen.filename or "foto.jpg")
+                url_foto = guardar_foto(
+                    contenido, imagen.filename or "foto.jpg", imagen.content_type
+                )
                 registro = registro_service.registrar_clasificacion(
                     usuario, url_foto, prediction
                 )
