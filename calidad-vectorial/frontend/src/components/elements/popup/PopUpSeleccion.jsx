@@ -26,9 +26,9 @@ export const PopUpSeleccion = ({ foto, onClose, onSeleccionar, titulo }) => {
                 <div className="popup__card__foto">
                     <img src={foto} alt="Foto" />
                 </div>
-                    <di className='popup__card__button'>
+                    <div className='popup__card__button'>
                         <Button onClick={onSeleccionar}>Seleccionar</Button>
-                    </di>
+                    </div>
                 </div>
                 <div className="popup__x" onClick={onClose}>
                     <X />
