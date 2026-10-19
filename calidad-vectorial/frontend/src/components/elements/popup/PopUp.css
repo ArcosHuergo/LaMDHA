@@ -1,16 +1,16 @@
 .popup {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    inset: 0;
+    z-index: 1000;
     background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    isolation: isolate;
-    z-index: 2;
-    touch-action: none;
+    
 }
 
 .popup__card {
@@ -18,31 +18,19 @@
     display: flex;
     flex-flow: row nowrap;
 
-    width: 70vw;
-    height: 65vh;
+    width: 78vw;
+    height: 80vh;
+    box-sizing: border-box;
     padding: 40px;
 
     background: var(--bg-primary);
     border: var(--brand-purple) 2px solid;
 }
 
-.popup__card--seleccion {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    width: 40vw;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    touch-action: auto;
-    padding: 30px 30px 10px 30px;
-}
-
 .popup__card__foto {
-    width: calc(100% - 30px);
+    width: calc(50% - 80px);
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    user-select: none;
-    margin-bottom: 10px;
 }
 
 .popup__card__foto img {
@@ -67,105 +55,14 @@
     font-size: var(--font-size-lg);
 }
 
+.popup__card__text__descripcion {
+    font-size: var(--font-size-base);
+}
+
 .popup__x {
     position: absolute;
     top: 10px;
     right: 10px;
 
     cursor: pointer;
-}
-
-.pop__card__carga {
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-
-    color: var(--text-primary);
-    font-size: var(--font-size-lg);
-}
-
-.pop__card__carga__mascota {
-    position: relative;
-    max-width: 350px;
-    width: 400px;
-    height: 100%;
-}
-
-.pop__card__carga__mascota__nube {
-    position: absolute;
-    bottom: 240px;
-    left: 55%;
-    animation: cargando--nube 1500ms infinite;
-}
-
-.pop__card__carga__mascota__nubecita--uno {
-    position: absolute;
-    bottom: 220px;
-    left: 54%;
-    animation: cargando--nubecita--uno 1500ms infinite;
-}
-
-.pop__card__carga__mascota__nubecita--dos {
-    display: block;
-    position: absolute;
-    bottom: 200px;
-    left: 44%;
-    animation: cargando--nubecita--dos 1500ms infinite;
-}
-
-.pop__card__carga__mascota__pandha {
-    position: absolute;
-    bottom: 30px;
-    left: 0;
-}
-
-.pop__card__carga__mascota__bamboos {
-    position: absolute;
-    bottom: -43px;
-    right: 50%;
-    transform: translateX(50%);
-    
-    width: 70vw;
-}
-
-@keyframes cargando {
-    0%,
-    50% {
-        display: none;
-    }
-    100% {
-        display: block;
-    }
-}
-
-@keyframes cargando--nube {
-    0%,
-    60% {
-        display: none;
-    }
-    100% {
-        display: block;
-    }
-}
-
-@keyframes cargando--nubecita--uno {
-    0%,
-    30% {
-        display: none;
-    }
-    100% {
-        display: block;
-    }
-}
-
-@keyframes cargando--nubecita--dos {
-    0%,
-    10% {
-        display: none;
-    }
-    100% {
-        display: block;
-    }
 }

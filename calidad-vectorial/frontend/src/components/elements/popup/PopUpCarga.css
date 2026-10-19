@@ -1,0 +1,211 @@
+/* ===== Overlay: cubre toda la pantalla y tapa la galería de fondo ===== */
+.carga {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+
+    background: rgba(6, 0, 16, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    animation: carga-fade 250ms ease-out both;
+}
+
+/* ===== Card ===== */
+.carga__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    width: min(900px, 100%);
+    height: min(580px, 82vh);
+    overflow: hidden;
+
+    background: var(--bg-primary);
+    border: 2px solid var(--brand-purple);
+    border-radius: 12px;
+    box-shadow:
+        0 0 0 1px rgba(82, 39, 255, 0.25),
+        0 20px 60px -10px var(--shadow-primary);
+
+    animation: carga-entrada 350ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+
+/* ===== Texto ===== */
+.carga__texto {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 36px 24px 0;
+
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.carga__titulo {
+    font-family: 'Orbitron';
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+    letter-spacing: 0.04em;
+}
+
+.carga__puntos span {
+    font-family: inherit;
+    font-weight: inherit;
+    animation: carga-punto 1200ms infinite;
+}
+.carga__puntos span:nth-child(2) { animation-delay: 200ms; }
+.carga__puntos span:nth-child(3) { animation-delay: 400ms; }
+
+.carga__mensaje {
+    min-height: 1.5em;
+    font-size: var(--font-size-base);
+    opacity: 0.75;
+    animation: carga-mensaje 400ms ease-out both;
+}
+
+/* Barra indeterminada estilo pixel */
+.carga__barra {
+    position: relative;
+    width: 220px;
+    height: 10px;
+    margin-top: 6px;
+    overflow: hidden;
+
+    border: 2px solid var(--brand-purple);
+    background: rgba(82, 39, 255, 0.12);
+    image-rendering: pixelated;
+}
+
+.carga__barra__bloque {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 100%;
+
+    /* bloques separados de 8px */
+    background: repeating-linear-gradient(
+        90deg,
+        var(--brand-purple) 0 6px,
+        transparent 6px 8px
+    );
+    animation: carga-barra 1400ms steps(14) infinite;
+}
+
+/* ===== Escena ===== */
+.carga__escena {
+    position: relative;
+    flex: 1;
+}
+
+/* Halo violeta detrás del panda */
+.carga__brillo {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    width: 460px;
+    height: 300px;
+    transform: translateX(-50%);
+
+    background: radial-gradient(
+        ellipse at center 70%,
+        rgba(82, 39, 255, 0.35) 0%,
+        rgba(79, 0, 132, 0.15) 45%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.carga__bamboos {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px; /* la base de los tallos queda escondida en el pasto */
+    z-index: 1;
+
+    opacity: 0.9;
+}
+
+.carga__pandha {
+    position: absolute;
+    left: 50%;
+    bottom: 6px; /* las patas quedan entre el pasto */
+    z-index: 2;
+    /* el panda ocupa la parte izquierda del frame (a la derecha va la nube): centramos su cuerpo */
+    transform: translateX(-41%);
+}
+
+/* Suelo: pasto animado por delante de las patas y la base de los bambúes */
+.carga__suelo {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+}
+
+/* ===== Keyframes ===== */
+@keyframes carga-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes carga-entrada {
+    from { opacity: 0; transform: translateY(16px) scale(0.96); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes carga-punto {
+    0%, 20%   { opacity: 0.2; }
+    40%, 100% { opacity: 1; }
+}
+
+@keyframes carga-mensaje {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 0.75; transform: none; }
+}
+
+@keyframes carga-barra {
+    from { transform: translateX(-100%); }
+    to   { transform: translateX(290%); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+    .carga__card {
+        height: min(520px, 86vh);
+    }
+
+    /* corre el panda a la izquierda para que entre la burbuja */
+    .carga__pandha {
+        transform: translateX(-68%);
+    }
+
+    .carga__pandha .pandha-pensando {
+        --pandha-width: 190px !important; /* pisa el valor inline de la prop width */
+    }
+
+    .carga__brillo {
+        width: 320px;
+        height: 220px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .carga,
+    .carga__card,
+    .carga__mensaje,
+    .carga__puntos span,
+    .carga__barra__bloque {
+        animation: none;
+    }
+}

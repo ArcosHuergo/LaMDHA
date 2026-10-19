@@ -1,0 +1,62 @@
+/*
+ * --px = tamaño de un pixel del dibujo. Para que coincida con el sprite del Pandha:
+ * ancho del panda / 45  (ej: 260px → 5.78px)
+ */
+.pensamiento {
+    display: block;
+    width: calc(var(--px, 6px) * 34);
+    height: calc(var(--px, 6px) * 28);
+    overflow: visible;
+}
+
+.pensamiento__chica,
+.pensamiento__media,
+.pensamiento__nube {
+    transform-box: fill-box;
+    transform-origin: 0% 100%;
+    animation: pensamiento-pop 360ms steps(3, jump-end) both;
+}
+
+.pensamiento__chica { animation-delay: 300ms; }
+.pensamiento__media { animation-delay: 650ms; }
+
+/* La nube aparece y después flota suave arriba/abajo, en saltos de 1 pixel */
+.pensamiento__nube {
+    animation:
+        pensamiento-pop 420ms steps(3, jump-end) 1000ms both,
+        pensamiento-flota 2400ms steps(2, jump-none) 1420ms infinite alternate;
+}
+
+/* Puntos "pensando": suben de a uno */
+.pensamiento__punto {
+    animation: pensamiento-punto 1200ms steps(1, jump-end) infinite;
+    animation-delay: 1500ms;
+}
+.pensamiento__nube .pensamiento__punto:nth-last-child(2) { animation-delay: 1700ms; }
+.pensamiento__nube .pensamiento__punto:nth-last-child(1) { animation-delay: 1900ms; }
+
+@keyframes pensamiento-pop {
+    0%   { opacity: 0; transform: scale(0.4); }
+    60%  { opacity: 1; transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pensamiento-flota {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-1px); } /* 1px del viewBox = 1 pixel del dibujo */
+}
+
+@keyframes pensamiento-punto {
+    0%   { transform: translateY(0); }
+    20%  { transform: translateY(-1px); }
+    40%  { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pensamiento__chica,
+    .pensamiento__media,
+    .pensamiento__nube,
+    .pensamiento__punto {
+        animation: none;
+    }
+}

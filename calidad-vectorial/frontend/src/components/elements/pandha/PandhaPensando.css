@@ -1,0 +1,48 @@
+/*
+ * Mismo sprite que PandhaIdle (8 frames de 360x288), pero solo usa:
+ * 1 ojos abiertos · 2 entrecierrados · 3 cerrados
+ *
+ * Secuencia (3000ms): quieto pensando 2400 → parpadeo (2-3-2) 280 → quieto 320
+ */
+.pandha-pensando {
+    position: relative;
+    width: var(--pandha-width, 260px);
+    aspect-ratio: 5 / 4;
+
+    /* 1 pixel del dibujo = ancho del panda / 45 → la burbuja escala con el panda */
+    --px: calc(var(--pandha-width, 260px) / 45);
+}
+
+.pandha-pensando__sprite {
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-size: 800% 100%;
+    background-position: 0% 0;
+    image-rendering: pixelated;
+
+    animation: pandha-pensando-parpadeo 3000ms step-end infinite;
+}
+
+/* Burbuja saliendo de la cabeza (coordenadas en pixeles del sprite) */
+.pandha-pensando__burbuja {
+    position: absolute;
+    left: calc(var(--px) * 33.5);
+    top: calc(var(--px) * -20.5);
+}
+
+@keyframes pandha-pensando-parpadeo {
+    0%      { background-position-x: 0%; }        /* 1 ojos abiertos 2400ms */
+    80%     { background-position-x: 14.2857%; }  /* 2 entrecierra      80ms */
+    82.67%  { background-position-x: 28.5714%; }  /* 3 cierra           120ms */
+    86.67%  { background-position-x: 14.2857%; }  /* 2 abre              80ms */
+    89.33%,
+    100%    { background-position-x: 0%; }        /* 1 ojos abiertos  320ms */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pandha-pensando__sprite {
+        animation: none;
+    }
+}
