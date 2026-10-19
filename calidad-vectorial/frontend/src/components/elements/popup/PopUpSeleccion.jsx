@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import X from '../../../assets/img/icons/x.svg?react';
 import { Button } from '../buttons/Button';
-import './Popup.css';
+import './PopUp.css';
 
 export const PopUpSeleccion = ({ foto, onClose, onSeleccionar, titulo }) => {
     const bloquearEvento = (e) => {

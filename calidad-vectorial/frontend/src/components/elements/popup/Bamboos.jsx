@@ -1,25 +1,47 @@
+import './Bamboos.css';
+
 export const Bamboos = () => {
     return (
         <svg
+            className="bamboos"
             width="1495" height="720" viewBox="0 0 1495 720"
-            style={{ width: "100%", height: "auto", display: "block", imageRendering: 'pixelated' }}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
         >
-            <rect x="1396" y="56" width="99" height="661" fill="url(#pattern0_0_1)"/>
-            <rect width="93" height="622" transform="matrix(-1 0 0 1 318 98)" fill="url(#pattern1_0_1)"/>
-            <rect x="1236" width="144" height="305" fill="url(#pattern2_0_1)"/>
-            <rect x="1236" y="286" width="144" height="431" fill="url(#pattern3_0_1)"/>
-            <rect y="33" width="120" height="382" fill="url(#pattern4_0_1)"/>
-            <rect y="336" width="120" height="382" fill="url(#pattern5_0_1)"/>
-            <rect width="96" height="488" transform="matrix(-1 0 0 1 1225 229)" fill="url(#pattern6_0_1)"/>
-            <rect width="47" height="289" transform="matrix(-1 0 0 1 1403 428)" fill="url(#pattern7_0_1)"/>
-            <rect width="57" height="351" transform="matrix(-1 0 0 1 1129 366)" fill="url(#pattern8_0_1)"/>
-            <rect width="42" height="263" transform="matrix(-1 0 0 1 368 293)" fill="url(#pattern9_0_1)"/>
-            <rect width="42" height="161" transform="matrix(-1 0 0 1 368 556)" fill="url(#pattern10_0_1)"/>
-            <rect x="129" y="166" width="99" height="259" fill="url(#pattern11_0_1)"/>
-            <rect x="129" y="166" width="99" height="259" fill="url(#pattern12_0_1)"/>
-            <rect x="129" y="166" width="99" height="259" fill="url(#pattern13_0_1)"/>
-            <rect x="129" y="166" width="99" height="259" fill="url(#pattern14_0_1)"/>
-            <rect x="228" y="717" width="99" height="303" transform="rotate(-180 228 717)" fill="url(#pattern15_0_1)"/>
+            <g className="bamboos__tallo" style={{ animationDelay: "0ms", animationDuration: "4200ms" }}>
+                <rect y="33" width="120" height="382" fill="url(#pattern4_0_1)"/>
+                <rect y="336" width="120" height="382" fill="url(#pattern5_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-1300ms", animationDuration: "3800ms" }}>
+                <rect x="129" y="166" width="99" height="259" fill="url(#pattern11_0_1)"/>
+                <rect x="129" y="166" width="99" height="259" fill="url(#pattern12_0_1)"/>
+                <rect x="129" y="166" width="99" height="259" fill="url(#pattern13_0_1)"/>
+                <rect x="129" y="166" width="99" height="259" fill="url(#pattern14_0_1)"/>
+                <rect x="228" y="717" width="99" height="303" transform="rotate(-180 228 717)" fill="url(#pattern15_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-600ms", animationDuration: "4600ms" }}>
+                <rect width="93" height="622" transform="matrix(-1 0 0 1 318 98)" fill="url(#pattern1_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-2100ms", animationDuration: "3600ms" }}>
+                <rect width="42" height="263" transform="matrix(-1 0 0 1 368 293)" fill="url(#pattern9_0_1)"/>
+                <rect width="42" height="161" transform="matrix(-1 0 0 1 368 556)" fill="url(#pattern10_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-900ms", animationDuration: "3900ms" }}>
+                <rect width="57" height="351" transform="matrix(-1 0 0 1 1129 366)" fill="url(#pattern8_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-1700ms", animationDuration: "4400ms" }}>
+                <rect width="96" height="488" transform="matrix(-1 0 0 1 1225 229)" fill="url(#pattern6_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-300ms", animationDuration: "4800ms" }}>
+                <rect x="1236" width="144" height="305" fill="url(#pattern2_0_1)"/>
+                <rect x="1236" y="286" width="144" height="431" fill="url(#pattern3_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-2400ms", animationDuration: "3500ms" }}>
+                <rect width="47" height="289" transform="matrix(-1 0 0 1 1403 428)" fill="url(#pattern7_0_1)"/>
+            </g>
+            <g className="bamboos__tallo" style={{ animationDelay: "-1100ms", animationDuration: "4300ms" }}>
+                <rect x="1396" y="56" width="99" height="661" fill="url(#pattern0_0_1)"/>
+            </g>
             <defs>
             <pattern id="pattern0_0_1" patternContentUnits="objectBoundingBox" width="1" height="1">
             <use xlinkHref="#image0_0_1" transform="matrix(0.00929912 0 0 0.00139276 -0.00215244 0)"/>

@@ -1,40 +1,59 @@
-import Pandha from "../../../assets/img/pandha/pandha.svg?react";
-import Nube from "../../../assets/img/pandha/nube.svg?react";
-import Nubecita from "../../../assets/img/pandha/nubecita.svg?react";
-import { Bamboos } from "./Bamboos";
+import { useEffect, useState } from 'react';
 
-import "./PopUp.css"
+import { Bamboos } from './Bamboos';
+import { Pasto } from '../pandha/Pasto';
+import { PandhaPensando } from '../pandha/PandhaPensando';
+
+import './PopUpCarga.css';
+
+const MENSAJES = [
+    'Mirando cada rincón de la foto',
+    'Comparando con los espacios del colegio',
+    'Calculando probabilidades',
+    'Ubicando el aula en el mapa',
+];
+
+const INTERVALO_MENSAJE = 2600;
 
 export const PopUpCarga = () => {
+    const [indice, setIndice] = useState(0);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setIndice((i) => (i + 1) % MENSAJES.length);
+        }, INTERVALO_MENSAJE);
+        return () => clearInterval(id);
+    }, []);
+
     return (
-        <div className="popup">
-            <div className="popup__card" onClick={(e) => e.stopPropagation()}>
-                <div className="pop__card__carga">
-                    <p>Estamos procesando tu imagen...</p>
-                    <div className="pop__card__carga__mascota">
-                        <div className="pop__card__carga__mascota__nube">
-                            <Nube
-                                style={{imageRendering: 'pixelated'}}
-                            />
-                        </div>
-                        <div className="pop__card__carga__mascota__nubecita--uno">
-                            <Nubecita
-                                style={{imageRendering: 'pixelated'}}
-                            />
-                        </div>
-                        <div className="pop__card__carga__mascota__nubecita--dos">
-                            <Nubecita
-                                style={{imageRendering: 'pixelated'}}
-                            />
-                        </div>
-                        <div className="pop__card__carga__mascota__pandha">
-                            <Pandha
-                                style={{imageRendering: 'pixelated'}}
-                            />
-                        </div>
-                        <div className="pop__card__carga__mascota__bamboos">
-                            <Bamboos />
-                        </div>
+        <div className="carga" role="status" aria-live="polite">
+            <div className="carga__card">
+                <header className="carga__texto">
+                    <h2 className="carga__titulo">
+                        Procesando tu imagen
+                        <span className="carga__puntos" aria-hidden="true">
+                            <span>.</span><span>.</span><span>.</span>
+                        </span>
+                    </h2>
+                    {/* key fuerza el remount para re-disparar la animación de entrada */}
+                    <p key={indice} className="carga__mensaje">
+                        {MENSAJES[indice]}
+                    </p>
+                    <div className="carga__barra" aria-hidden="true">
+                        <span className="carga__barra__bloque" />
+                    </div>
+                </header>
+
+                <div className="carga__escena" aria-hidden="true">
+                    <div className="carga__brillo" />
+                    <div className="carga__bamboos">
+                        <Bamboos />
+                    </div>
+                    <div className="carga__pandha">
+                        <PandhaPensando width={260} />
+                    </div>
+                    <div className="carga__suelo">
+                        <Pasto alto={44} />
                     </div>
                 </div>
             </div>
