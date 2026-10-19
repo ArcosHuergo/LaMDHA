@@ -4,7 +4,7 @@ import { FondoFachero } from '../../elements/prettybackground/FondoFachero';
 import { AuthBox } from '../../elements/authbox/AuthBox';
 import { Input } from '../../elements/input/Input';
 import { Button } from '../../elements/buttons/Button';
-import { handleLogin, handleRegister } from '../../utils/auth/authUtils';
+import { handleLogin, handleRegister } from '../../utils/auth/AuthUtils';
 import './AuthPage.css';
 
 export const AuthPage = () => {
