@@ -12,8 +12,7 @@ import './Header.css';
 
 export const Header = ({ fondo=false }) => {
     const navigate = useNavigate();
-    const { data: dataUsuario } = useFetch('auth/validar-token');
-    console.log(dataUsuario);
+    const { data: dataUsuario, error: errorToken } = useFetch('auth/validar-token');
 
     return (
         <header className={`header header-fondo--${fondo ? 'true' : ''}`}> 
@@ -25,7 +24,7 @@ export const Header = ({ fondo=false }) => {
                     LaMDHA
                 </Link>
             </div>
-            {dataUsuario ? (
+            {!errorToken ? (
                 <div className='header__item header__item--usr'>
                     <div className='header__item__nav'>
                         <BranchedMenu

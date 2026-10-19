@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePost, useFetch } from '../../utils/fetch/FetchUtils';
 
@@ -17,8 +17,19 @@ export const Galeria = () => {
     const [fotoSeleccionada, setFotoSeleccionada] = useState(null);
     const [archivo, setArchivo] = useState(null);
 
-    const { loading, error, execute } = usePost('vision/ubicacion');
-    const { data } = useFetch('auth/validar-token');
+    const { loading: loadingVision, error: errorVision, execute: executeVision } = usePost('vision/ubicacion');
+    const { error: errorToken } = useFetch('auth/validar-token');
+
+    useEffect(() => {
+    if (!fotoSeleccionada) return;
+
+    const overflowOriginal = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+        document.body.style.overflow = overflowOriginal;
+    };
+    }, [fotoSeleccionada]);
 
     const handleItemClick = useCallback((item) => {
         setFotoSeleccionada(item);
@@ -28,14 +39,19 @@ export const Galeria = () => {
         setFotoSeleccionada(null);
     };
 
-    const enviarImagen = async (archivoImagen) => {
+    const enviarImagen = async (archivoImagen, imagenUrl) => {
         const formData = new FormData();
         formData.append('imagen', archivoImagen);
 
-        const resultado = await execute(formData);
+        const resultado = await executeVision(formData);
 
         if (resultado) {
-            navigate('/mapa', { state: resultado });
+            navigate('/mapa', {
+                state: {
+                    ...resultado,
+                    imagenUrl: imagenUrl ?? URL.createObjectURL(archivoImagen),
+                },
+            });
         }
     };
 
@@ -47,6 +63,8 @@ export const Galeria = () => {
     const handleSeleccionarFoto = async () => {
         if (!fotoSeleccionada) return;
 
+        const imagenUrl = fotoSeleccionada.image;
+
         try {
             const respuestaImagen = await fetch(fotoSeleccionada.image);
             const blob = await respuestaImagen.blob();
@@ -54,7 +72,7 @@ export const Galeria = () => {
             const archivoImagen = new File([blob], nombreArchivo, { type: blob.type });
             cerrarPopUp();
 
-            await enviarImagen(archivoImagen);
+            await enviarImagen(archivoImagen, imagenUrl);
         } catch (err) {
             console.error('No se pudo preparar la imagen seleccionada:', err);
         }
@@ -64,6 +82,9 @@ export const Galeria = () => {
         <main className="galeria">
             <h1>¡Elige tu destino!</h1>
             <div
+                className={`galeria__carrusel ${
+                    fotoSeleccionada ? 'galeria__carrusel--bloqueado' : ''
+                }`}
                 style={{
                     width: '960px',
                     height: '330px',
@@ -84,7 +105,7 @@ export const Galeria = () => {
             </div>
             <span className="galeria__or">or</span>
 
-            {data ? (
+            {!errorToken ? (
                 <Button
                     variant="subir"
                     file={archivo}
@@ -99,7 +120,7 @@ export const Galeria = () => {
                 </Button>
             )}
 
-            {loading && <PopUpCarga />}
+            {loadingVision && <PopUpCarga />}
 
             {fotoSeleccionada && (
                 <PopUpSeleccion

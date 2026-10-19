@@ -5,7 +5,7 @@ import { Bamboos } from "./Bamboos";
 
 import "./PopUp.css"
 
-export const PopUpCarga = ({}) => {
+export const PopUpCarga = () => {
     return (
         <div className="popup">
             <div className="popup__card" onClick={(e) => e.stopPropagation()}>
@@ -13,16 +13,24 @@ export const PopUpCarga = ({}) => {
                     <p>Estamos procesando tu imagen...</p>
                     <div className="pop__card__carga__mascota">
                         <div className="pop__card__carga__mascota__nube">
-                            <Nube />
+                            <Nube
+                                style={{imageRendering: 'pixelated'}}
+                            />
                         </div>
                         <div className="pop__card__carga__mascota__nubecita--uno">
-                            <Nubecita />
+                            <Nubecita
+                                style={{imageRendering: 'pixelated'}}
+                            />
                         </div>
                         <div className="pop__card__carga__mascota__nubecita--dos">
-                            <Nubecita />
+                            <Nubecita
+                                style={{imageRendering: 'pixelated'}}
+                            />
                         </div>
                         <div className="pop__card__carga__mascota__pandha">
-                            <Pandha />
+                            <Pandha
+                                style={{imageRendering: 'pixelated'}}
+                            />
                         </div>
                         <div className="pop__card__carga__mascota__bamboos">
                             <Bamboos />

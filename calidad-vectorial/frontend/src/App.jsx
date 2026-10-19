@@ -5,7 +5,7 @@ import { AuthPage } from './components/pages/auth/AuthPage';
 import { Galeria } from './components/pages/gallery/Galeria';
 import { Mapa } from './components/pages/map/Mapa';
 import { ProtectedRoute } from './components/utils/auth/TokenUtils';
-import { Historial } from './components/pages/record/historial';
+import { Historial } from './components/pages/record/Historial';
 
 export const App = () => {
     return (

@@ -1,0 +1,28 @@
+/* Sprite: 8 frames horizontales de 360x288 (ratio 5:4) */
+.pandha-idle {
+    width: var(--pandha-width, 300px);
+    aspect-ratio: 5 / 4;
+ 
+    background-repeat: no-repeat;
+    background-size: 800% 100%;
+    background-position: 0% 0;
+ 
+    image-rendering: pixelated; /* pixel art nítido al escalar */
+    animation: pandha-idle var(--pandha-duration, 1200ms) steps(8, jump-none) infinite;
+}
+ 
+.pandha-idle--paused {
+    animation-play-state: paused;
+}
+ 
+/* 0% → frame 1, 100% → frame 8; jump-none da 8 posiciones exactas */
+@keyframes pandha-idle {
+    from { background-position-x: 0%; }
+    to   { background-position-x: 100%; }
+}
+ 
+@media (prefers-reduced-motion: reduce) {
+    .pandha-idle {
+        animation: none;
+    }
+}

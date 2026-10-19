@@ -1,5 +1,5 @@
 .popup {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -8,6 +8,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    isolation: isolate;
+    z-index: 2;
+    touch-action: none;
 }
 
 .popup__card {
@@ -15,19 +18,31 @@
     display: flex;
     flex-flow: row nowrap;
 
-    width: 78vw;
-    height: 80vh;
-    box-sizing: border-box;
+    width: 70vw;
+    height: 65vh;
     padding: 40px;
 
     background: var(--bg-primary);
     border: var(--brand-purple) 2px solid;
 }
 
+.popup__card--seleccion {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    width: 40vw;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    touch-action: auto;
+    padding: 30px 30px 10px 30px;
+}
+
 .popup__card__foto {
-    width: calc(50% - 80px);
+    width: calc(100% - 30px);
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    user-select: none;
+    margin-bottom: 10px;
 }
 
 .popup__card__foto img {
@@ -50,10 +65,6 @@
 
 .popup__card__text__titulo {
     font-size: var(--font-size-lg);
-}
-
-.popup__card__text__descripcion {
-    font-size: var(--font-size-base);
 }
 
 .popup__x {

@@ -138,6 +138,7 @@ export const SobreNosotros = () => {
                             </a>
                         </div>
                     </section>
+
                     <div className="sn-content__article__delimiter" />
                 </article>
             </main>

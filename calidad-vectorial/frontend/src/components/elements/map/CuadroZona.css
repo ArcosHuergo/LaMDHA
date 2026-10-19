@@ -5,7 +5,7 @@
 
     color: var(--text-primary);
     background: var(--bg-surface);
-    padding: 10px;
+    padding: 20px;
     margin-bottom: 20px;
 
     max-width: 100%;
@@ -17,15 +17,27 @@
 }
 
 .mapa__cuadro__data {
+    display: grid;
+    grid-template-columns: 70% 1fr;
+    width: 100%;
+}
+
+.mapa__cuadro__data img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    width: 100%;
+}
+
+.mapa__cuadro__data__text {
     gap: 10px;
     padding-bottom: 30px;
 }
 
-.mapa__cuadro__data h2 {
+.mapa__cuadro__data__text h2 {
     font-size: var(--font-size-lg);
 }
 
-.mapa__cuadro__data p {
+.mapa__cuadro__data__text p {
     font-size: var(--font-size-base);
 }
 
