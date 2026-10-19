@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://TU-BACKEND.vercel.app/:path*" },
+    { "source": "/api/:path*", "destination": "https://pps-geohuergo.vercel.app/:path*" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
