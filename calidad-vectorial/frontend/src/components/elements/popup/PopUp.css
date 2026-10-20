@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     isolation: isolate;
-    z-index: 2;
+    z-index: 3;
     touch-action: none;
 }
 

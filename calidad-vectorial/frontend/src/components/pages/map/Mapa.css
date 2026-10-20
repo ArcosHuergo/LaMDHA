@@ -8,13 +8,14 @@
     "mapa__side mapa__plano";
 
     gap: 2%;
-    height: calc(100vh - 92px);
+    max-height: calc(100vh - 92px);
 
     min-width: 1220px;
     min-height: 550px;
 
     padding: 0 20px;
     position: relative;
+    overflow: hidden;
 }
 
 .mapa__header {

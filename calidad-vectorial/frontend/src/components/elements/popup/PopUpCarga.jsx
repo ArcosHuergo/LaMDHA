@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import { useEffect, useState } from 'react';
 
 import { Bamboos } from './Bamboos';
@@ -25,7 +26,7 @@ export const PopUpCarga = () => {
         return () => clearInterval(id);
     }, []);
 
-    return (
+    return createPortal(
         <div className="carga" role="status" aria-live="polite">
             <div className="carga__card">
                 <header className="carga__texto">
@@ -57,6 +58,7 @@ export const PopUpCarga = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };

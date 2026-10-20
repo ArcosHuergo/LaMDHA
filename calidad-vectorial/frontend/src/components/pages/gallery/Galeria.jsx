@@ -86,13 +86,13 @@ export const Galeria = () => {
                     fotoSeleccionada ? 'galeria__carrusel--bloqueado' : ''
                 }`}
                 style={{
-                    width: '960px',
+                    width: '90vw',
                     height: '330px',
                 }}
             >
                 <CircularGallery
                     items={items}
-                    bend={1.5}
+                    bend={0}
                     captionBackgroundColor="#4F0084"
                     captionBorderRadius={0.15}
                     captionTextColor="#fafafa"

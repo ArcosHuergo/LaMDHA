@@ -63,6 +63,13 @@ export const Mapa = () => {
         }
     };
 
+    const handleZonaClick = (zona) => {
+        setZonaSeleccionada(zona);
+        setReferencia('Info');
+    }
+
+    console.log(referencia)
+
     return (
         <main className="mapa">
             <header className="mapa__header">
@@ -90,7 +97,7 @@ export const Mapa = () => {
                         piso={pisoActual}
                         predicciones={predicciones}
                         zonaSeleccionada={zonaSeleccionada}
-                        onZonaClick={setZonaSeleccionada}
+                        onZonaClick={handleZonaClick}
                     />
                 </div>
 

@@ -45,7 +45,7 @@ export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick })
 
                 return (
                     <polygon
-                        key={zona.classname}
+                        key={zona.points}
                         points={zona.points}
                         fill={color}
                         fillOpacity={0.6}
