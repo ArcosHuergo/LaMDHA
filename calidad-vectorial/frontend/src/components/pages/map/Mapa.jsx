@@ -9,10 +9,20 @@ import PulgarAbajo from '../../../assets/img/icons/pulgarAbajo.svg?react';
 import { PlanoPiso } from "../../elements/floor/PlanoPiso";
 import { FachadaPisos } from "../../elements/floor/FachadaPisos";
 import { CuadroZona } from "../../elements/map/CuadroZona";
+import { Pestanas } from "../../elements/tab/Pestanas";
 
 import { Button } from '../../elements/buttons/Button';
 
 import './Mapa.css';
+
+const PISOS = [
+    { id: 'PB', nombre: 'Planta Baja' },
+    { id: 'EPB', nombre: 'Entrepiso PB' },
+    { id: 'P1', nombre: 'Primer Piso' },
+    { id: 'EP1', nombre: 'Entrepiso P1' },
+    { id: 'P2', nombre: 'Segundo Piso' },
+    { id: 'P3', nombre: 'Tercer Piso' },
+];
 
 export const Mapa = () => {
     const location = useLocation();
@@ -27,6 +37,7 @@ export const Mapa = () => {
 
     const [pisoActual, setPisoActual] = useState(piso);
     const [zonaSeleccionada, setZonaSeleccionada] = useState(zona);
+    const [referencia, setReferencia] = useState('');
 
     const confianzaSeleccionada = zonaSeleccionada
         ? predicciones?.find((p) => p.clase === zonaSeleccionada.className)?.confianza ?? null : null;
@@ -54,8 +65,27 @@ export const Mapa = () => {
 
     return (
         <main className="mapa">
-            <div className="mapa__izq">
-                <div className="mapa__izq__img">
+            <header className="mapa__header">
+                <Button to='/galeria'>{'← volver'}</Button>
+                {referencia ? (
+                    <h1>Estás en {referencia[1]} {referencia[0]}</h1>
+                ) : (
+                    <h1>Estás en {zona}</h1>
+                )}
+            </header>
+            <section className="mapa__plano contenedor">
+                <header className="mapa__plano__header">
+                    <h2 className="mapa__plano__titulo">
+                        {PISOS.find((p) => p.id === pisoActual)?.nombre}
+                    </h2>
+                    <Pestanas
+                        items={PISOS}
+                        activa={pisoActual}
+                        onChange={setPisoActual}
+                    />
+                </header>
+
+                <div className="mapa__plano__img">
                     <PlanoPiso
                         piso={pisoActual}
                         predicciones={predicciones}
@@ -63,26 +93,35 @@ export const Mapa = () => {
                         onZonaClick={setZonaSeleccionada}
                     />
                 </div>
-                <div className="mapa__izq__button">
-                    <Button to="/galeria">{'← Volver'}</Button>
-                </div>
 
-            </div>
-            <div className="mapa__side">
+                <footer className="mapa__plano__leyenda">
+                    <span>Menos probable</span>
+                    <div className="mapa__plano__barra" />
+                    <span>Más probable</span>
+                </footer>
+            </section>
+
+            <section className="mapa__side">
+                <div className="mapa__side__img contenedor">
+                    <img src={imagenUrl} alt="Imagen ingresada" />
+                    <span>TU FOTO</span>
+                </div>
                 <CuadroZona
-                    className={zonaSeleccionada?.className}
+                    predicciones={predicciones}
+                    clase={zonaSeleccionada?.className}
                     tipo={zonaSeleccionada?.tipo}
                     confianza={confianzaSeleccionada}
-                    src={imagenUrl}
-                    alt= 'Imagen ingresada'
+                    referencia={referencia}
+                    setReferencia={setReferencia}
+                    logueado={errorToken ? false : true}
                 />
-            </div>
+            </section>
 
-            <div className="mapa__fachada">
+            {/* <div className="mapa__fachada">
                 <FachadaPisos pisoActual={pisoActual} onClick={setPisoActual}/>
-            </div>
+            </div> */}
 
-            <div className="mapa__opinion">
+            {/* <div className="mapa__opinion">
                 <div className="mapa__side__opinion">
                     <p>¿La predicción fue correcta?</p>
                     <div className="mapa__opinion__botones">
@@ -114,7 +153,7 @@ export const Mapa = () => {
                         )}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </main>
     );
 };

@@ -1,3 +1,4 @@
+
 import { useFetch } from '../../utils/fetch/FetchUtils';
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -10,56 +11,49 @@ import { Button } from '../buttons/Button';
 
 import './Header.css';
 
-export const Header = ({ fondo=false }) => {
+const ITEMS_NAVEGACION = [
+    { to: '/', label: 'Inicio' },
+    { to: '/galeria', label: 'Galería' },
+    { to: '/mapa', label: 'Mapa' },
+    { to: '/historial', label: 'Historial' },
+];
+
+export const Header = ({ fondo = false }) => {
     const navigate = useNavigate();
-    const { data: dataUsuario, error: errorToken } = useFetch('auth/validar-token');
+    const { data: dataUsuario, error: errorToken } =
+        useFetch('auth/validar-token');
 
     return (
-        <header className={`header header-fondo--${fondo ? 'true' : ''}`}> 
-            <div className='header__item'>
+        <header className={`header header-fondo--${fondo ? 'true' : ''}`}>
+            <div className="header__item header__marca">
                 <Link to="/" className="header__item__lamdha">
                     <LaMDHA />
                 </Link>
+
                 <Link to="/" className="header__item__lamdha">
                     LaMDHA
                 </Link>
             </div>
+
+            <nav className="header__nav" aria-label="Navegación principal">
+                {ITEMS_NAVEGACION.map(({ to, label }) => (
+                    <Link
+                        key={to}
+                        to={to}
+                        className="header__nav__link"
+                    >
+                        {label}
+                    </Link>
+                ))}
+            </nav>
+
             {!errorToken ? (
-                <div className='header__item header__item--usr'>
-                    <div className='header__item__nav'>
-                        <BranchedMenu
-                            items={[
-                                {
-                                    value: 'menu-usuario',
-                                    label: <Usuario />,
-                                    children: [
-                                        { value: '#', label: dataUsuario.username, static: true},
-                                        { value: '/galeria', label: 'Galeria'},
-                                        { value: '/mapa', label: 'Mapa'},
-                                        { value: '/historial', label: 'Historial'},
-                                    ]
-                                }
-                            ]}
-                            defaultOpen={[1]}
-                            defaultActive="#"
-                            onSelect={(value) => navigate(value)}
-                            color="#fafafa"
-                            accentColor="#fafafa"
-                            lineColor="#3f3f46"
-                            width={240}
-                            rowHeight={36}
-                            indent={40}
-                            trunk={14}
-                            radius={10}
-                            lineWidth={1.5}
-                            fontSize={14}
-                            drawDuration={400}
-                            foldDuration={300}
-                        />
-                    </div>
+                <div className="header__item header__item--usr">
+                        <p>{dataUsuario.username}</p>
+                        <Usuario />
                 </div>
             ) : (
-                <div>
+                <div className="header__item">
                     <Button to="/login">Iniciar sesión</Button>
                 </div>
             )}

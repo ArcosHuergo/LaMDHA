@@ -1,17 +1,18 @@
 .btn {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     cursor: pointer;
     border: none;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Orbitron';
 }
 
 .btn--default {
     height: 37px;
     min-width: 140px;
-    border-radius: 30px;
+    border-radius: 8px;
     box-sizing: border-box;
     padding-left: 30px;
     padding-right: 30px;
