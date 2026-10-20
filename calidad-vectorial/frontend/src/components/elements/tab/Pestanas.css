@@ -1,0 +1,35 @@
+.pestanas {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+
+    background: #4f008456;
+    border-radius: 50px;
+}
+
+.pestanas__tab {
+    min-width: 40px;
+    padding: 6px 12px;
+
+    font-family: 'Orbitron';
+    font-size: var(--font-size-sm);
+    color: var(--text-primary);
+
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 200ms ease-in-out;
+}
+
+.pestanas__tab:hover {
+    opacity: 1;
+}
+
+.pestanas__tab--activa {
+    opacity: 1;
+    background: var(--brand-blue);
+    box-shadow: 0 0 14px var(--brand-purple);
+}

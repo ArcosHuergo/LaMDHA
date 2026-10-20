@@ -1,0 +1,84 @@
+.resultados {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.resultados__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.resultados__item__encabezado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.resultados__item__indice {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: var(--brand-purple);
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--font-size-sm);
+    line-height: 1;
+}
+
+.resultados__item__clase {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--font-size-base);
+}
+
+.resultados__item__detalle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 40px;
+}
+
+.resultados__item__barra {
+    flex: 1;
+    min-width: 0;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background-color: hsl(0, 0%, 60%);
+}
+
+.resultados__item__barra__relleno {
+    height: 100%;
+    border-radius: inherit;
+    transition: width 250ms ease, background-color 250ms ease;
+    animation: barra-aparecer 500ms ease-in-out both;
+}
+
+.resultados__item__confianza {
+    flex: 0 0 42px;
+    margin: 0;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-size: var(--font-size-sm);
+}
+
+@keyframes barra-aparecer {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 1;
+    }
+}

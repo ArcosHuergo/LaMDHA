@@ -6,7 +6,7 @@ export const Bamboos = () => {
             className="bamboos"
             width="1495" height="720" viewBox="0 0 1495 720"
             style={{ width: "100%", height: "auto", display: "block" }}
-            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
         >
             <g className="bamboos__tallo" style={{ animationDelay: "0ms", animationDuration: "4200ms" }}>
                 <rect y="33" width="120" height="382" fill="url(#pattern4_0_1)"/>
