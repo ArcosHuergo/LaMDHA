@@ -67,6 +67,7 @@ export const Header = ({ fondo = false }) => {
                         <p className='header__item__usuario'>{dataUsuario.username}</p>
                         <Usuario className='header__item__logo' />
                 </div>
+                
             ) : (
                 <div className="header__item header__item--button">
                     <Button to="/login">Iniciar sesión</Button>
