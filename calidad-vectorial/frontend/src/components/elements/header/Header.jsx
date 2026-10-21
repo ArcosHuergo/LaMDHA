@@ -28,11 +28,11 @@ export const Header = ({ fondo = false }) => {
     return (
         <header className={`header header-fondo--${fondo ? 'true' : ''}`}>
             <div className="header__item header__marca">
-                <Link to="/" className="header__item__lamdha">
-                    <LaMDHA />
+                <Link to="/" className="header__item__logo">
+                    <LaMDHA className='header__item__logo'  />
                 </Link>
 
-                <Link to="/" className="header__item__lamdha">
+                <Link to="/" className="header__item__marca">
                     LaMDHA
                 </Link>
             </div>
@@ -64,11 +64,11 @@ export const Header = ({ fondo = false }) => {
 
             {!errorToken ? (
                 <div className="header__item header__item--usr">
-                        <p>{dataUsuario.username}</p>
-                        <Usuario />
+                        <p className='header__item__usuario'>{dataUsuario.username}asdsadasd</p>
+                        <Usuario className='header__item__logo' />
                 </div>
             ) : (
-                <div className="header__item">
+                <div className="header__item header__item--button">
                     <Button to="/login">Iniciar sesión</Button>
                 </div>
             )}

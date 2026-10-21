@@ -12,7 +12,7 @@ const OPCIONES = [
     { id: 'Info', nombre: 'Info' },
 ]
 
-export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, logueado }) => {
+export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, logueado, className }) => {
     const { data: dataZona , loading: loadingZona, error: errorZona, refetch: refetchZona } = useFetch(tipo && clase ? `${tipo}/nombre/${clase}` : null);
 
     const [referencia, setReferencia] = useState('');
@@ -24,7 +24,7 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, 
     }, [clase])
 
     return (
-        <article className="mapa__cuadro contenedor">
+        <article className={`mapa__cuadro contenedor ${className}`}>
             <header className={`mapa__cuadro__header mapa__cuadro__header--${loadingZona ? 'cargando' : ''} mapa__cuadro__header--${tab}`}>
                 {!loadingZona && dataZona && tab === 'Info' && (
                     <h2>
@@ -60,7 +60,7 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, 
                     {tab === 'Info' && (
                         !clase || loadingZona ? (
                             logueado ? (
-                                <p>Selecciona una zona para ver</p>
+                                <p className='mapa__cuadro__panel__p'>Selecciona una zona para ver</p>
                             ) : (
                                 <div className='mapa__cuadro__data__login'>
                                     <p>Inicia sesión para ver los datos de las zonas</p>

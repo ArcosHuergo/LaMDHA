@@ -31,3 +31,22 @@ body:has(.carga__card) .body-layout__pandha {
     max-width: 100%;
     inset: 0;
 }
+
+/* Tablet */
+@media (max-width: 1279px) {
+    .body-layout .body-layout__pandha {
+        width: 140px;
+    }
+}
+
+/* Celular */
+@media (max-width: 767px) {
+    .body-layout__content {
+        padding-bottom: 80px;
+    }
+
+    .body-layout .body-layout__pandha {
+        width: 100px;
+        pointer-events: none;
+    }
+}

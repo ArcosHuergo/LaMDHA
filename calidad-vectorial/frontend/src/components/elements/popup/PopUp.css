@@ -177,3 +177,60 @@
         display: block;
     }
 }
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .popup__card {
+        width: 85vw;
+        padding: 32px;
+    }
+
+    .popup__card--seleccion {
+        width: min(70vw, 480px);
+        padding: 30px 30px 16px;
+    }
+}
+
+/* Celular */
+@media (max-width: 767px) {
+    .popup__card {
+        width: 92vw;
+        padding: 20px;
+    }
+
+    .popup__card--seleccion {
+        width: min(85vw, 420px);
+        max-height: 90vh;
+        aspect-ratio: auto;
+        overflow-y: auto;
+        padding: 20px 20px 12px;
+    }
+
+    .popup__card__foto {
+        width: 100%;
+    }
+
+    .popup__card__text {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .popup__x {
+        top: 8px;
+        right: 8px;
+    }
+
+    .pop__card__carga {
+        font-size: var(--font-size-md);
+        text-align: center;
+    }
+
+    .pop__card__carga__mascota {
+        scale: 0.75;
+        transform-origin: bottom center;
+    }
+
+    .pop__card__carga__mascota__bamboos {
+        width: 120vw;
+    }
+}

@@ -17,7 +17,7 @@
     width: 90vw;
     height: 60vh;
     overflow-y: auto;
-    font-size: var(--font-size-base);
+    font-size: clamp(var(--font-size-sm), 4vw, var(--font-size-base));
     border: var(--border-secondary) 2px solid;
     border-radius: 5px;
 }
@@ -73,4 +73,98 @@
 
 .historial__flecha__svg--seleccionado {
     transform: rotate(-180deg);
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .historial__title {
+        margin-bottom: 32px;
+    }
+
+    .historial__cabecera,
+    .historial__lista {
+        min-width: 840px;
+    }
+
+    .historial__celda {
+        padding-left: 12px;
+    }
+}
+
+/* Celular */
+@media (max-width: 767px) {
+    .historial {
+        width: 100%;
+        padding: 0 4vw 16px;
+        box-sizing: border-box;
+    }
+
+    .historial__title {
+        font-size: clamp(var(--font-size-lg), 8vw, var(--font-size-xl));
+        margin-bottom: 24px;
+        text-align: center;
+    }
+
+    .historial__cuadro {
+        width: 100%;
+        height: auto;
+        max-height: 70vh;
+    }
+
+    .historial__cabecera {
+        display: none;
+    }
+
+    .historial__fila {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 8px 0;
+    }
+
+    .historial__celda {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 6px 12px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .historial__celda::before {
+        font-size: 0.8rem;
+        font-weight: bold;
+        opacity: 0.7;
+    }
+
+    .historial__celda:nth-child(1)::before {
+        content: 'Fecha';
+    }
+
+    .historial__celda:nth-child(2)::before {
+        content: 'Sector';
+    }
+
+    .historial__celda:nth-child(3)::before {
+        content: 'Piso';
+    }
+
+    .historial__celda:nth-child(4)::before {
+        content: 'Tipo';
+    }
+
+    .historial__celda:nth-child(5)::before {
+        content: 'Referencia';
+    }
+
+    .historial__celda:nth-child(6)::before {
+        content: 'Confianza';
+    }
+
+    .historial__celda:nth-child(7)::before {
+        content: 'Acertó';
+    }
+
+    .historial__flecha {
+        grid-column: 1 / -1;
+        min-height: 44px;
+    }
 }

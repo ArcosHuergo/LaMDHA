@@ -113,3 +113,36 @@
         transform: translateX(0);
     }
 }
+
+/* Celular */
+@media (max-width: 767px) {
+    .auth-page {
+        display: flex;
+        justify-content: center;
+    }
+
+    .auth-page .fondo-fachero {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .auth-page__text {
+        display: none;
+    }
+
+    .auth-page__box,
+    .auth-page__box--login,
+    .auth-page__box--register {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        width: 100%;
+        height: auto;
+        flex: 1;
+        display: flex;
+        transition: none;
+    }
+}

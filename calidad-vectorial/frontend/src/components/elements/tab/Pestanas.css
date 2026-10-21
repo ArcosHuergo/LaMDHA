@@ -14,7 +14,7 @@
     padding: 6px 12px;
 
     font-family: 'Orbitron';
-    font-size: var(--font-size-sm);
+    font-size: clamp(.7rem, 2vw, var(--font-size-sm));
     color: var(--text-primary);
 
     border: none;

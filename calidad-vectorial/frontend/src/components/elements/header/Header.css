@@ -11,7 +11,7 @@
     height: 92px;
     box-sizing: border-box;
     overflow: visible;
-    gap: 24px;
+    gap: 10px;
 }
 
 .header-fondo--true {
@@ -36,12 +36,23 @@
     flex-shrink: 0;
 }
 
+.header__item__usuario {
+    width: 19vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .header__item p,
-.header__item__lamdha {
+.header__item__logo,
+.header__item__marca {
     font-family: 'Orbitron';
     font-weight: 500;
-    font-size: var(--font-size-md);
+    font-size: clamp(var(--font-size-base), 4vw, var(--font-size-md));
     color: var(--text-primary);
+}
+
+.header__item__logo {
+    width: clamp(36px, 9vw, 45px);
 }
 
 .header__item__p {
@@ -57,7 +68,7 @@
     flex-flow: row nowrap;
     align-items: center;
     justify-content: flex-end;
-    gap: var(--font-size-lg);
+    gap: clamp(5px, 3vw, var(--font-size-lg));
     flex: 1;
 }
 
@@ -67,7 +78,7 @@
     font-weight: 500;
     color: var(--text-primary);
     font-family: 'Orbitron';
-    font-size: var(--font-size-md);
+    font-size: clamp(var(--font-size-base), 4vw, var(--font-size-md));
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
@@ -76,4 +87,20 @@
 
 .header__nav__link:hover {
     color: var(--brand-purple);
+}
+
+/* Celular */
+@media (max-width: 767px) {
+    .header {
+        gap: 10px;
+    }
+    .header__item__marca {
+        display: none;
+    }
+    .header__item--button {
+        display: none;
+    }
+    .header__item__usuario {
+        display: none;
+    }
 }

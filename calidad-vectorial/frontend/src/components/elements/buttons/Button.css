@@ -1,5 +1,5 @@
 .btn {
-    font-size: var(--font-size-md);
+    font-size: clamp(var(--font-size-base), 4vw, var(--font-size-md));
     cursor: pointer;
     border: none;
 
@@ -11,7 +11,7 @@
 
 .btn--default {
     height: 37px;
-    min-width: 140px;
+    min-width: max-content;
     border-radius: 8px;
     box-sizing: border-box;
     padding-left: 30px;
