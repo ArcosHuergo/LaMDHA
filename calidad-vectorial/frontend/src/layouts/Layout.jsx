@@ -17,7 +17,6 @@ export const Layout = () => {
                 className='body-layout__pandha'
             />
 
-
             <div className="body-layout__aurora">
                 <Aurora
                     colorStops={['#004AB8', '#7F0090', '#4F0084']}

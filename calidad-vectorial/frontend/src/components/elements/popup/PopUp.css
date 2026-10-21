@@ -11,6 +11,11 @@
     isolation: isolate;
     z-index: 3;
     touch-action: none;
+    background: rgba(6, 0, 16, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    animation: carga-fade 250ms ease-out both;
 }
 
 .popup__card {
@@ -24,6 +29,10 @@
 
     background: var(--bg-primary);
     border: var(--brand-purple) 2px solid;
+    box-shadow:
+        0 0 0 1px rgba(82, 39, 255, 0.25),
+        0 20px 60px -10px var(--shadow-primary);
+    animation: carga-entrada 350ms cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
 }
 
 .popup__card--seleccion {

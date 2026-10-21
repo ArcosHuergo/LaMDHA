@@ -21,7 +21,7 @@
     transform: rotateY(180deg);
 }
 
-.body-layout:has(.pop__card__carga) .body-layout__pandha {
+body:has(.carga__card) .body-layout__pandha {
     display: none;
 }
 
