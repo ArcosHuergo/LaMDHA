@@ -96,6 +96,7 @@
 
 .mapa__side {
     width: 100%;
+    color: var(--text-primary);
 }
 
 .mapa__side__img {
@@ -130,6 +131,22 @@
     border-radius: 20px;
 
     opacity: .7;
+}
+
+.mapa__side__img__galeria {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.mapa__side__img__galeria p {
+    width: 50%;
+    text-align: center;
 }
 
 .mapa__opinion {

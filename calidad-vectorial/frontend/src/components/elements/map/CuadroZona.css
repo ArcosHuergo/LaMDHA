@@ -10,9 +10,13 @@
 }
 
 .mapa__cuadro__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.mapa__cuadro__header--cargando {
+    justify-content: flex-end;
 }
 
 .mapa__cuadro__header--Resultados {
@@ -23,6 +27,13 @@
     font-family: 'Orbitron';
     font-size: var(--font-size-lg);
     font-weight: 500;
+    justify-self: flex-start;
+    align-self: center;
+}
+
+.mapa__cuadro__header__pestanas {
+    justify-self: flex-end;
+    grid-column: 2;
 }
 
 .mapa__cuadro__panel {
@@ -38,17 +49,25 @@
     z-index: 0;
 }
 
-.mapa__cuadro__data {
-    display: grid;
-    grid-template-columns: 70% 1fr;
+.mapa__cuadro__panel__galeria {
+    display: flex;
+    flex-flow: column nowrap;
     width: 100%;
-    opacity: .8;
+    margin-top: auto;
+    margin-bottom: auto;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
-.mapa__cuadro__data img {
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
+.mapa__cuadro__panel__galeria p {
+    width: 50%;
+    text-align: center;
+}
+
+.mapa__cuadro__data {
     width: 100%;
+    opacity: .8;
 }
 
 .mapa__cuadro__data__text {
@@ -69,8 +88,8 @@
     flex-flow: column nowrap;
     align-items: center;
     gap: 10px;
-    flex: 1 1 auto;
-    padding-top: 5%;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .mapa__cuadro__probabilidad {

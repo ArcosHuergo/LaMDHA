@@ -1,7 +1,6 @@
 
 import { useFetch } from '../../utils/fetch/FetchUtils';
-
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LaMDHA from '../../../assets/img/brand/lamdha.svg?react';
 import Usuario from '../../../assets/img/icons/usuario.svg?react';
@@ -19,6 +18,9 @@ const ITEMS_NAVEGACION = [
 ];
 
 export const Header = ({ fondo = false }) => {
+    const location = useLocation();
+    const url = location.pathname;
+    console.log(url)
     const navigate = useNavigate();
     const { data: dataUsuario, error: errorToken } =
         useFetch('auth/validar-token');
@@ -36,15 +38,28 @@ export const Header = ({ fondo = false }) => {
             </div>
 
             <nav className="header__nav" aria-label="Navegación principal">
-                {ITEMS_NAVEGACION.map(({ to, label }) => (
-                    <Link
-                        key={to}
-                        to={to}
-                        className="header__nav__link"
-                    >
-                        {label}
-                    </Link>
-                ))}
+                {ITEMS_NAVEGACION.map(({ to, label }) => {
+                    if (to === url) {
+                        return(
+                            <p
+                                key={to}
+                                className='header__nav__link'
+                            >
+                                {label}
+                            </p>
+                        )
+                    } else {
+                        return(
+                            <Link
+                                key={to}
+                                to={to}
+                                className='header__nav__link'
+                            >
+                                {label}
+                            </Link>
+                        )
+                    }
+                })}
             </nav>
 
             {!errorToken ? (

@@ -12,16 +12,12 @@ const OPCIONES = [
     { id: 'Info', nombre: 'Info' },
 ]
 
-export const CuadroZona = ({ predicciones, clase, tipo, confianza, referencia, setReferencia, logueado }) => {
+export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, logueado }) => {
     const { data: dataZona , loading: loadingZona, error: errorZona, refetch: refetchZona } = useFetch(tipo && clase ? `${tipo}/nombre/${clase}` : null);
 
-    const [tab, setTab] = useState('Resultados');
+    const [referencia, setReferencia] = useState('');
 
     const zonaColor = dataZona?.zona_color?.toLowerCase();
-    if (dataZona && dataZona.referencia && dataZona.tipo && referencia === '') {
-        if (dataZona.referencia != dataZona.tipo) setReferencia([dataZona.referencia, dataZona.tipo]);
-        else setReferencia([dataZona.referencia]);
-    };
 
     useEffect(() => {
         if (clase) refetchZona();
@@ -29,8 +25,8 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, referencia, s
 
     return (
         <article className="mapa__cuadro contenedor">
-            <header className={`mapa__cuadro__header mapa__cuadro__header--${tab}`}>
-                {tab === 'Info' && (
+            <header className={`mapa__cuadro__header mapa__cuadro__header--${loadingZona ? 'cargando' : ''} mapa__cuadro__header--${tab}`}>
+                {!loadingZona && dataZona && tab === 'Info' && (
                     <h2>
                         {dataZona.tipo}
                         {dataZona.referencia && ` - ${dataZona.referencia}`}
@@ -40,37 +36,55 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, referencia, s
                     items={OPCIONES}
                     activa={tab}
                     onChange={setTab}
+                    className='mapa__cuadro__header__pestanas'
                 />
             </header>
 
-            <div className="mapa__cuadro__panel">
-                {tab === 'Resultados' && (
-                    <RenderResultados
-                        predicciones={predicciones}
-                    />
-                )}
-
-                {tab === 'Info' && (
-                    !clase || loadingZona ? (
-                        <div className="mapa__cuadro__data">
-                            <p>Selecciona una zona para ver</p>
-                        </div>
-                    ) : logueado ? (
-                        <div className="mapa__cuadro__data">
-                            <div className="mapa__cuadro__data__text">
-                                <p>{zonaColor && `Sector ${zonaColor}`}</p>
-                                <p>{dataZona.descripcion}</p>
+            {loadingZona && logueado ? (
+                <p>Cargando...</p>
+            ) : dataZona ? (
+                <div className="mapa__cuadro__panel">
+                    {tab === 'Resultados' && (
+                        predicciones ? (
+                            <RenderResultados
+                                predicciones={predicciones}
+                            />
+                        ) : (
+                            <div className='mapa__cuadro__panel__galeria'>
+                                <p>Carga una imagen en galeria para obtener una predicción</p>
+                                <Button to='/galeria'>Galería</Button>
                             </div>
-                        </div>
-                    ) : (
-                        <div className='mapa__cuadro__data__login'>
-                            <p>Inicia sesión para ver los datos de las zonas</p>
-                            <Button to='/login'>iniciar sesión</Button>
-                        </div>
-                        
-                    )
-                )}
-            </div>
+                        )
+                    )}
+
+                    {tab === 'Info' && (
+                        !clase || loadingZona ? (
+                            logueado ? (
+                                <p>Selecciona una zona para ver</p>
+                            ) : (
+                                <div className='mapa__cuadro__data__login'>
+                                    <p>Inicia sesión para ver los datos de las zonas</p>
+                                    <Button to='/login'>Iniciar sesión</Button>
+                                </div>
+                            )
+                        ) : logueado ? (
+                            <div className="mapa__cuadro__data">
+                                <div className="mapa__cuadro__data__text">
+                                    <p>{zonaColor && `Sector ${zonaColor}`}</p>
+                                    <p>{dataZona.descripcion}</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='mapa__cuadro__data__login'>
+                                <p>Inicia sesión para ver los datos de las zonas</p>
+                                <Button to='/login'>Iniciar sesión</Button>
+                            </div>
+                        )
+                    )}
+                </div>
+                ) : (
+                    <p>No pudimos encontrar la zona</p>
+            )}
         </article>
     );
 }

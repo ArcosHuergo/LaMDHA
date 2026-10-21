@@ -1,6 +1,6 @@
 import { pisos } from '../../data/pisos';
 
-export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick }) => {
+export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick, setTab }) => {
     const data = pisos[piso];
     if (!data) return null;
 
@@ -52,7 +52,7 @@ export const PlanoPiso = ({ piso, predicciones, zonaSeleccionada, onZonaClick })
                         stroke={activa ? "#060010" : "#060010"}
                         strokeWidth={activa ? 2.5 : 1}
                         style={{ cursor: "pointer" }}
-                        onClick={() => onZonaClick?.(zona)}
+                        onClick={() => {onZonaClick?.(zona); setTab('Info')}}
                     >
                         <title>{zona.className}</title>
                     </polygon>

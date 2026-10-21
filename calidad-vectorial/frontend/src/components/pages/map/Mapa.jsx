@@ -37,7 +37,7 @@ export const Mapa = () => {
 
     const [pisoActual, setPisoActual] = useState(piso);
     const [zonaSeleccionada, setZonaSeleccionada] = useState(zona);
-    const [referencia, setReferencia] = useState('');
+    const [tab, setTab] = useState('Resultados');
 
     const confianzaSeleccionada = zonaSeleccionada
         ? predicciones?.find((p) => p.clase === zonaSeleccionada.className)?.confianza ?? null : null;
@@ -63,22 +63,13 @@ export const Mapa = () => {
         }
     };
 
-    const handleZonaClick = (zona) => {
-        setZonaSeleccionada(zona);
-        setReferencia('Info');
-    }
-
-    console.log(referencia)
-
     return (
         <main className="mapa">
             <header className="mapa__header">
                 <Button to='/galeria'>{'← volver'}</Button>
-                {referencia ? (
-                    <h1>Estás en {referencia[1]} {referencia[0]}</h1>
-                ) : (
-                    <h1>Estás en {zona}</h1>
-                )}
+                    {zona && (
+                        <h1>Estás en {zona}</h1>
+                    )}
             </header>
             <section className="mapa__plano contenedor">
                 <header className="mapa__plano__header">
@@ -97,7 +88,8 @@ export const Mapa = () => {
                         piso={pisoActual}
                         predicciones={predicciones}
                         zonaSeleccionada={zonaSeleccionada}
-                        onZonaClick={handleZonaClick}
+                        onZonaClick={setZonaSeleccionada}
+                        setTab={setTab}
                     />
                 </div>
 
@@ -110,16 +102,24 @@ export const Mapa = () => {
 
             <section className="mapa__side">
                 <div className="mapa__side__img contenedor">
-                    <img src={imagenUrl} alt="Imagen ingresada" />
-                    <span>TU FOTO</span>
+                    {imagenUrl ? (<>
+                        <img src={imagenUrl} alt="Imagen ingresada" />
+                        <span>TU FOTO</span>
+                    </>) : (
+                        <div className='mapa__side__img__galeria'>
+                            <p>Carga una imagen en galeria para obtener una predicción</p>
+                            <Button to='/galeria'>Galería</Button>
+                        </div>
+                    )}
+                    
                 </div>
                 <CuadroZona
                     predicciones={predicciones}
                     clase={zonaSeleccionada?.className}
                     tipo={zonaSeleccionada?.tipo}
                     confianza={confianzaSeleccionada}
-                    referencia={referencia}
-                    setReferencia={setReferencia}
+                    tab={tab}
+                    setTab={setTab}
                     logueado={errorToken ? false : true}
                 />
             </section>
