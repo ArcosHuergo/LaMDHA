@@ -38,6 +38,7 @@
 
 .header__item__usuario {
     width: 19vw;
+    max-width: max-content;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -78,7 +79,7 @@
     font-weight: 500;
     color: var(--text-primary);
     font-family: 'Orbitron';
-    font-size: clamp(var(--font-size-base), 4vw, var(--font-size-md));
+    font-size: clamp(var(--font-size-sm), 4vw, var(--font-size-md));
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;

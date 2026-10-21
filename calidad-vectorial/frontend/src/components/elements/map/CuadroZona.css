@@ -25,7 +25,7 @@
 
 .mapa__cuadro__header h2 {
     font-family: 'Orbitron';
-    font-size: var(--font-size-lg);
+    font-size: clamp(var(--font-size-md), 2vw, var(--font-size-lg));
     font-weight: 500;
     justify-self: flex-start;
     align-self: center;
