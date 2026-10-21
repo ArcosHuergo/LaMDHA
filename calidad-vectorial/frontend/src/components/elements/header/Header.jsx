@@ -64,7 +64,7 @@ export const Header = ({ fondo = false }) => {
 
             {!errorToken ? (
                 <div className="header__item header__item--usr">
-                        <p className='header__item__usuario'>{dataUsuario.username}asdsadasd</p>
+                        <p className='header__item__usuario'>{dataUsuario.username}</p>
                         <Usuario className='header__item__logo' />
                 </div>
             ) : (
