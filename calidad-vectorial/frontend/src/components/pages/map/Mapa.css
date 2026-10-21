@@ -212,6 +212,7 @@
     .mapa__side__img {
         aspect-ratio: 16/9;
         margin-bottom: 0;
+        height: 40%;
     }
 
     .mapa__side__img__galeria p {
