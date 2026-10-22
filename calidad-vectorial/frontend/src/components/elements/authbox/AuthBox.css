@@ -2,7 +2,7 @@
     width: 50vw;
     min-width: 310px;
     height: 100vh;
-    min-height: 614px;
+    min-height: 480px;
     overflow: hidden;
     position: absolute;
     top: 0;
@@ -23,8 +23,8 @@
     width: 100%;
 
     margin-top: 15%;
-    padding-left: 12vw;
-    padding-right: 12vw;
+    padding-left: 11vw;
+    padding-right: 11vw;
 
     box-sizing: border-box;
     display: flex;
@@ -136,7 +136,7 @@
 .auth-box__footer {
     font-family: 'Orbitron';
     font-weight: 600;
-    font-size: var(--font-size-xl);
+    font-size: min(var(--font-size-xl), 6vw);
     transform: translateY(-10px);
     animation: aparecer 1100ms both;
 }
@@ -216,14 +216,6 @@
 
     .auth-box__content__title {
         font-size: clamp(var(--font-size-lg), 7vw, var(--font-size-xl));
-    }
-
-    .auth-box .input-group__input {
-        height: 44px;
-    }
-
-    .auth-box__content__button .btn {
-        min-height: 44px;
     }
 
     .auth-box__content__or::before,

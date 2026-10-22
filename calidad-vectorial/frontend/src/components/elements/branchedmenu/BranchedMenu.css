@@ -29,9 +29,11 @@
     content: '';
     position: absolute;
     top: 8px;
-    bottom: 0;
+    top: 50%;
+    transform: translateY(-50%);
     left: 0;
     width: 2px;
+    height: clamp(36px, 9vw, 100%);
     border-radius: 1px;
     background: linear-gradient(to bottom, var(--bm-line) 0%, var(--bm-line) 55%, transparent 100%);
 }
@@ -56,8 +58,12 @@
     outline: none;
     -webkit-tap-highlight-color: transparent;
     transition: color 200ms ease;
-    width: fit-content;
+    width: clamp(36px, 9vw, 45px);
     transform: rotateY(180deg);
+}
+
+.branched-menu__head svg {
+    width: 100%;
 }
 
 .branched-menu__section[data-open] .branched-menu__head,

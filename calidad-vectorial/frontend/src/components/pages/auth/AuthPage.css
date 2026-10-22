@@ -28,7 +28,7 @@
     position: absolute;
     bottom: 10px;
 
-    width: clamp(20vw, 30vw, 1000px);
+    width: 48vw;
 
     display: flex;
     flex-direction: column;
@@ -39,12 +39,12 @@
 
 .auth-page__text h1 {
     font-family: 'Orbitron';
-    font-size: min(3rem, 6vw);
+    font-size: min(var(--font-size-xl), 6vw);
     animation: animacion-texto infinite 5s ease-in-out both;
 }
 
 .auth-page__text p {
-    font-size: min(1rem, 2vw);
+    font-size: min(var(--font-size-base), 2vw);
     animation: animacion-texto infinite 5s ease-in-out both;
 }
 

@@ -177,7 +177,8 @@ export default function BranchedMenu({
                                                         data-static={kid.static ? '' : undefined}
                                                         tabIndex={kid.static ? undefined : isOpen ? 0 : -1}
                                                     >
-                                                        <span className="branched-menu__label">{kid.label}</span>
+                                                        <span className="branched-menu__label"
+                                                        >{kid.label}</span>
                                                         {kid.icon ? (
                                                             <span className="branched-menu__icon" aria-hidden="true">
                                                                 {kid.icon}

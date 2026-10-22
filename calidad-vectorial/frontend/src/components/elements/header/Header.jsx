@@ -1,5 +1,5 @@
 
-import { useFetch } from '../../utils/fetch/FetchUtils';
+import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LaMDHA from '../../../assets/img/brand/lamdha.svg?react';
@@ -17,16 +17,21 @@ const ITEMS_NAVEGACION = [
     { to: '/historial', label: 'Historial' },
 ];
 
-export const Header = ({ fondo = false }) => {
+export const Header = () => {
     const location = useLocation();
     const url = location.pathname;
-    console.log(url)
     const navigate = useNavigate();
     const { data: dataUsuario, error: errorToken } =
         useFetch('auth/validar-token');
+    const { execute: executeLogOut } = usePost('auth/logout');
+
+    const handleLogout = async () => {
+        await executeLogOut();
+        navigate('/');
+    };
 
     return (
-        <header className={`header header-fondo--${fondo ? 'true' : ''}`}>
+        <header className='header'>
             <div className="header__item header__marca">
                 <Link to="/" className="header__item__logo">
                     <LaMDHA className='header__item__logo'  />
@@ -43,7 +48,7 @@ export const Header = ({ fondo = false }) => {
                         return(
                             <p
                                 key={to}
-                                className={`header__nav__link header__nav__link header__nav__link--${label}`}
+                                className={`header__nav__link header__nav__link--seleccionado header__nav__link--${label}`}
                             >
                                 {label}
                             </p>
@@ -53,7 +58,7 @@ export const Header = ({ fondo = false }) => {
                             <Link
                                 key={to}
                                 to={to}
-                                className={`header__nav__link header__nav__link--seleccionado header__nav__link--${label} header__nav__link--${errorToken && label === 'Historial' ? 'ocultar' : ''}`}
+                                className={`header__nav__link header__nav__link--deseleccionado header__nav__link--${label} header__nav__link--${errorToken && label === 'Historial' ? 'ocultar' : ''}`}
                             >
                                 {label}
                             </Link>
@@ -65,7 +70,33 @@ export const Header = ({ fondo = false }) => {
             {!errorToken ? (
                 <div className="header__item header__item--usr">
                         <p className='header__item__usuario'>{dataUsuario.username}</p>
-                        <Usuario className='header__item__logo' />
+                        <BranchedMenu
+                            items={[
+                                {
+                                    value: 'menu-usuario',
+                                    label: <Usuario />,
+                                    children: [
+                                        { value: '#', label: 'Cerrar sesión'},
+                                    ]
+                                }
+                            ]}
+                            className='header__item__logo--usr'
+                            defaultOpen={[1]}
+                            defaultActive="#"
+                            onSelect={handleLogout}
+                            color="#fafafa"
+                            accentColor="#fafafa"
+                            lineColor="#fafafa88"
+                            width={45}
+                            rowHeight={36}
+                            indent={40}
+                            trunk={14}
+                            radius={10}
+                            lineWidth={1.5}
+                            fontSize={14}
+                            drawDuration={400}
+                            foldDuration={300}
+                        />
                 </div>
             ) : (
                 <div className="header__item header__item--button">

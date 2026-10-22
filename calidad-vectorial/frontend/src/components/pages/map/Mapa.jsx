@@ -111,7 +111,6 @@ export const Mapa = () => {
                             <Button to='/galeria'>Galería</Button>
                         </div>
                     )}
-                    
                 </div>
                 <CuadroZona
                     predicciones={predicciones}
