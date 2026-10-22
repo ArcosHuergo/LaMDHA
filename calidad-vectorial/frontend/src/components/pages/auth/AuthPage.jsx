@@ -36,6 +36,7 @@ export const AuthPage = () => {
     }, []);
 
     const handleSwitch = (to) => {
+        setError('');
         setHasAnimated(true);
         setCurrentForm(to);
         setBoxPosition(to);
@@ -140,6 +141,11 @@ export const AuthPage = () => {
                         >
                             Contraseña
                         </Input>
+                        {error && (
+                            <p className="auth-box__error" role="alert">
+                                {error}
+                            </p>
+                        )}
                     </AuthBox>
                 ) : (
                     <AuthBox
@@ -178,6 +184,11 @@ export const AuthPage = () => {
                         >
                             Confirmar contraseña
                         </Input>
+                        {error && (
+                            <p className="auth-box__error" role="alert">
+                                {error}
+                            </p>
+                        )}
                     </AuthBox>
                 )}
             </div>
