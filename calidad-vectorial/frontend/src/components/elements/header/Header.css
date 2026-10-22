@@ -79,15 +79,18 @@
     font-weight: 500;
     color: var(--text-primary);
     font-family: 'Orbitron';
-    font-size: clamp(var(--font-size-sm), 4vw, var(--font-size-md));
+    font-size: clamp(var(--font-size-sm), 3.5vw, var(--font-size-md));
     text-decoration: none;
     white-space: nowrap;
     cursor: pointer;
     transition: all 200ms ease-in-out;
 }
 
-.header__nav__link:hover {
-    color: var(--brand-purple);
+/* Computadora */
+@media (min-width: 1023px) {
+    .header__nav__link--seleccionado:hover {
+        opacity: .8;
+    }
 }
 
 /* Celular */
@@ -98,10 +101,10 @@
     .header__item__marca {
         display: none;
     }
-    .header__item--button {
+    .header__item__usuario {
         display: none;
     }
-    .header__item__usuario {
+    .header__nav__link--ocultar {
         display: none;
     }
 }

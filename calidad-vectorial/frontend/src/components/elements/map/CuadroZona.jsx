@@ -51,7 +51,7 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, 
                             />
                         ) : (
                             <div className='mapa__cuadro__panel__galeria'>
-                                <p>Carga una imagen en galeria para obtener una predicción</p>
+                                <p>Carga una imagen en galería para obtener una predicción</p>
                                 <Button to='/galeria'>Galería</Button>
                             </div>
                         )

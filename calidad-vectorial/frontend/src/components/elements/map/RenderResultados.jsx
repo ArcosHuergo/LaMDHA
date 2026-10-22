@@ -1,14 +1,14 @@
 import './RenderResultados.css';
 
 function getColorForConfidence(confidence) {
-    if (confidence === null || confidence === undefined) {
-        return 'hsl(0, 0%, 60%)';
-    }
+        if (confidence === null || confidence === undefined) {
+            return 'hsl(0, 0%, 60%)';
+        }
 
-    const clamped = Math.max(0, Math.min(1, confidence));
-    const hue = clamped * 120;
-    return `hsl(${hue}, 80%, 50%)`;
-}
+        const clamped = Math.max(0, Math.min(1, confidence));
+        const hue = clamped * 120;
+        return `hsl(${hue}, 80%, 50%)`;
+    }
 
 export const RenderResultados = ({ predicciones }) => {
     return (
@@ -21,6 +21,7 @@ export const RenderResultados = ({ predicciones }) => {
                 const porcentaje = confianza == null
                     ? '—'
                     : `${Math.round(confianzaClamped * 100)}%`;
+                console.log(getColorForConfidence(confianza))
 
                 return (
                     <li
@@ -44,8 +45,9 @@ export const RenderResultados = ({ predicciones }) => {
                                 <div
                                     className="resultados__item__barra__relleno"
                                     style={{
-                                        width: `${confianzaClamped * 100}%`,
+                                        maxWidth: `${confianzaClamped * 100}%`,
                                         backgroundColor: getColorForConfidence(confianza),
+                                        animationDuration: `${500 / confianzaClamped}ms`,
                                     }}
                                 />
                             </div>

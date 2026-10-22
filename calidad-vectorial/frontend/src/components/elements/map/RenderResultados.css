@@ -62,8 +62,7 @@
 .resultados__item__barra__relleno {
     height: 100%;
     border-radius: inherit;
-    transition: width 250ms ease, background-color 250ms ease;
-    animation: barra-aparecer 500ms ease-in-out both;
+    animation: barra-aparecer ease both;
 }
 
 .resultados__item__confianza {
@@ -79,6 +78,6 @@
         width: 0;
     }
     100% {
-        width: 1;
+        width: 100%;
     }
 }

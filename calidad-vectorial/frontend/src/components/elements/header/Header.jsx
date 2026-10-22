@@ -43,7 +43,7 @@ export const Header = ({ fondo = false }) => {
                         return(
                             <p
                                 key={to}
-                                className='header__nav__link'
+                                className={`header__nav__link header__nav__link header__nav__link--${label}`}
                             >
                                 {label}
                             </p>
@@ -53,7 +53,7 @@ export const Header = ({ fondo = false }) => {
                             <Link
                                 key={to}
                                 to={to}
-                                className='header__nav__link'
+                                className={`header__nav__link header__nav__link--seleccionado header__nav__link--${label} header__nav__link--${errorToken && label === 'Historial' ? 'ocultar' : ''}`}
                             >
                                 {label}
                             </Link>

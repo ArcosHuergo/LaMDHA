@@ -107,7 +107,7 @@ export const Mapa = () => {
                         <span>TU FOTO</span>
                     </>) : (
                         <div className='mapa__side__img__galeria'>
-                            <p>Carga una imagen en galeria para obtener una predicción</p>
+                            <p>Carga una imagen en galería para obtener una predicción</p>
                             <Button to='/galeria'>Galería</Button>
                         </div>
                     )}

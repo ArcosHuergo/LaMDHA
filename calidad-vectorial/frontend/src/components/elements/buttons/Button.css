@@ -1,5 +1,5 @@
 .btn {
-    font-size: clamp(var(--font-size-base), 4vw, var(--font-size-md));
+    font-size: clamp(var(--font-size-sm), 3.5vw, var(--font-size-md));
     cursor: pointer;
     border: none;
 
@@ -7,15 +7,14 @@
     justify-content: center;
     align-items: center;
     font-family: 'Orbitron';
+    text-align: center;
 }
 
 .btn--default {
-    height: 37px;
-    min-width: max-content;
+    min-width: fit-content;
     border-radius: 8px;
     box-sizing: border-box;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 6px clamp(0px, 4vw, 22px);
 }
 
 .btn--default--violeta,

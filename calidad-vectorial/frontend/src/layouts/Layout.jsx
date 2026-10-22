@@ -19,7 +19,7 @@ export const Layout = () => {
 
             <div className="body-layout__aurora">
                 <Aurora
-                    colorStops={['#004AB8', '#7F0090', '#4F0084']}
+                    colorStops={['#004AB8', '#4F0084', '#7F0090']}
                     blend={1.0}
                     amplitude={1.0}
                     speed={1}
