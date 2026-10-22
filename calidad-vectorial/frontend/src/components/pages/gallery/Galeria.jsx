@@ -1,6 +1,7 @@
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { usePost, useFetch } from '../../utils/fetch/FetchUtils';
+import { usePost } from '../../utils/fetch/FetchUtils';
+import { useAuth } from '../../utils/auth/AuthContext';
 
 import CircularGallery from '../../elements/gallery/CircularGallery';
 import { Button } from '../../elements/buttons/Button';
@@ -18,7 +19,7 @@ export const Galeria = () => {
     const [archivo, setArchivo] = useState(null);
 
     const { loading: loadingVision, error: errorVision, execute: executeVision } = usePost('vision/ubicacion');
-    const { error: errorToken } = useFetch('auth/validar-token');
+    const { usuario } = useAuth();
 
     useEffect(() => {
     if (!fotoSeleccionada) return;
@@ -105,7 +106,7 @@ export const Galeria = () => {
             </div>
             <span className="galeria__or">or</span>
 
-            {!errorToken ? (
+            {usuario ? (
                 <Button
                     variant="subir"
                     file={archivo}

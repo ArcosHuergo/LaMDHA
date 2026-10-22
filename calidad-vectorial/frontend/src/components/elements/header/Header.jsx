@@ -1,5 +1,4 @@
-
-import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
+import { useAuth } from '../../utils/auth/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LaMDHA from '../../../assets/img/brand/lamdha.svg?react';
@@ -20,7 +19,6 @@ const ITEMS_NAVEGACION = [
 export const Header = () => {
     const location = useLocation();
     const url = location.pathname;
-    const navigate = useNavigate();
     const { data: dataUsuario, error: errorToken } =
         useFetch('auth/validar-token');
     const { execute: executeLogOut } = usePost('auth/logout');
@@ -29,12 +27,14 @@ export const Header = () => {
         await executeLogOut();
         navigate('/');
     };
+    const navigate = useNavigate();
+    const { usuario } = useAuth();
 
     return (
         <header className='header'>
             <div className="header__item header__marca">
                 <Link to="/" className="header__item__logo">
-                    <LaMDHA className='header__item__logo'  />
+                    <LaMDHA className="header__item__logo" />
                 </Link>
 
                 <Link to="/" className="header__item__marca">
@@ -45,16 +45,16 @@ export const Header = () => {
             <nav className="header__nav" aria-label="Navegación principal">
                 {ITEMS_NAVEGACION.map(({ to, label }) => {
                     if (to === url) {
-                        return(
+                        return (
                             <p
                                 key={to}
                                 className={`header__nav__link header__nav__link--seleccionado header__nav__link--${label}`}
                             >
                                 {label}
                             </p>
-                        )
+                        );
                     } else {
-                        return(
+                        return (
                             <Link
                                 key={to}
                                 to={to}
@@ -62,12 +62,12 @@ export const Header = () => {
                             >
                                 {label}
                             </Link>
-                        )
+                        );
                     }
                 })}
             </nav>
 
-            {!errorToken ? (
+            {usuario ? (
                 <div className="header__item header__item--usr">
                         <p className='header__item__usuario'>{dataUsuario.username}</p>
                         <BranchedMenu

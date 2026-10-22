@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
+import { usePost } from '../../utils/fetch/FetchUtils';
+import { useAuth } from '../../utils/auth/AuthContext';
 
 import PulgarArriba from '../../../assets/img/icons/pulgarArriba.svg?react';
 import PulgarAbajo from '../../../assets/img/icons/pulgarAbajo.svg?react';
@@ -44,7 +45,7 @@ export const Mapa = () => {
 
     const { execute: executeFeedback } = usePost(`registro/feedback/${id}`, "PATCH");
 
-    const { data: dataUsuario, error: errorToken } = useFetch('auth/validar-token');
+    const { usuario } = useAuth();
 
     const [enviando, setEnviando] = useState(false);
     const activarOpinion = enviando ? "not-allowed" : "pointer"
@@ -119,7 +120,7 @@ export const Mapa = () => {
                     confianza={confianzaSeleccionada}
                     tab={tab}
                     setTab={setTab}
-                    logueado={errorToken ? false : true}
+                    logueado={Boolean(usuario)}
                 />
             </section>
 

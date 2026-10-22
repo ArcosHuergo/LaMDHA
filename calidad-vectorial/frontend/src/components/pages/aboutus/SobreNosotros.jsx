@@ -33,10 +33,6 @@ export const SobreNosotros = () => {
                 </div>
             </section>
 
-            <Header
-                fondo={true}
-            />
-
             <main className="sn-content">
                 <article className="sn-content__article">
                     <section className="sn-content__article__section">

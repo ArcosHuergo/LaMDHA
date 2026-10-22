@@ -15,6 +15,7 @@ export const useFetch = (url) => {
     const fetchDataRef = useRef(null);
 
     useEffect(() => {
+        if (!url) return;
         // Controller para poder cancelar la request si el componente se desmonta
         const controller = new AbortController();
         const signal = controller.signal;
@@ -97,6 +98,7 @@ export function usePost(url, method = 'POST') {
 
     // Define montaje/desmontaje del componente
     useEffect(() => {
+        if (!url) return;
         isMountedRef.current = true;
         return () => {
             isMountedRef.current = false;

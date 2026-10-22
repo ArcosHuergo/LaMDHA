@@ -16,6 +16,7 @@ export const handleLogin = async ({
     setIsDisabled,
     setError,
     navigate,
+    refrescar,
 }) => {
     if (controllerRef.current) {
         controllerRef.current.abort();
@@ -31,6 +32,7 @@ export const handleLogin = async ({
     const respond = await loginRequest({ username, password }, controller.signal);
 
     if (respond.ok) {
+        await refrescar();
         navigate('/galeria');
     } else if (respond.message === 'Error de conexión') {
         setError('Error de conexión');
@@ -42,6 +44,8 @@ export const handleLogin = async ({
                 setError(Object.values(jsonResponse.errores).join('. '));
             } else if (jsonResponse.title) {
                 setError(jsonResponse.title);
+            } else if (Array.isArray(jsonResponse.detail)) {
+                setError(jsonResponse.detail.map((e) => (e.msg ?? '').replace(/^Value error,\s*/i, '')).join(' '));
             } else if (jsonResponse.detail) {
                 setError(jsonResponse.detail);
             } else {
@@ -68,6 +72,7 @@ export const handleRegister = async ({
     setIsDisabled,
     setError,
     navigate,
+    refrescar,
 }) => {
     if (controllerRef.current) {
         controllerRef.current.abort();
@@ -89,10 +94,17 @@ export const handleRegister = async ({
 
         if (respond.ok) {
             await loginRequest({ username, password });
+            await refrescar();
             navigate('/galeria');
         } else {
-            const text = await respond.json();
-            setError(text.detail);
+            const json = await respond.json();
+            const { detail } = json;
+            // 422 → lista de errores · 400/401/409 → string
+            setError(
+                Array.isArray(detail)
+                    ? detail.map((e) => (e.msg ?? '').replace(/^Value error,\s*/i, '')).join(' ')
+                    : detail ?? 'Ocurrió un error. Probá de nuevo.',
+            );
         }
     } catch (error) {
         setError('Error de conexión');
