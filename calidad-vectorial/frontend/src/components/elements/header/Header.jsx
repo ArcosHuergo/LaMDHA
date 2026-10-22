@@ -1,5 +1,4 @@
-
-import { useFetch } from '../../utils/fetch/FetchUtils';
+import { useAuth } from '../../utils/auth/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LaMDHA from '../../../assets/img/brand/lamdha.svg?react';
@@ -20,16 +19,15 @@ const ITEMS_NAVEGACION = [
 export const Header = ({ fondo = false }) => {
     const location = useLocation();
     const url = location.pathname;
-    console.log(url)
+    console.log(url);
     const navigate = useNavigate();
-    const { data: dataUsuario, error: errorToken } =
-        useFetch('auth/validar-token');
+    const { usuario } = useAuth();
 
     return (
         <header className={`header header-fondo--${fondo ? 'true' : ''}`}>
             <div className="header__item header__marca">
                 <Link to="/" className="header__item__logo">
-                    <LaMDHA className='header__item__logo'  />
+                    <LaMDHA className="header__item__logo" />
                 </Link>
 
                 <Link to="/" className="header__item__marca">
@@ -40,32 +38,32 @@ export const Header = ({ fondo = false }) => {
             <nav className="header__nav" aria-label="Navegación principal">
                 {ITEMS_NAVEGACION.map(({ to, label }) => {
                     if (to === url) {
-                        return(
+                        return (
                             <p
                                 key={to}
                                 className={`header__nav__link header__nav__link header__nav__link--${label}`}
                             >
                                 {label}
                             </p>
-                        )
+                        );
                     } else {
-                        return(
+                        return (
                             <Link
                                 key={to}
                                 to={to}
-                                className={`header__nav__link header__nav__link--seleccionado header__nav__link--${label} header__nav__link--${errorToken && label === 'Historial' ? 'ocultar' : ''}`}
+                                className={`header__nav__link header__nav__link--seleccionado header__nav__link--${label} header__nav__link--${usuario && label === 'Historial' ? 'ocultar' : ''}`}
                             >
                                 {label}
                             </Link>
-                        )
+                        );
                     }
                 })}
             </nav>
 
-            {!errorToken ? (
+            {usuario ? (
                 <div className="header__item header__item--usr">
-                        <p className='header__item__usuario'>{dataUsuario.username}</p>
-                        <Usuario className='header__item__logo' />
+                        <p>{usuario.username}</p>
+                    <Usuario className="header__item__logo" />
                 </div>
             ) : (
                 <div className="header__item header__item--button">

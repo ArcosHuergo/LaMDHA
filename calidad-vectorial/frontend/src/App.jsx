@@ -6,24 +6,27 @@ import { Galeria } from './components/pages/gallery/Galeria';
 import { Mapa } from './components/pages/map/Mapa';
 import { ProtectedRoute } from './components/utils/auth/TokenUtils';
 import { Historial } from './components/pages/record/Historial';
+import { AuthProvider } from './components/utils/auth/AuthContext';
 
 export const App = () => {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<SobreNosotros />} />
-                <Route element={<ProtectedRoute />}>
-                    <Route path="/login" element={<AuthPage />} />
-                    <Route path="/register" element={<AuthPage />} />
-                </Route>
-                <Route element={<Layout />}>
-                    <Route path="/galeria" element={<Galeria />} />
-                    <Route path="/mapa" element={<Mapa />} />
+        return (
+        <AuthProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<SobreNosotros />} />
                     <Route element={<ProtectedRoute />}>
-                        <Route path="/historial" element={<Historial/> } />
+                        <Route path="/login" element={<AuthPage />} />
+                        <Route path="/register" element={<AuthPage />} />
                     </Route>
-                </Route>
-            </Routes>
-        </Router>
+                    <Route element={<Layout />}>
+                        <Route path="/galeria" element={<Galeria />} />
+                        <Route path="/mapa" element={<Mapa />} />
+                        <Route element={<ProtectedRoute />}>
+                            <Route path="/historial" element={<Historial/> } />
+                        </Route>
+                    </Route>
+                </Routes>
+            </Router>
+        </AuthProvider>
     );
 };

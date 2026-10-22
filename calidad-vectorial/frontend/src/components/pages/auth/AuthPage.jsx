@@ -5,11 +5,13 @@ import { AuthBox } from '../../elements/authbox/AuthBox';
 import { Input } from '../../elements/input/Input';
 import { Button } from '../../elements/buttons/Button';
 import { handleLogin, handleRegister } from '../../utils/auth/AuthUtils';
+import { useAuth } from '../../utils/auth/AuthContext';
 import './AuthPage.css';
 
 export const AuthPage = () => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const { refrescar } = useAuth();
     const initial = pathname === '/register' ? 'register' : 'login';
     const [displayForm, setDisplayForm] = useState(initial);
     const [currentForm, setCurrentForm] = useState(initial);
@@ -56,6 +58,7 @@ export const AuthPage = () => {
                     setIsDisabled,
                     setError,
                     navigate,
+                    refrescar,
                 });
             } else if (currentForm === 'register') {
                 handleRegister({
@@ -66,6 +69,7 @@ export const AuthPage = () => {
                     setIsDisabled,
                     setError,
                     navigate,
+                    refrescar,
                 });
             }
         } catch (err) {

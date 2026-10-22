@@ -16,6 +16,7 @@ export const handleLogin = async ({
     setIsDisabled,
     setError,
     navigate,
+    refrescar,
 }) => {
     if (controllerRef.current) {
         controllerRef.current.abort();
@@ -31,6 +32,7 @@ export const handleLogin = async ({
     const respond = await loginRequest({ username, password }, controller.signal);
 
     if (respond.ok) {
+        await refrescar();
         navigate('/galeria');
     } else if (respond.message === 'Error de conexión') {
         setError('Error de conexión');
@@ -68,6 +70,7 @@ export const handleRegister = async ({
     setIsDisabled,
     setError,
     navigate,
+    refrescar,
 }) => {
     if (controllerRef.current) {
         controllerRef.current.abort();
@@ -89,6 +92,7 @@ export const handleRegister = async ({
 
         if (respond.ok) {
             await loginRequest({ username, password });
+            await refrescar();
             navigate('/galeria');
         } else {
             const text = await respond.json();
