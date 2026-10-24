@@ -2,8 +2,8 @@
     width: 50vw;
     min-width: 310px;
     height: 100vh;
-    min-height: 480px;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: absolute;
     top: 0;
     right: 0;
@@ -22,7 +22,7 @@
 .auth-box__content {
     width: 100%;
 
-    margin-top: 15%;
+    margin-top: 10%;
     padding-left: 11vw;
     padding-right: 11vw;
 
@@ -106,6 +106,7 @@
     transition: all 200ms ease-in-out;
     display: inline-flex;
     font-size: clamp(var(--font-size-sm), 4vw, var(--font-size-base));
+    margin-bottom: 10px;
 }
 
 .auth-box__content__link:hover {
@@ -199,11 +200,11 @@
 /* Celular */
 @media (max-width: 767px) {
     .auth-box {
-        width: 90vw;
-        height: 90vh;
+        width: 95vw;
+        height: 95vh;
         left: 50%;
-        bottom: 50%;
-        transform: translateX(-50%) translateY(5%);
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
         border-radius: 20px;
     }
 

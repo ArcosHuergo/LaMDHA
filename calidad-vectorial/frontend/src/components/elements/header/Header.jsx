@@ -1,11 +1,11 @@
 import { useAuth } from '../../utils/auth/AuthContext';
 import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
+import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import LaMDHA from '../../../assets/img/brand/lamdha.svg?react';
 import Usuario from '../../../assets/img/icons/usuario.svg?react';
 
-import BranchedMenu from '../branchedmenu/BranchedMenu';
 import { Button } from '../buttons/Button';
 
 import './Header.css';
@@ -18,18 +18,20 @@ const ITEMS_NAVEGACION = [
 ];
 
 export const Header = () => {
+    const { usuario, refrescar } = useAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const url = location.pathname;
+    const [mostrarLogOut, setMostrarLogOut] = useState(false)
     const { data: dataUsuario, error: errorToken } =
         useFetch('auth/validar-token');
     const { execute: executeLogOut } = usePost('auth/logout');
 
     const handleLogout = async () => {
         await executeLogOut();
+        await refrescar();
         navigate('/');
     };
-    const navigate = useNavigate();
-    const { usuario } = useAuth();
 
     return (
         <header className='header'>
@@ -70,34 +72,34 @@ export const Header = () => {
 
             {usuario ? (
                 <div className="header__item header__item--usr">
-                        <p className='header__item__usuario'>{dataUsuario.username}</p>
-                        <BranchedMenu
-                            items={[
-                                {
-                                    value: 'menu-usuario',
-                                    label: <Usuario />,
-                                    children: [
-                                        { value: '#', label: 'Cerrar sesión'},
-                                    ]
-                                }
-                            ]}
-                            className='header__item__logo--usr'
-                            defaultOpen={[1]}
-                            defaultActive="#"
-                            onSelect={handleLogout}
-                            color="#fafafa"
-                            accentColor="#fafafa"
-                            lineColor="#fafafa88"
-                            width={45}
-                            rowHeight={36}
-                            indent={40}
-                            trunk={14}
-                            radius={10}
-                            lineWidth={1.5}
-                            fontSize={14}
-                            drawDuration={400}
-                            foldDuration={300}
-                        />
+                    <p className='header__item__usuario'>{dataUsuario.username}</p>
+                    <button className='header__item__logo header__item__logo--usuario'
+                        onClick={() => {mostrarLogOut ? setMostrarLogOut(false) : setMostrarLogOut(true)}}
+                    >
+                        <Usuario />
+                        { mostrarLogOut && (
+                            <div className='header__item__logo__panel'
+                                onClick={handleLogout}
+                            >
+                                <svg
+                                    className='header__item__logo__curva'
+                                    viewBox="0 0 42 30"
+                                    preserveAspectRatio="none"
+                                    fill="none"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M86 30 C 90 30, 92 33, 91.5 15"
+                                        stroke="currentColor"
+                                        strokeWidth="1.5"
+                                        strokeLinecap="round"
+                                        vectorEffect="non-scaling-stroke"
+                                    />
+                                </svg>
+                                Cerrar sesión
+                            </div>
+                        )}
+                    </button>
                 </div>
             ) : (
                 <div className="header__item header__item--button">

@@ -11,7 +11,7 @@
     height: 92px;
     box-sizing: border-box;
     overflow: visible;
-    gap: 10px;
+    gap: 20px;
 }
 
 .header__item {
@@ -28,7 +28,7 @@
 }
 
 .header__item--usr {
-    align-self: start;
+    align-self: center;
 }
 
 .header__item__usuario {
@@ -36,6 +36,7 @@
     max-width: max-content;
     text-overflow: ellipsis;
     overflow: hidden;
+    position: relative;
 }
 
 .header__item p,
@@ -45,11 +46,53 @@
     font-weight: 500;
     font-size: clamp(var(--font-size-base), 4vw, var(--font-size-md));
     color: var(--text-primary);
+    border: none;
 }
 
 .header__item__logo {
     width: clamp(36px, 9vw, 45px);
 }
+
+.header__item__logo svg {
+    width: 100%;
+}
+
+.header__item__logo--usuario {
+    cursor: pointer;
+}
+
+.header__item__logo__panel {
+    --curva-ancho: 28px;
+    --curva-alto: 22px;
+
+    position: absolute;
+    top: 100%;
+    right: 38px;
+
+    min-width: max-content;
+    width: clamp(var(--font-size-sm), 1vw, var(--font-size-base));
+
+    font-size: clamp(var(--font-size-sm), 1vw, var(--font-size-base));
+
+    animation: animacion-panel-logout 200ms ease-in-out both;
+    transition: color 200ms ease-in-out;
+}
+
+.header__item__logo__panel:hover {
+    color: #ca2b23;
+}
+
+.header__item__logo__curva {
+    position: absolute;
+    right: 100%;
+    bottom: 50%;
+    width: var(--curva-ancho);
+    height: var(--curva-alto);
+    overflow: visible;
+    pointer-events: none;
+    color: currentColor;
+}
+
 .header__item__p {
     text-align: end;
     text-overflow: ellipsis;
@@ -81,6 +124,17 @@
 
 .header__nav__link--seleccionado {
     cursor: default;
+}
+
+@keyframes animacion-panel-logout {
+    0% {
+        transform: translateY(-50%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
 }
 
 /* Computadora */
