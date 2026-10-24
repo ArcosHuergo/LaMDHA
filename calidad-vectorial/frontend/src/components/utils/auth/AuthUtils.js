@@ -5,6 +5,9 @@ async function loginRequest({ username, password }, signal) {
         const response = await postData('auth/login', { username, password }, signal);
         return response;
     } catch (error) {
+        if (error.name === 'AbortError') {
+            return { ok: false, message: 'AbortError' };
+        }
         return { ok: false, message: 'Error de conexión' };
     }
 }
@@ -15,7 +18,6 @@ export const handleLogin = async ({
     controllerRef,
     setIsDisabled,
     setError,
-    navigate,
     refrescar,
 }) => {
     if (controllerRef.current) {
@@ -29,38 +31,45 @@ export const handleLogin = async ({
     setError('');
     setIsDisabled(true);
 
-    const respond = await loginRequest({ username, password }, controller.signal);
+    try {
+        const respond = await loginRequest({ username, password }, controller.signal);
 
-    if (respond.ok) {
-        await refrescar();
-        navigate('/galeria');
-    } else if (respond.message === 'Error de conexión') {
-        setError('Error de conexión');
-    } else {
-        try {
-            const jsonResponse = await respond.json();
-
-            if (jsonResponse.errores) {
-                setError(Object.values(jsonResponse.errores).join('. '));
-            } else if (jsonResponse.title) {
-                setError(jsonResponse.title);
-            } else if (Array.isArray(jsonResponse.detail)) {
-                setError(jsonResponse.detail.map((e) => (e.msg ?? '').replace(/^Value error,\s*/i, '')).join(' '));
-            } else if (jsonResponse.detail) {
-                setError(jsonResponse.detail);
-            } else {
-                setError(JSON.stringify(jsonResponse));
-            }
-        } catch (err) {
-            if (err.name !== 'AbortError') {
-                setError('Error: ' + err.message);
-            }
-        } finally {
-            if (controllerRef.current === controller) {
-                controllerRef.current = null;
-            }
-            setIsDisabled(false);
+        if (respond.ok) {
+            await refrescar();
+            return;
         }
+
+        if (respond.message === 'AbortError') {
+            return;
+        }
+
+        if (respond.message === 'Error de conexión') {
+            setError('Error de conexión');
+            return;
+        }
+
+        const jsonResponse = await respond.json();
+
+        if (jsonResponse.errores) {
+            setError(Object.values(jsonResponse.errores).join('. '));
+        } else if (jsonResponse.title) {
+            setError(jsonResponse.title);
+        } else if (Array.isArray(jsonResponse.detail)) {
+            setError(jsonResponse.detail.map((e) => (e.msg ?? '').replace(/^Value error,\s*/i, '')).join(' '));
+        } else if (jsonResponse.detail) {
+            setError(jsonResponse.detail);
+        } else {
+            setError('Ocurrió un error. Probá de nuevo.');
+        }
+    } catch (err) {
+        if (err.name !== 'AbortError') {
+            setError('Ocurrió un error. Probá de nuevo.');
+        }
+    } finally {
+        if (controllerRef.current === controller) {
+            controllerRef.current = null;
+        }
+        setIsDisabled(false);
     }
 };
 
@@ -71,7 +80,6 @@ export const handleRegister = async ({
     controllerRef,
     setIsDisabled,
     setError,
-    navigate,
     refrescar,
 }) => {
     if (controllerRef.current) {
@@ -92,22 +100,30 @@ export const handleRegister = async ({
             controller.signal,
         );
 
-        if (respond.ok) {
-            await loginRequest({ username, password });
-            await refrescar();
-            navigate('/galeria');
-        } else {
-            const json = await respond.json();
-            const { detail } = json;
-            // 422 → lista de errores · 400/401/409 → string
+        if (!respond.ok) {
+            const { detail } = await respond.json();
             setError(
                 Array.isArray(detail)
                     ? detail.map((e) => (e.msg ?? '').replace(/^Value error,\s*/i, '')).join(' ')
                     : detail ?? 'Ocurrió un error. Probá de nuevo.',
             );
+            return;
         }
+
+        const login = await loginRequest({ username, password }, controller.signal);
+
+        if (!login.ok) {
+            if (login.message !== 'AbortError') {
+                setError('Cuenta creada, pero no se pudo iniciar sesión. Iniciá sesión manualmente.');
+            }
+            return;
+        }
+
+        await refrescar();
     } catch (error) {
-        setError('Error de conexión');
+        if (error.name !== 'AbortError') {
+            setError('Error de conexión');
+        }
     } finally {
         if (controllerRef.current === controller) {
             controllerRef.current = null;

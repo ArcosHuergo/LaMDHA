@@ -14,7 +14,7 @@ export const ProtectedRoute = () => {
     }
     if (usuario) {
         if (url.pathname === '/login' || url.pathname === '/register') {
-            return <Navigate to="/" replace />;
+            return <Navigate to="/galeria" replace />;
         } else {
             return <Outlet />;
         }

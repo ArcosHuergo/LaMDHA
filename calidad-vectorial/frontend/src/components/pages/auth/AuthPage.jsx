@@ -18,9 +18,9 @@ export const AuthPage = () => {
     const [boxPosition, setBoxPosition] = useState(initial);
     const [hasAnimated, setHasAnimated] = useState(false);
     const [textPosition, setTextPosition] = useState(initial);
-    const [contentVisible, setContentVisible] = useState(true);
 
     const controllerRef = useRef(null);
+    const switchTimeoutRef = useRef(null);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [verificationPassword, setVerificationPassword] = useState('');
@@ -29,19 +29,19 @@ export const AuthPage = () => {
 
     useEffect(() => {
         return () => {
-            if (controllerRef.current) {
-                controllerRef.current.abort();
-            }
+            controllerRef.current?.abort();
+            clearTimeout(switchTimeoutRef.current);
         };
     }, []);
 
     const handleSwitch = (to) => {
+        clearTimeout(switchTimeoutRef.current);
         setError('');
         setHasAnimated(true);
         setCurrentForm(to);
         setBoxPosition(to);
 
-        setTimeout(() => {
+        switchTimeoutRef.current = setTimeout(() => {
             setDisplayForm(to);
             setTextPosition(to);
             navigate(to === 'register' ? '/register' : '/login');
@@ -50,41 +50,21 @@ export const AuthPage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-            if (currentForm === 'login') {
-                handleLogin({
-                    username,
-                    password,
-                    controllerRef,
-                    setIsDisabled,
-                    setError,
-                    navigate,
-                    refrescar,
-                });
-            } else if (currentForm === 'register') {
-                handleRegister({
-                    username,
-                    password,
-                    verificationPassword,
-                    controllerRef,
-                    setIsDisabled,
-                    setError,
-                    navigate,
-                    refrescar,
-                });
-            }
-        } catch (err) {
-            console.error(err);
+        const params = { username, password, controllerRef, setIsDisabled, setError, refrescar };
+        if (currentForm === 'login') {
+            handleLogin(params);
+        } else {
+            handleRegister({ ...params, verificationPassword });
         }
     };
 
     const loginLink = (
-        <Link onClick={() => handleSwitch('login')}>
+        <Link to="/login" onClick={(e) => { e.preventDefault(); handleSwitch('login'); }}>
             <span>{'<-'}</span> ¿Ya tenés cuenta? ¡Iniciá sesión!
         </Link>
     );
     const registerLink = (
-        <Link onClick={() => handleSwitch('register')}>
+        <Link to="/register" onClick={(e) => { e.preventDefault(); handleSwitch('register'); }}>
             ¿No tenés cuenta? ¡Registrate! <span>{'->'}</span>
         </Link>
     );
@@ -128,6 +108,8 @@ export const AuthPage = () => {
                     >
                         <Input
                             name="username"
+                            type="email"
+                            autoComplete="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         >
@@ -137,6 +119,7 @@ export const AuthPage = () => {
                             name="password"
                             type="password"
                             value={password}
+                            autoComplete="current-password"
                             onChange={(e) => setPassword(e.target.value)}
                         >
                             Contraseña
@@ -163,6 +146,8 @@ export const AuthPage = () => {
                     >
                         <Input
                             name="username"
+                            type="email"
+                            autoComplete="username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         >
@@ -172,12 +157,14 @@ export const AuthPage = () => {
                             name="password"
                             type="password"
                             value={password}
+                            autoComplete="new-password"
                             onChange={(e) => setPassword(e.target.value)}
                         >
                             Contraseña
                         </Input>
                         <Input
-                            name="password"
+                            name="verificationPassword"
+                            autoComplete="new-password"
                             type="password"
                             value={verificationPassword}
                             onChange={(e) => setVerificationPassword(e.target.value)}
