@@ -6,6 +6,7 @@ import { Input } from '../../elements/input/Input';
 import { Button } from '../../elements/buttons/Button';
 import { handleLogin, handleRegister } from '../../utils/auth/AuthUtils';
 import { useAuth } from '../../utils/auth/AuthContext';
+import { Cargando } from '../../elements/loading/Cargando';
 import './AuthPage.css';
 
 export const AuthPage = () => {
@@ -124,11 +125,15 @@ export const AuthPage = () => {
                         >
                             Contraseña
                         </Input>
-                        {error && (
-                            <p className="auth-box__error" role="alert">
+                        {isDisabled ? ( 
+                            <Cargando texto="Cargando login" /> 
+                        ) : (
+                            error && (
+                                <p className="auth-box__error" role="alert">
                                 {error}
-                            </p>
-                        )}
+                                </p>
+                            ))
+                        }
                     </AuthBox>
                 ) : (
                     <AuthBox
@@ -171,11 +176,15 @@ export const AuthPage = () => {
                         >
                             Confirmar contraseña
                         </Input>
-                        {error && (
-                            <p className="auth-box__error" role="alert">
-                                {error}
-                            </p>
-                        )}
+                        {isDisabled ? ( 
+                            <Cargando texto="Cargando regsiter" /> 
+                        ) : (
+                            error && (
+                                <p className="auth-box__error" role="alert">
+                                    {error}
+                                </p>
+                        ))
+                        }
                     </AuthBox>
                 )}
             </div>
