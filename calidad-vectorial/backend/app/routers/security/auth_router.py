@@ -89,11 +89,21 @@ def registrar(
     Returns:
 
         Esquema con los datos del usuario registrado.
+
+    Raises:
+
+        HTTPException: Si las contraseñas no coinciden o el nombre de usuario
+            ya existe.
     """
     usuario = UsuarioMapper.to_entity(RegisterSchema)
-    nuevo_usuario = usuario_service.registrar_usuario(
-        usuario, RegisterSchema.password, RegisterSchema.verification_password
-    )
+    try:
+        nuevo_usuario = usuario_service.registrar_usuario(
+            usuario, RegisterSchema.password, RegisterSchema.verification_password
+        )
+    except ValueError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(error)
+        ) from error
     nuevo_usuario_schema = UsuarioMapper.to_schema(nuevo_usuario)
     return nuevo_usuario_schema
 
