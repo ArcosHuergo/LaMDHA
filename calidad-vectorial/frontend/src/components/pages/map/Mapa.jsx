@@ -16,6 +16,18 @@ import { Button } from '../../elements/buttons/Button';
 
 import './Mapa.css';
 
+const COLORES_CONFETI = ['#ff4d6d', '#ffd23f', '#3bceac', '#4cc9f0', '#b388ff', '#ff9f1c'];
+
+const crearParticulas = (cantidad = 18) =>
+    Array.from({ length: cantidad }, (_, i) => ({
+        id: i,
+        dx: (Math.random() - 0.5) * 140,
+        dy: -(30 + Math.random() * 70),
+        rot: Math.random() * 720,
+        delay: Math.random() * 80,
+        color: COLORES_CONFETI[i % COLORES_CONFETI.length],
+    }));
+
 const PISOS = [
     { id: 'PB', nombre: 'Planta Baja' },
     { id: 'EPB', nombre: 'Entrepiso PB' },
@@ -48,17 +60,24 @@ export const Mapa = () => {
     const { usuario } = useAuth();
 
     const [enviando, setEnviando] = useState(false);
-    const activarOpinion = enviando ? "not-allowed" : "pointer"
+    const [voto, setVoto] = useState(null);
+    const [confeti, setConfeti] = useState(null);
+
     const handle_opinion = async (event) => {
         if (enviando) return;
+
+        const valor = event.currentTarget.value;
+
         setEnviando(true);
+        setVoto(valor);
+
+        const key = Date.now();
+        setConfeti({ key, tipo: valor, particulas: crearParticulas() });
+        setTimeout(() => setConfeti((c) => (c?.key === key ? null : c)), 1100);
 
         try {
-            const resultado = await executeFeedback({
-                prediccion_correcta: event.currentTarget.value
-            });
-
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            await executeFeedback({ prediccion_correcta: valor });
+            await new Promise((resolve) => setTimeout(resolve, 2000));
         } finally {
             setEnviando(false);
         }
@@ -68,9 +87,54 @@ export const Mapa = () => {
         <main className="mapa">
             <header className="mapa__header">
                 <Button to='/galeria'>{'← volver'}</Button>
-                    {zona && (
+
+                {zona && (
+                    <div className="mapa__header__info">
                         <h1>Estás en {zona}</h1>
-                    )}
+
+                        {id && (
+                            <div className="mapa__opinion" role="group" aria-label="¿La predicción fue correcta?">
+                                <span className="mapa__opinion__texto">¿Acertamos?</span>
+
+                                {[
+                                    { valor: 'true', Icono: PulgarArriba, label: 'La predicción fue correcta' },
+                                    { valor: 'false', Icono: PulgarAbajo, label: 'La predicción fue incorrecta' },
+                                ].map(({ valor, Icono, label }) => (
+                                    <div className="mapa__opinion__celda" key={valor}>
+                                        <button
+                                            type="button"
+                                            className={`mapa__opinion__btn ${voto === valor ? 'mapa__opinion__btn--activo' : ''}`}
+                                            onClick={handle_opinion}
+                                            value={valor}
+                                            disabled={enviando}
+                                            aria-label={label}
+                                            title={label}
+                                        >
+                                            <Icono />
+                                        </button>
+
+                                        {confeti?.tipo === valor && (
+                                            <span className="confeti" key={confeti.key} aria-hidden="true">
+                                                {confeti.particulas.map((p) => (
+                                                    <i
+                                                        key={p.id}
+                                                        style={{
+                                                            '--dx': `${p.dx}px`,
+                                                            '--dy': `${p.dy}px`,
+                                                            '--rot': `${p.rot}deg`,
+                                                            '--delay': `${p.delay}ms`,
+                                                            background: p.color,
+                                                        }}
+                                                    />
+                                                ))}
+                                            </span>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                )}
             </header>
             <section className="mapa__plano contenedor">
                 <header className="mapa__plano__header">
