@@ -1,0 +1,141 @@
+.about-us-card {
+    border: var(--border-tertiary) 4px solid;
+    border-radius: 15px;
+    width: 60%;
+    height: 160px;
+    padding: 10px 60px;
+
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+
+    animation: 800ms ease-in-out forwards;
+    timeline-trigger: --reveal view() entry 100% exit 0%;
+    animation-trigger: --reveal play-once;
+    opacity: 0;
+}
+
+.about-us-card--izq {
+    animation: animacion-izq;
+}
+
+.about-us-card--der {
+    animation: animacion-der;
+}
+
+.about-us-card__title {
+    font-size: clamp(var(--font-size-base), 2vw, var(--font-size-md));
+    font-weight: 600;
+}
+
+.about-us-card__title--der {
+    text-align: end;
+}
+
+.about-us-card__text {
+    font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base));
+}
+
+.about-us-card__text--der {
+    text-align: end;
+}
+
+.about-us-card__circle {
+    position: absolute;
+
+    background: var(--bg-primary);
+    border: var(--border-tertiary) 4px solid;
+    border-radius: 50%;
+
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-us-card__circle--izq {
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.about-us-card__circle--der {
+    top: 50%;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.about-us-card__circle__icono {
+    aspect-ratio: 1 / 1;
+    width: 60%;
+    height: 60%;
+}
+
+@keyframes animacion-izq {
+    from {
+        opacity: 0;
+        translate: -60%;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animacion-der {
+    from {
+        opacity: 0;
+        translate: 60%;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@supports (animation-trigger: none) {
+    .about-us-card--izq {
+        animation: animacion-izq 600ms ease-in-out forwards;
+        timeline-trigger: --reveal view() entry 100% exit 0%;
+        animation-trigger: --reveal play-once;
+    }
+
+    .about-us-card--der {
+        animation: animacion-der 600ms ease-in-out forwards;
+        timeline-trigger: --reveal view() entry 100% exit 0%;
+        animation-trigger: --reveal play-once;
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .about-us-card {
+        width: 90%;
+        height: fit-content;
+    }
+}
+
+/* Celular */
+@media (max-width: 767px) {
+    .about-us-card {
+        width: 80%;
+        height: fit-content;
+    }
+
+    .about-us-card--izq {
+        padding-left: 40px;
+        padding-right:  8px;
+    }
+
+    .about-us-card--der {
+        padding-right: 40px;
+        padding-left: 8px;
+    }
+
+    .about-us-card__circle {
+        width: 50px;
+        height: 50px;
+    }
+}

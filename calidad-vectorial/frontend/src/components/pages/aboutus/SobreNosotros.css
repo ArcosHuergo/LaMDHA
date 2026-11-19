@@ -6,18 +6,22 @@
     display: flex;
     justify-content: center;
     position: relative;
+    overflow: hidden;
 }
 
 .fondo-aurora {
     position: absolute;
+    max-width: 100%;
     height: 100%;
     width: 100%;
     inset: 0;
     z-index: 0;
+    overflow: hidden;
 }
 
 .sn-hero__text {
     color: var(--text-primary);
+    font-size: clamp(var(--font-size-sm), 3vw, var(--font-size-base));
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -31,21 +35,27 @@
     font-family: 'Orbitron';
     font-size: var(--font-size-xxl);
     font-weight: 600;
+    animation: animacion-titulo 600ms ease-in-out both;
 }
 
 .sn-hero__text__subtitle {
     font-family: 'Poppins';
     font-weight: 400;
-    font-size: var(--font-size-md);
+    font-size: clamp(var(--font-size-base), 3.5vw, var(--font-size-md));
     display: flex;
+    animation: animacion-titulo 600ms ease-in-out both;
 }
 
 .sn-content {
     display: flex;
     flex-direction: column;
-}
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    overflow: clip;
 
-.sn-content {
     background: var(--bg-primary);
     color: var(--text-primary);
 }
@@ -54,57 +64,76 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 25px;
-    padding-top: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
 }
 
-.sn-content__article__section {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    gap: 25px;
-}
-
-.sn-content__article__section__title {
+.sn-content__article__title {
     font-family: 'Orbitron';
     font-weight: 500;
-    font-size: var(--font-size-lg);
+    font-size: clamp(var(--font-size-md), 2vw, var(--font-size-lg));
+    margin-bottom: 30px;
 }
 
-.sn-content__article__section__text {
+.sn-content__article__text {
     font-family: 'Poppins';
     font-weight: 400;
-    font-size: var(--font-size-base);
+    font-size: clamp(var(--font-size-sm), 2vw, var(--font-size-base));
     line-height: 160%;
 }
 
-.sn-content__article__delimiter {
-    width: 100%;
-    height: 25px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sn-content__article__delimiter::after {
-    content: '';
-    position: absolute;
-
+.sn-content__delimiter {
     width: 70%;
     height: 1px;
-
     background: var(--text-primary);
+    margin: 40px 0;
+    align-self: center;
 }
 
-.sn-content__article__section__logos {
+.sn-content__section  {
+    height: fit-content;
+}
+
+.sn-content__section__logos {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 2%;
+}
+
+.sn-content__section__logos a {
+    width: 80px;
+    height: 80px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sn-content__section__data {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    gap: 40px;
+}
+
+.sn-content__section__developers {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    row-gap: 30px;
+    column-gap: 5px;
+}
+
+@keyframes animacion-titulo {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Tablet */
@@ -123,7 +152,7 @@
 @media (max-width: 767px) {
     .sn-hero {
         height: 100vh;
-        height: 100svh;
+        height: 100vh;
     }
 
     .sn-hero__text {
@@ -141,20 +170,19 @@
         font-size: clamp(var(--font-size-base), 4.5vw, var(--font-size-md));
     }
 
-    .sn-content__article {
-        gap: 20px;
-        padding: 32px 20px 0;
+    .sn-content {
+        padding: 5px;
     }
 
-    .sn-content__article__section {
+    .sn-content__section {
         gap: 16px;
     }
 
-    .sn-content__article__section__logos {
+    .sn-content__section__logos {
         gap: 16px 20px;
     }
 
-    .sn-content__article__section__logos svg {
+    .sn-content__section__logos svg {
         width: clamp(36px, 11vw, 56px);
         height: auto;
     }
