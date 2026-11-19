@@ -176,8 +176,8 @@ export const AuthPage = () => {
                         >
                             Confirmar contraseña
                         </Input>
-                        {isDisabled ? ( 
-                            <Cargando texto="Cargando regsiter" /> 
+                        {isDisabled ? (
+                            <Cargando texto="Cargando registro" />
                         ) : (
                             error && (
                                 <p className="auth-box__error" role="alert">

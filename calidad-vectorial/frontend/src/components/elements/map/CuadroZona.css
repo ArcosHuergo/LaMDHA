@@ -109,4 +109,8 @@
     .mapa__cuadro__panel__galeria p {
         width: 90%;
     }
+
+    .mapa__cuadro__header h2 {
+        font-size: clamp(var(--font-size-base), 2vw, var(--font-size-lg));
+    }
 }

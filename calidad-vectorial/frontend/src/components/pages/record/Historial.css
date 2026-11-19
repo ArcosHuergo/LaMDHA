@@ -11,6 +11,14 @@
     margin-bottom: 50px;
 }
 
+.historial__cargando {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    height: 95%;
+    max-height: 100%;
+}
+
 .historial__cuadro {
     --historial-flecha-ancho: 48px;
 
@@ -20,6 +28,7 @@
     font-size: clamp(var(--font-size-sm), 4vw, var(--font-size-base));
     border: var(--border-secondary) 2px solid;
     border-radius: 5px;
+    overflow: hidden;
 }
 
 .historial__cabecera,
@@ -51,28 +60,6 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-}
-
-.historial__flecha {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    border: none;
-}
-
-.historial__flecha__svg {
-    display: block;
-    width: 100%;
-    max-width: 28px;
-    height: auto;
-    cursor: pointer;
-
-    transition: transform 200ms ease-in-out;
-}
-
-.historial__flecha__svg--seleccionado {
-    transform: rotate(-180deg);
 }
 
 /* Tablet */

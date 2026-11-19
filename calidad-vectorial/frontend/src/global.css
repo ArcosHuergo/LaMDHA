@@ -31,6 +31,7 @@
     /* Bordes */
     --border-primary: var(--dark);
     --border-secondary: var(--purple);
+    --border-tertiary: var(--white);
 
     /* Somrbas */
     --shadow-primary: var(--indigo);

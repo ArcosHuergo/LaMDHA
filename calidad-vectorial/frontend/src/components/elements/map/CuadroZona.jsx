@@ -4,6 +4,7 @@ import { RenderInfo } from './RenderInfo';
 import { RenderResultados } from './RenderResultados';
 import { Pestanas } from '../tab/Pestanas';
 import { Button } from '../buttons/Button';
+import { Cargando } from '../loading/Cargando';
 
 import "./CuadroZona.css";
 
@@ -41,7 +42,7 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, 
             </header>
 
             {loadingZona && logueado ? (
-                <p>Cargando...</p>
+                <Cargando texto='Cargando zona' />
             ) : dataZona ? (
                 <div className="mapa__cuadro__panel">
                     {tab === 'Resultados' && (

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFetch } from '../../utils/fetch/FetchUtils';
-import FlechaDesplegar from '../../../assets/img/icons/flechaDesplegar.svg?react';
+import { Cargando } from '../../elements/loading/Cargando';
 import './Historial.css';
 
 const COLUMNAS = ['Fecha', 'Sector', 'Piso', 'Tipo', 'Referencia', 'Confianza', 'Acertó'];
@@ -19,11 +19,13 @@ export const Historial = () => {
         setRegistro((actual) => (actual === id ? null : id));
     }
 
+    console.log(dataHistorial);
+
     return (
         <div className="historial">
             <h1 className="historial__title">Mis búsquedas</h1>
             {loadingHistorial ? (
-                <p>Cargando</p>
+                <Cargando texto='Cargando' />
             ) : (
                 <div className="historial__cuadro">
                     <div className="historial__cabecera">
@@ -35,7 +37,7 @@ export const Historial = () => {
                         <span className="historial__flecha" aria-hidden="true" />
                     </div>
 
-                    {dataHistorial ? (
+                    {dataHistorial && dataHistorial.length !== 0 ? (
                         <ul className="historial__lista">
                             {dataHistorial.map((registro) => {
                                 const seleccionado = registroSeleccionado === registro.id;
@@ -55,16 +57,14 @@ export const Historial = () => {
                                                 ? registro.prediccion_correcta ? 'Sí' : 'No'
                                                 : '-'}
                                         </span>
-                                        <button
-                                            className="historial__flecha"
-                                            onClick={() => handleSelect(registro.id)}
-                                        >
-                                            <FlechaDesplegar className={`historial__flecha__svg historial__flecha__svg--${seleccionado ? 'seleccionado' : ''}`} />
-                                        </button>
                                     </li>
                                 )
                             })}
                         </ul>
+                    ) : !errorHistorial ? (
+                        <div className='historial__cargando'>
+                            <Cargando texto='Cargando historial' />
+                        </div>
                     ) : (
                         <p>{errorHistorial}</p>
                     )}
