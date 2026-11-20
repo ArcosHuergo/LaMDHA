@@ -19,7 +19,8 @@
     justify-content: flex-end;
 }
 
-.mapa__cuadro__header--Resultados {
+.mapa__cuadro__header--Resultados,
+.mapa__cuadro__header--Referencia {
     justify-content: flex-end;
 }
 

@@ -75,6 +75,69 @@ export const useFetch = (url) => {
     return { data, loading, error, refetch };
 };
 
+/** Hook para obtener una imagen por GET con espera (debounce) anti-spam
+ *   @param {string|null} url - endpoint de la imagen (null no dispara la request)
+ *   @param {boolean} habilitado - si es false no se hace la request
+ *   @param {number} delay - milisegundos de espera antes de pedir la imagen
+ *   @returns { imagenUrl, loading, error }
+ *        imagenUrl: URL local (blob) de la imagen o null
+ *        loading: booleano para mostrar spinner
+ *        error: mensaje de error (string)
+ **/
+
+export const useFetchImagen = (url, habilitado = true, delay = 500) => {
+    const [resultado, setResultado] = useState({ url: null, imagenUrl: null, error: '' });
+    const clave = habilitado ? url : null;
+
+    useEffect(() => {
+        if (!clave) return;
+
+        const controller = new AbortController();
+        let objectUrl = null;
+
+        const timeout = setTimeout(async () => {
+            try {
+                const respond = await getData(clave, controller.signal);
+
+                if (!respond.ok) {
+                    setResultado({
+                        url: clave,
+                        imagenUrl: null,
+                        error:
+                            'Error en la respuesta del servidor: ' +
+                            respond.status +
+                            ' ' +
+                            respond.statusText,
+                    });
+                    return;
+                }
+
+                const blob = await respond.blob();
+                objectUrl = URL.createObjectURL(blob);
+                setResultado({ url: clave, imagenUrl: objectUrl, error: '' });
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    setResultado({ url: clave, imagenUrl: null, error: 'Error: ' + err.message });
+                }
+            }
+        }, delay);
+
+        return () => {
+            clearTimeout(timeout);
+            controller.abort();
+            if (objectUrl) URL.revokeObjectURL(objectUrl);
+        };
+    }, [clave, delay]);
+
+    const esActual = resultado.url === clave;
+
+    return {
+        imagenUrl: esActual ? resultado.imagenUrl : null,
+        loading: Boolean(clave) && !esActual,
+        error: esActual ? resultado.error : '',
+    };
+};
+
 /** Hook para realizar peticiones POST
  *   @param {string} url - endpoint al que se envía el POST
  *   @returns { data, loading, error, execute }

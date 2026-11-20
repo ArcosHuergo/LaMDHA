@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react';
-import { useFetch, usePost } from '../../utils/fetch/FetchUtils';
+import { useFetch, useFetchImagen, usePost } from '../../utils/fetch/FetchUtils';
 import { RenderInfo } from './RenderInfo';
 import { RenderResultados } from './RenderResultados';
+import { RenderReferencia } from './RenderReferencia';
 import { Pestanas } from '../tab/Pestanas';
 import { Button } from '../buttons/Button';
-import { Cargando } from '../loading/Cargando';
 
 import "./CuadroZona.css";
 
 const OPCIONES = [
     { id: 'Resultados', nombre: 'Resultados' },
     { id: 'Info', nombre: 'Info' },
+    { id: 'Referencia', nombre: 'Referencia' },
 ]
 
 export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, logueado, className }) => {
     const { data: dataZona , loading: loadingZona, error: errorZona, refetch: refetchZona } = useFetch(tipo && clase ? `${tipo}/nombre/${clase}` : null);
+    const {
+        imagenUrl: imagenReferencia,
+        loading: loadingReferencia,
+        error: errorReferencia,
+    } = useFetchImagen(clase ? `zona/referencia/${encodeURIComponent(clase)}` : null, logueado);
 
     const [referencia, setReferencia] = useState('');
 
@@ -78,6 +84,25 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, 
                         ) : (
                             <div className='mapa__cuadro__data__login'>
                                 <p>Inicia sesión para ver los datos de las zonas</p>
+                                <Button to='/login'>Iniciar sesión</Button>
+                            </div>
+                        )
+                    )}
+                    {tab === 'Referencia' && (
+                        logueado ? (
+                            clase ? (
+                                <RenderReferencia
+                                    imagenUrl={imagenReferencia}
+                                    loading={loadingReferencia}
+                                    error={errorReferencia}
+                                    nombre={clase}
+                                />
+                            ) : (
+                                <p>Selecciona una zona para ver</p>
+                            )
+                        ) : (
+                            <div className='mapa__cuadro__data__login'>
+                                <p>Inicia sesión para ver la foto de referencia</p>
                                 <Button to='/login'>Iniciar sesión</Button>
                             </div>
                         )
