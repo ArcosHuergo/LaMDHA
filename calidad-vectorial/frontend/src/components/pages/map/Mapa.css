@@ -8,7 +8,7 @@
     "mapa__side mapa__plano";
 
     gap: 2%;
-    max-height: calc(100vh - 92px);
+    height: calc(100vh - 92px);
 
     padding: 0 20px;
     position: relative;
@@ -227,7 +227,7 @@
     left: 10px;
 
     font-family: 'Orbitron';
-    font-size: var(--font-size-sm);
+    font-size: clamp(9px, 2vw, var(--font-size-sm));
     color: var(--text-primary);
     background: var(--bg-primary);
     padding: 10px;
@@ -286,6 +286,7 @@
         flex-direction: column;
         min-width: auto;
         min-height: auto;
+        height: auto;
         max-height: none;
         overflow: visible;
         padding: 0 16px;

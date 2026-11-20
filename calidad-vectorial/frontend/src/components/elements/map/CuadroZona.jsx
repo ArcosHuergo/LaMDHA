@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useFetch, useFetchImagen, usePost } from '../../utils/fetch/FetchUtils';
 import { RenderInfo } from './RenderInfo';
 import { RenderResultados } from './RenderResultados';
-import { RenderReferencia } from './RenderReferencia';
 import { Pestanas } from '../tab/Pestanas';
 import { Button } from '../buttons/Button';
 import { Cargando } from '../loading/Cargando';
@@ -12,7 +11,6 @@ import "./CuadroZona.css";
 const OPCIONES = [
     { id: 'Resultados', nombre: 'Resultados' },
     { id: 'Info', nombre: 'Info' },
-    { id: 'Referencia', nombre: 'Referencia' },
 ]
 
 export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, logueado, className }) => {
@@ -76,34 +74,17 @@ export const CuadroZona = ({ predicciones, clase, tipo, confianza, tab, setTab, 
                                 </div>
                             )
                         ) : logueado ? (
-                            <div className="mapa__cuadro__data">
-                                <div className="mapa__cuadro__data__text">
-                                    <p>{zonaColor && `Sector ${zonaColor}`}</p>
-                                    <p>{dataZona.descripcion}</p>
-                                </div>
-                            </div>
+                            <RenderInfo
+                                zonaColor={zonaColor}
+                                descripcion={dataZona.descripcion}
+                                imagenUrl={imagenReferencia}
+                                loadingFoto={loadingReferencia}
+                                errorFoto={errorReferencia}
+                                nombre={clase}
+                            />
                         ) : (
                             <div className='mapa__cuadro__data__login'>
                                 <p>Inicia sesión para ver los datos de las zonas</p>
-                                <Button to='/login'>Iniciar sesión</Button>
-                            </div>
-                        )
-                    )}
-                    {tab === 'Referencia' && (
-                        logueado ? (
-                            clase ? (
-                                <RenderReferencia
-                                    imagenUrl={imagenReferencia}
-                                    loading={loadingReferencia}
-                                    error={errorReferencia}
-                                    nombre={clase}
-                                />
-                            ) : (
-                                <p>Selecciona una zona para ver</p>
-                            )
-                        ) : (
-                            <div className='mapa__cuadro__data__login'>
-                                <p>Inicia sesión para ver la foto de referencia</p>
                                 <Button to='/login'>Iniciar sesión</Button>
                             </div>
                         )

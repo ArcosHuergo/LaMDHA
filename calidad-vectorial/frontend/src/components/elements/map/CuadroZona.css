@@ -7,6 +7,7 @@
     min-height: 250px;
     padding: 10px;
     flex-shrink: 1;
+    gap: 10px;
 }
 
 .mapa__cuadro__header {
@@ -68,24 +69,6 @@
 .mapa__cuadro__panel__galeria p {
     width: 50%;
     text-align: center;
-    font-size: clamp(var(--font-size-sm), 1vw, var(--font-size-base));
-}
-
-.mapa__cuadro__data {
-    width: 100%;
-    opacity: .8;
-}
-
-.mapa__cuadro__data__text {
-    gap: 10px;
-    padding-bottom: 30px;
-}
-
-.mapa__cuadro__data__text h2 {
-    font-size: var(--font-size-lg);
-}
-
-.mapa__cuadro__data__text p {
     font-size: clamp(var(--font-size-sm), 1vw, var(--font-size-base));
 }
 
