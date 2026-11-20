@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     supabase_url: str
     supabase_service_key: str
     supabase_bucket: str = "fotos"
+    supabase_bucket_referencias: str = "referencias"
 
     frontend_url:str
     cookie_secure: bool = False
