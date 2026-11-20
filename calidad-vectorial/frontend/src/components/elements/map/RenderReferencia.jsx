@@ -1,4 +1,4 @@
-import { Cargando } from '../cargando/Cargando';
+import { Cargando } from '../loading/Cargando';
 import './RenderReferencia.css';
 
 export const RenderReferencia = ({ imagenUrl, loading, error, nombre }) => {
