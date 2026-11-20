@@ -5,6 +5,7 @@ import { RenderResultados } from './RenderResultados';
 import { RenderReferencia } from './RenderReferencia';
 import { Pestanas } from '../tab/Pestanas';
 import { Button } from '../buttons/Button';
+import { Cargando } from '../loading/Cargando';
 
 import "./CuadroZona.css";
 
